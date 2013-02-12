@@ -20,26 +20,33 @@ class Player
 
     # Load all animation frames
     @standing, @walk1, @walk2, @jump =
-      *Gosu::Image.load_tiles(window, "#{IMAGES_DIR}/player.png", 50, 50, false)
+      *Gosu::Image.load_tiles(window, "#{IMAGES_DIR}/player.png", 50, 50, true)
 
     # the current image depends on his activity
     @cur_image = @standing
 
     # create physical properties and add to space
+
     mass = @standing.height * @standing.width / MASS_DIVIDER
     @body = CP::Body.new(mass, CP::INFINITY)
     @body.object = self # user-defined object is this Player
     @body.p = CP::Vec2.new(x, y)
     @body.v_limit = PLAYER_MAX_V
     shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0.0,0.0))
-    shape.u = 0.5 # friction coefficient
+    #broken shape_array = [CP::Vec2.new(0,0), CP::Vec2.new(0, 25), CP::Vec2.new(25, 25), CP::Vec2.new(25, 0)]
+    #broken shape = CP::Shape::Poly.new(@body, shape_array, CP::Vec2.new(0,0))
+    shape.u = 0.0 # friction coefficient
     shape.e = 0.0 # elasticity
     shape.collision_type = :player
     space.add_body(@body)
-    space.add_shape(shape)
+    space.add_shape(shape) 
+
+    
 
     #ground sensor:
     ground_sensor = CP::Shape::Circle.new(@body, 3.0, CP::Vec2.new(0.0,25.0))
+    #broken shape_array2 = [CP::Vec2.new(0,24), CP::Vec2.new(24, 24), CP::Vec2.new(24, 27), CP::Vec2.new(27, 0)]
+    #broken ground_sensor = CP::Shape::Poly.new(@body, shape_array, CP::Vec2.new(0,0))
     ground_sensor.sensor = true
     ground_sensor.collision_type = :ground_sensor 
     space.add_shape(ground_sensor)
