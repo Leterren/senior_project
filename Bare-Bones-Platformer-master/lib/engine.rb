@@ -18,6 +18,7 @@ class GameWindow < Gosu::Window
   def initialize
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
     self.caption = "Bare Bones Platformer"
+    @GameState = :menu
     #@background_image = Gosu::Image.new(self, "#{BACKGROUNDS_DIR}/background.png", true)
     @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
 
@@ -57,35 +58,51 @@ class GameWindow < Gosu::Window
     # (for each main update, we actually step the physics engine several (CP_SUBSTEPS) times)
 
     # ... control stuff that doesn't directly affect physics ...
+    if @GameState == :game
+      update_camera
+     # turns on and off and implements editing mode
+     editing_mode_checks
 
-    update_camera
-    # turns on and off and implements editing mode
-    editing_mode_checks
+      CP_SUBSTEPS.times do
+       # ... control stuff that affects physics ...
+       @player.update(Gosu::milliseconds,(button_down? Gosu::KbLeft), (button_down? Gosu::KbRight), (button_down? Gosu::KbUp))
 
-    CP_SUBSTEPS.times do
-      # ... control stuff that affects physics ...
-      @player.update(Gosu::milliseconds,(button_down? Gosu::KbLeft), (button_down? Gosu::KbRight), (button_down? Gosu::KbUp))
-
-      @space.step(@dt)
+        @space.step(@dt)
+      end
     end
   end
 
   def draw
-    #@background_image.draw(*@camera.world_to_screen(CP::Vec2.new(0,0)).to_a,ZOrder::Background)
-    @backgrounds.each {|b| b.draw(@camera) }
-    @platforms.each {|p| p.draw(@camera) }
-    @player.draw(@camera)
-    if @editing_mode
-      @font.draw("Editing Mode On", 10, 10, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
-      @mouse.draw(mouse_x, mouse_y)
+    if @GameState == :menu
+      @font.draw("Press Enter for game", 10, 10, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
+      @font.draw("Press Escape for exit", 10, 30, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
+    elsif @GameState == :game
+      #@background_image.draw(*@camera.world_to_screen(CP::Vec2.new(0,0)).to_a,ZOrder::Background)
+      @backgrounds.each {|b| b.draw(@camera) }
+      @platforms.each {|p| p.draw(@camera) }
+      @player.draw(@camera)
+      if @editing_mode
+        @font.draw("Editing Mode On", 10, 10, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
+        @mouse.draw(mouse_x, mouse_y)
+      end
     end
   end
 
   # Escape closes the game
   def button_down(id)
     if id == Gosu::KbEscape
-      @level.save("levels/sandbox.yml") if @level_edited
-      close
+      if @GameState == :game
+        @level.save("levels/sandbox.yml") if @level_edited
+        @GameState = :menu
+      elsif @GameState == :menu
+        close
+      end
+    end
+
+    if id == Gosu::KbEnter || id == Gosu::KbReturn
+      if @GameState == :menu
+        @GameState = :game
+      end
     end
   end
 
