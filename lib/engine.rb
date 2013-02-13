@@ -17,9 +17,19 @@ class GameWindow < Gosu::Window
   attr_accessor :space, :platforms, :backgrounds
   def initialize
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
-    self.caption = "Bare Bones Platformer"
+    
+    self.caption = "Libra Dev Build"
+    @titleFont = Gosu::Font.new(self, "Helvetica", 30)
+    yDrawPos = 2 * (self.height / 8)
+    yIncrement = self.height / 8
+    xDrawPos = 120
+    @menuItems = []
+    @menuTitles = ["Start Game (Enter)", "Exit (Escape)"]
+    @menuTitles.each do |title|
+      @menuItems << [title, xDrawPos, yDrawPos]
+      yDrawPos += yIncrement
+    end
     @GameState = :menu
-    #@background_image = Gosu::Image.new(self, "#{BACKGROUNDS_DIR}/background.png", true)
     @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
 
     # initialize background objects array
@@ -74,8 +84,12 @@ class GameWindow < Gosu::Window
 
   def draw
     if @GameState == :menu
-      @font.draw("Press Enter for game", 10, 10, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
-      @font.draw("Press Escape for exit", 10, 30, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
+      @titleFont.draw("Libra", (self.width/2) - @titleFont.text_width("Libra")/2, self.height/8, 0)
+      @menuItems.each do |i|
+        @font.draw(i[0], i[1], i[2], 1)
+      end
+      #@font.draw("Press Enter for game", 10, 10, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
+      #@font.draw("Press Escape for exit", 10, 30, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
     elsif @GameState == :game
       #@background_image.draw(*@camera.world_to_screen(CP::Vec2.new(0,0)).to_a,ZOrder::Background)
       @backgrounds.each {|b| b.draw(@camera) }
@@ -101,6 +115,7 @@ class GameWindow < Gosu::Window
 
     if id == Gosu::KbEnter || id == Gosu::KbReturn
       if @GameState == :menu
+        @menuItems[0][0] = "Resume Game (Enter)"
         @GameState = :game
       end
     end
@@ -172,5 +187,4 @@ class GameWindow < Gosu::Window
       end
     end
   end
-
 end
