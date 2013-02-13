@@ -41,6 +41,10 @@ class Level
     #window.backgrounds << Background.new(window, 200, 500, "vine.png", ZOrder::ParallaxNear)
   end
 
+  def unload(window)
+    @hash = {}
+  end
+
   def save(filename)
     File.open(filename, 'w') do |f|
       f.write(YAML::dump(@hash))
