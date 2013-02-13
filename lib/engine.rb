@@ -60,8 +60,9 @@ class GameWindow < Gosu::Window
 
     # load level (platforms and background objects TODO : update as new things added
     @level = Level.new
-    @level.load(self, "levels/sandbox.yml")
+    @level.load(self, "levels/#{LEVEL}.yml")
 
+    @which_level = true
   end
 
   def update
@@ -106,7 +107,7 @@ class GameWindow < Gosu::Window
   def button_down(id)
     if id == Gosu::KbEscape
       if @GameState == :game
-        @level.save("levels/sandbox.yml") if @level_edited
+        # @level.save("levels/#{LEVEL}.yml") if @level_edited
         @GameState = :menu
       elsif @GameState == :menu
         close
@@ -119,6 +120,14 @@ class GameWindow < Gosu::Window
         @GameState = :game
       end
     end
+
+    # if id == Gosu::KbSpace
+    #   if @GameState == :game
+    #     @level.unload(self)
+    #     @level.load(self, "levels/sandbox.yml") if @which_level
+    #     @level.load(self, "levels/#{level}.yml") if !@which_level
+    #   end
+    # end
   end
 
   private
