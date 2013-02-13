@@ -1,0 +1,73 @@
+---
+:Objects:
+  :Platforms:
+  - - 593
+    - 126
+    - darkblocks.png
+  - - 759
+    - 739
+    - darkblocks.png
+  - - 912
+    - 67
+    - darkblocks.png
+  - - 172
+    - 578
+    - darkblocks.png
+  - - 751
+    - 406
+    - darkblocks.png
+  - - 326
+    - 463
+    - darkblocks.png
+  - - 128
+    - 356
+    - darkblocks.png
+  - - 933
+    - 391
+    - darkblocks.png
+  - - 373
+    - 141
+    - darkblocks.png
+  - - 196
+    - 438
+    - darkblocks.png
+  - - 128.0
+    - 193.0
+    - darkblocks.png
+  - - 275.0
+    - 724.0
+    - darkblocks.png
+  - - 431.0
+    - 678.0
+    - darkblocks.png
+  - - 548.3186688765745
+    - 495.0
+    - darkblocks.png
+  - - 248.0
+    - 282.10000000149034
+    - darkblocks.png
+  - - 478.39642359927205
+    - 599.0
+    - darkblocks.png
+  - - 63.0
+    - 153.0
+    - darkblocks.png
+  - - 1.0
+    - 116.0
+    - darkblocks.png
+  - - 660.0
+    - 622.0
+    - darkblocks.png
+  - - 688.9710950970251
+    - 396.0
+    - darkblocks.png
+  :Backgrounds:
+  - - 0
+    - 0
+    - dark-bg.png
+    - 1
+  - - 200
+    - 400
+    - vine.png
+    - 2
+:Meta: {}
