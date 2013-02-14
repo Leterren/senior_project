@@ -1,106 +1,189 @@
 ---
 :Objects:
   :Platforms:
-  - - 593
-    - 126
+  - - 13
+    - 505
     - darkblocks.png
-  - - 759
-    - 739
+  - - 66
+    - 518
     - darkblocks.png
-  - - 912
-    - 67
+  - - 117
+    - 513
     - darkblocks.png
-  - - 172
-    - 578
+  - - 279
+    - 518
     - darkblocks.png
-  - - 751
+  - - -74
+    - 644
+    - darkblocks.png
+  - - -130
+    - 652
+    - darkblocks.png
+  - - 191
+    - 681
+    - darkblocks.png
+  - - 179
+    - 646
+    - darkblocks.png
+  - - 223
+    - 658
+    - darkblocks.png
+  - - 328
+    - 527
+    - darkblocks.png
+  - - 380
+    - 525
+    - darkblocks.png
+  - - 411
+    - 537
+    - darkblocks.png
+  - - 409
+    - 526
+    - darkblocks.png
+  - - 386
+    - 535
+    - darkblocks.png
+  - - 697
+    - 396
+    - darkblocks.png
+  - - 753
+    - 396
+    - darkblocks.png
+  - - 691
+    - 401
+    - darkblocks.png
+  - - 698
+    - 404
+    - darkblocks.png
+  - - 691
+    - 388
+    - darkblocks.png
+  - - 692
+    - 392
+    - darkblocks.png
+  - - 716
+    - 375
+    - darkblocks.png
+  - - 708
+    - 362
+    - darkblocks.png
+  - - 705
+    - 344
+    - darkblocks.png
+  - - 701
+    - 325
+    - darkblocks.png
+  - - 701
+    - 308
+    - darkblocks.png
+  - - 699
+    - 306
+    - darkblocks.png
+  - - 699
+    - 306
+    - darkblocks.png
+  - - 709
     - 406
     - darkblocks.png
-  - - 326
-    - 463
+  - - 691
+    - 258
+    - darkblocks.png
+  - - 695
+    - 241
+    - darkblocks.png
+  - - 603
+    - 271
+    - darkblocks.png
+  - - 481
+    - 133
+    - darkblocks.png
+  - - 329
+    - 54
     - darkblocks.png
   - - 128
-    - 356
+    - 64
     - darkblocks.png
-  - - 933
-    - 391
+  - - 354
+    - 549
     - darkblocks.png
-  - - 373
-    - 141
+  - - 358
+    - 544
     - darkblocks.png
-  - - 196
-    - 438
+  - - 962
+    - 575
     - darkblocks.png
-  - - 128.0
-    - 193.0
+  - - 1021
+    - 584
     - darkblocks.png
-  - - 275.0
-    - 724.0
+  - - 1226
+    - 592
     - darkblocks.png
-  - - 431.0
-    - 678.0
+  - - 1293
+    - 594
     - darkblocks.png
-  - - 548.3186688765745
-    - 495.0
+  - - 1457
+    - 522
     - darkblocks.png
-  - - 248.0
-    - 282.10000000149034
+  - - 1527
+    - 532
     - darkblocks.png
-  - - 478.39642359927205
-    - 599.0
+  - - 1692
+    - 434
     - darkblocks.png
-  - - 63.0
-    - 153.0
+  - - 1391
+    - 379
     - darkblocks.png
-  - - 1.0
-    - 116.0
+  - - 1282
+    - 341
     - darkblocks.png
-  - - 660.0
-    - 622.0
+  - - 1145
+    - 246
     - darkblocks.png
-  - - 688.9710950970251
-    - 396.0
+  - - 1291
+    - 156
     - darkblocks.png
-  - - 240
-    - 222
+  - - 1109
+    - 109
     - darkblocks.png
-  - - 213
-    - 260
+  - - 932
+    - 97
     - darkblocks.png
-  - - 141
-    - 294
+  - - 613
+    - 107
     - darkblocks.png
-  - - 80
-    - 275
+  - - 780
+    - 418
     - darkblocks.png
-  - - 100
-    - 196
+  - - 780
+    - 409
     - darkblocks.png
-  - - 186
-    - 207
+  - - 550
+    - 473
     - darkblocks.png
-  - - 218
-    - 215
+  - - 545
+    - 473
     - darkblocks.png
-  - - 246
-    - 188
+  - - 532
+    - 471
     - darkblocks.png
-  - - 295
-    - 146
+  - - 358
+    - 539
     - darkblocks.png
-  - - 454
-    - 347
-    - dirtblocks.png
-  - - 271
-    - 373
-    - dirtblocks.png
+  - - 350
+    - 530
+    - darkblocks.png
+  - - 615
+    - 475
+    - darkblocks.png
+  - - 615
+    - 477
+    - darkblocks.png
+  - - 611
+    - 471
+    - darkblocks.png
   :Backgrounds:
   - - 0
     - 0
     - dark-bg.png
     - 1
-  - - 200
-    - 400
-    - vine.png
-    - 2
 :Meta: {}

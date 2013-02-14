@@ -1,6 +1,6 @@
 # creates a single platform
 class Platform
-  def initialize(window, x, y, image_filename = "dirtblocks.png")
+  def initialize(window, x, y, image_filename)
     @image_filename = image_filename
     space = window.space
     

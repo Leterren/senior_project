@@ -8,6 +8,7 @@ require './objects/background'
 
 require './lib/constants'
 require './lib/utility'
+require './lib/utility'
 require './lib/camera'
 require './lib/level'
 require './lib/mouse'
@@ -107,7 +108,7 @@ class GameWindow < Gosu::Window
   def button_down(id)
     if id == Gosu::KbEscape
       if @GameState == :game
-        # @level.save("levels/#{LEVEL}.yml") if @level_edited
+        @level.save("levels/#{LEVEL}.yml") if @level_edited
         @GameState = :menu
       elsif @GameState == :menu
         close
@@ -185,7 +186,7 @@ class GameWindow < Gosu::Window
 
       # create platforms with left mouse click
       if (button_down? Gosu::MsLeft) && !@still_clicking_left
-        platform_spec = [mouse_in_world.x, mouse_in_world.y, "dirtblocks.png"]
+        platform_spec = [mouse_in_world.x, mouse_in_world.y, "#{LEVEL}blocks.png"]
         @platforms << Platform.new(self, *platform_spec)
         #@level.hash[:Objects][:Platforms] << platform_spec
         @level.add_platform(@platforms.last)
