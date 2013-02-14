@@ -1,185 +1,398 @@
 ---
 :Objects:
   :Platforms:
-  - - 13
-    - 505
+  - - 92
+    - 1010
     - darkblocks.png
-  - - 66
-    - 518
+  - - 94
+    - 945
     - darkblocks.png
-  - - 117
-    - 513
+  - - 94
+    - 853
     - darkblocks.png
-  - - 279
-    - 518
+  - - 94
+    - 777
     - darkblocks.png
-  - - -74
-    - 644
+  - - 94
+    - 696
     - darkblocks.png
-  - - -130
-    - 652
+  - - 94
+    - 606
     - darkblocks.png
-  - - 191
-    - 681
-    - darkblocks.png
-  - - 179
-    - 646
-    - darkblocks.png
-  - - 223
-    - 658
-    - darkblocks.png
-  - - 328
-    - 527
-    - darkblocks.png
-  - - 380
+  - - 94
     - 525
     - darkblocks.png
-  - - 411
-    - 537
+  - - 94
+    - 466
     - darkblocks.png
-  - - 409
-    - 526
+  - - 94
+    - 389
     - darkblocks.png
-  - - 386
-    - 535
+  - - 92
+    - 315
     - darkblocks.png
-  - - 697
-    - 396
-    - darkblocks.png
-  - - 753
-    - 396
-    - darkblocks.png
-  - - 691
-    - 401
-    - darkblocks.png
-  - - 698
-    - 404
-    - darkblocks.png
-  - - 691
-    - 388
-    - darkblocks.png
-  - - 692
-    - 392
-    - darkblocks.png
-  - - 716
-    - 375
-    - darkblocks.png
-  - - 708
-    - 362
-    - darkblocks.png
-  - - 705
-    - 344
-    - darkblocks.png
-  - - 701
-    - 325
-    - darkblocks.png
-  - - 701
-    - 308
-    - darkblocks.png
-  - - 699
-    - 306
-    - darkblocks.png
-  - - 699
-    - 306
-    - darkblocks.png
-  - - 709
-    - 406
-    - darkblocks.png
-  - - 691
-    - 258
-    - darkblocks.png
-  - - 695
-    - 241
-    - darkblocks.png
-  - - 603
-    - 271
-    - darkblocks.png
-  - - 481
-    - 133
-    - darkblocks.png
-  - - 329
-    - 54
-    - darkblocks.png
-  - - 128
-    - 64
-    - darkblocks.png
-  - - 354
-    - 549
-    - darkblocks.png
-  - - 358
-    - 544
-    - darkblocks.png
-  - - 962
-    - 575
-    - darkblocks.png
-  - - 1021
-    - 584
-    - darkblocks.png
-  - - 1226
-    - 592
-    - darkblocks.png
-  - - 1293
-    - 594
-    - darkblocks.png
-  - - 1457
-    - 522
-    - darkblocks.png
-  - - 1527
-    - 532
-    - darkblocks.png
-  - - 1692
-    - 434
-    - darkblocks.png
-  - - 1391
-    - 379
-    - darkblocks.png
-  - - 1282
-    - 341
-    - darkblocks.png
-  - - 1145
+  - - 97
     - 246
     - darkblocks.png
-  - - 1291
-    - 156
+  - - 100
+    - 188
     - darkblocks.png
-  - - 1109
-    - 109
+  - - 104
+    - 125
     - darkblocks.png
-  - - 932
-    - 97
+  - - 111
+    - 48
     - darkblocks.png
-  - - 613
-    - 107
+  - - 118
+    - 2
     - darkblocks.png
-  - - 780
-    - 418
+  - - -57
+    - 1000
     - darkblocks.png
-  - - 780
-    - 409
+  - - -62
+    - 1053
     - darkblocks.png
-  - - 550
-    - 473
+  - - -59
+    - 1079
     - darkblocks.png
-  - - 545
-    - 473
+  - - -53
+    - 1101
     - darkblocks.png
-  - - 532
-    - 471
+  - - -52
+    - 1135
     - darkblocks.png
-  - - 358
-    - 539
+  - - -52
+    - 987
     - darkblocks.png
-  - - 350
-    - 530
+  - - -54
+    - 955
     - darkblocks.png
-  - - 615
-    - 475
+  - - -63
+    - 929
     - darkblocks.png
-  - - 615
-    - 477
+  - - -61
+    - 901
     - darkblocks.png
-  - - 611
-    - 471
+  - - -67
+    - 859
+    - darkblocks.png
+  - - -67
+    - 838
+    - darkblocks.png
+  - - -60
+    - 820
+    - darkblocks.png
+  - - -60
+    - 802
+    - darkblocks.png
+  - - -64
+    - 765
+    - darkblocks.png
+  - - -56
+    - 740
+    - darkblocks.png
+  - - -57
+    - 715
+    - darkblocks.png
+  - - -61
+    - 657
+    - darkblocks.png
+  - - -62
+    - 640
+    - darkblocks.png
+  - - -60
+    - 605
+    - darkblocks.png
+  - - -51
+    - 591
+    - darkblocks.png
+  - - -54
+    - 580
+    - darkblocks.png
+  - - -54
+    - 568
+    - darkblocks.png
+  - - -53
+    - 559
+    - darkblocks.png
+  - - -50
+    - 693
+    - darkblocks.png
+  - - 239
+    - 1052
+    - darkblocks.png
+  - - 304
+    - 1055
+    - darkblocks.png
+  - - 392
+    - 980
+    - darkblocks.png
+  - - 478
+    - 982
+    - darkblocks.png
+  - - 420
+    - 750
+    - darkblocks.png
+  - - 625
+    - 745
+    - darkblocks.png
+  - - 698
+    - 744
+    - darkblocks.png
+  - - 817
+    - 901
+    - darkblocks.png
+  - - 897
+    - 905
+    - darkblocks.png
+  - - 1055
+    - 837
+    - darkblocks.png
+  - - 1132
+    - 842
+    - darkblocks.png
+  - - 1272
+    - 725
+    - darkblocks.png
+  - - 1346
+    - 727
+    - darkblocks.png
+  - - 1504
+    - 722
+    - darkblocks.png
+  - - 1573
+    - 719
+    - darkblocks.png
+  - - 1788
+    - 725
+    - darkblocks.png
+  - - 1861
+    - 727
+    - darkblocks.png
+  - - 2095
+    - 676
+    - darkblocks.png
+  - - 2168
+    - 678
+    - darkblocks.png
+  - - 2346
+    - 776
+    - darkblocks.png
+  - - 2352
+    - 830
+    - darkblocks.png
+  - - 2359
+    - 874
+    - darkblocks.png
+  - - 2357
+    - 923
+    - darkblocks.png
+  - - 2349
+    - 970
+    - darkblocks.png
+  - - 2359
+    - 1032
+    - darkblocks.png
+  - - 2356
+    - 1024
+    - darkblocks.png
+  - - 2355
+    - 567
+    - darkblocks.png
+  - - 2348
+    - 633
+    - darkblocks.png
+  - - 2353
+    - 680
+    - darkblocks.png
+  - - 2357
+    - 736
+    - darkblocks.png
+  - - 565
+    - 1065
+    - darkblocks.png
+  - - 242
+    - 867
+    - darkblocks.png
+  - - 351
+    - 748
+    - darkblocks.png
+  - - 2345
+    - 367
+    - darkblocks.png
+  - - 2334
+    - 399
+    - darkblocks.png
+  - - 2339
+    - 441
+    - darkblocks.png
+  - - 2350
+    - 476
+    - darkblocks.png
+  - - 2353
+    - 538
+    - darkblocks.png
+  - - 2348
+    - 582
+    - darkblocks.png
+  - - 2267
+    - 549
+    - darkblocks.png
+  - - 2108
+    - 440
+    - darkblocks.png
+  - - 2334
+    - 116
+    - darkblocks.png
+  - - 2334
+    - 221
+    - darkblocks.png
+  - - 2339
+    - 192
+    - darkblocks.png
+  - - 2342
+    - 170
+    - darkblocks.png
+  - - 2328
+    - 294
+    - darkblocks.png
+  - - 2332
+    - 272
+    - darkblocks.png
+  - - 2347
+    - 376
+    - darkblocks.png
+  - - 2339
+    - 354
+    - darkblocks.png
+  - - 1852
+    - 366
+    - darkblocks.png
+  - - 1556
+    - 494
+    - darkblocks.png
+  - - 1366
+    - 341
+    - darkblocks.png
+  - - 1421
+    - 402
+    - darkblocks.png
+  - - 1529
+    - 232
+    - darkblocks.png
+  - - 1528
+    - 239
+    - darkblocks.png
+  - - 2360
+    - 1095
+    - darkblocks.png
+  - - 1633
+    - 501
+    - darkblocks.png
+  - - 1356
+    - 411
+    - darkblocks.png
+  - - 1601
+    - 243
+    - darkblocks.png
+  - - 1801
+    - 115
+    - darkblocks.png
+  - - 1877
+    - 113
+    - darkblocks.png
+  - - 1504
+    - 74
+    - darkblocks.png
+  - - 1292
+    - 129
+    - darkblocks.png
+  - - 1435
+    - 77
+    - darkblocks.png
+  - - 966
+    - 150
+    - darkblocks.png
+  - - 653
+    - 368
+    - darkblocks.png
+  - - 168
+    - 226
+    - darkblocks.png
+  - - 238
+    - 233
+    - darkblocks.png
+  - - 383
+    - 236
+    - darkblocks.png
+  - - 458
+    - 229
+    - darkblocks.png
+  - - 159
+    - 231
+    - darkblocks.png
+  - - 220
+    - 241
+    - darkblocks.png
+  - - 178
+    - 876
+    - darkblocks.png
+  - - 171
+    - 870
+    - darkblocks.png
+  - - 1217
+    - 124
+    - darkblocks.png
+  - - 892
+    - 158
+    - darkblocks.png
+  - - 892
+    - 150
+    - darkblocks.png
+  - - 317
+    - 235
+    - darkblocks.png
+  - - -51
+    - 507
+    - darkblocks.png
+  - - -60
+    - 483
+    - darkblocks.png
+  - - -61
+    - 449
+    - darkblocks.png
+  - - -55
+    - 410
+    - darkblocks.png
+  - - -58
+    - 367
+    - darkblocks.png
+  - - -59
+    - 319
+    - darkblocks.png
+  - - -56
+    - 283
+    - darkblocks.png
+  - - -58
+    - 244
+    - darkblocks.png
+  - - -60
+    - 198
+    - darkblocks.png
+  - - -61
+    - 179
+    - darkblocks.png
+  - - -68
+    - 122
+    - darkblocks.png
+  - - -61
+    - 94
+    - darkblocks.png
+  - - -52
+    - 48
+    - darkblocks.png
+  - - -53
+    - 12
     - darkblocks.png
   :Backgrounds:
   - - 0
