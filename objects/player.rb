@@ -47,6 +47,9 @@ class Player
     # setup ground sensor collision handlers
     space.add_collision_handler(:ground_sensor, :wall, GSCollisionHandler.new)
     space.add_collision_handler(:ground_sensor, :platform, GSCollisionHandler.new)
+
+    # @reset_pts = [450, 2300]
+    @reset_pts = [0,0]
   end
 
   class GSCollisionHandler
@@ -134,14 +137,16 @@ class Player
       @body.v.x = 0.0 if @body.v.x.abs < 2.0
     end
 
-    if @body.pos.y > 1125
-      @body.pos.y = 0
-      @body.pos.x = 0
+    if @body.pos.y > (WORLD_HEIGHT - 30)
+      @body.pos.y = @reset_pts[0]
+      @body.pos.x = @reset_pts[1]
       @body.vel.x = 0
       @body.vel.y = 0
     end
 
-#    if @body.pos.x >  && @body.pos.
+    if @body.pos.x > 2200 && @body.pos.x < 2400 && @body.pos.y < 500 && @body.pos.y > 300
+      @reset_pts = [450, 2300]
+    end
   end
   
   def draw(camera)

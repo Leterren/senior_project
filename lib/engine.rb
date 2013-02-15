@@ -123,14 +123,6 @@ class GameWindow < Gosu::Window
         @GameState = :game
       end
     end
-
-    # if id == Gosu::KbSpace
-    #   if @GameState == :game
-    #     @level.unload(self)
-    #     @level.load(self, "levels/sandbox.yml") if @which_level
-    #     @level.load(self, "levels/#{level}.yml") if !@which_level
-    #   end
-    # end
   end
 
   private
