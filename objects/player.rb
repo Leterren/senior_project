@@ -120,9 +120,8 @@ class Player
         go_right
       end
     end
-    if up_pressed #&& !Player.off_ground
+    if up_pressed && !Player.off_ground
       if !@up_still_pressed
-        @wow.play(0.5, 1.4)
         @up_still_pressed = true
       end
       go_up
@@ -140,6 +139,7 @@ class Player
       @body.pos.x = 0
       @body.vel.x = 0
       @body.vel.y = 0
+      @wow.play(0.5, 1.4)
     end
 
     if @body.pos.x > 180 && @body.pos.x < 250 && @body.pos.y > 150 && body.pos.y < 250
