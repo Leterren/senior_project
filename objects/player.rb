@@ -1,5 +1,5 @@
 class Player
-  attr_reader :body
+  attr_reader :body, :victory
 
   @@off_ground = false
   def self.off_ground=(val)
@@ -11,6 +11,7 @@ class Player
 
   def initialize(window, x, y)
     space = window.space
+    @victory = false
 
     # init direction he's facing
     @facing_dir = :right
@@ -119,7 +120,7 @@ class Player
         go_right
       end
     end
-    if up_pressed && !Player.off_ground
+    if up_pressed #&& !Player.off_ground
       if !@up_still_pressed
         @wow.play(0.5, 1.4)
         @up_still_pressed = true
@@ -141,7 +142,10 @@ class Player
       @body.vel.y = 0
     end
 
-#    if @body.pos.x >  && @body.pos.
+    if @body.pos.x > 180 && @body.pos.x < 250 && @body.pos.y > 150 && body.pos.y < 250
+      #window.GameState = :menu
+      @victory = true
+    end
   end
   
   def draw(camera)
