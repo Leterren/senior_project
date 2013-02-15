@@ -32,6 +32,7 @@ class GameWindow < Gosu::Window
     end
 
     @GameState = :menu
+    @displaytimer = 0
     @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
 
     # initialize background objects array
@@ -81,7 +82,7 @@ class GameWindow < Gosu::Window
 
       CP_SUBSTEPS.times do
        # ... control stuff that affects physics ...
-       @player.update(Gosu::milliseconds,(button_down? Gosu::KbLeft), (button_down? Gosu::KbRight), (button_down? Gosu::KbUp))
+       @player.update(Gosu::milliseconds,(button_down? Gosu::KbLeft), (button_down? Gosu::KbRight), ((button_down? Gosu::KbUp) || (button_down? Gosu::KbSpace)))
 
         @space.step(@dt)
       end
@@ -92,7 +93,8 @@ class GameWindow < Gosu::Window
     if @GameState == :menu
       @titleFont.draw("Libra", (self.width/2) - @titleFont.text_width("Libra")/2, self.height/8, 0)
       if @player.victory == true
-        @font.draw("You won!", (self.width/2) - @font.text_width("You won!")/2, self.height/8 + 30, 0)
+        @font.draw("Level Complete!", (self.width/2) - @font.text_width("Level Complete!")/2, self.height/8 + 30, 0)
+        @menuItems[0][0] = "Restart Game (Enter)"
       end
       @menuItems.each do |i|
         @font.draw(i[0], i[1], i[2], 1)
@@ -125,6 +127,10 @@ class GameWindow < Gosu::Window
     end
 
     if id == Gosu::KbEnter || id == Gosu::KbReturn
+      if @player.victory == true
+        @player.victoryset(false)
+        @menuItems[0][0] = "Resume Game (Enter)"
+      end
       if @GameState == :menu
         @menuItems[0][0] = "Resume Game (Enter)"
         @GameState = :game

@@ -1,7 +1,11 @@
+require 'gosu'
 LEVEL = 'dark'
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+#SCREEN_WIDTH = Gosu.screen_width
+#SCREEN_HEIGHT = Gosu.screen_height
+
 
 WORLD_WIDTH = 2400
 WORLD_HEIGHT = 1154

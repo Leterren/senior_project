@@ -94,6 +94,10 @@ class Player
     @body.apply_impulse(CP::Vec2.new(0.0, -JUMP_IMPULSE), CP::Vec2.new(0,0))
   end
 
+  def victoryset(bool)
+    @victory = bool
+  end
+
   def update(milliseconds, left_pressed, right_pressed, up_pressed)
     if (@body.v.x.abs < VX_MARGIN_CUT_TO_ZERO)
       @cur_image = @standing
@@ -140,8 +144,8 @@ class Player
     if @body.pos.y > (WORLD_HEIGHT - 30)
       @body.pos.y = @reset_pts[0]
       @body.pos.x = @reset_pts[1]
-      @body.vel.x = 0
       @body.vel.y = 0
+      @body.vel.x = 0
       @wow.play(0.5, 1.4)
     end
 
@@ -153,6 +157,11 @@ class Player
     if @body.pos.x > 180 && @body.pos.x < 250 && @body.pos.y > 150 && body.pos.y < 250
       #window.GameState = :menu
       @victory = true
+      @reset_pts = [0, 0]    
+      @body.pos.x = 0
+      @body.pos.y = 0
+      @body.vel.y = 0
+      @body.vel.x = 0
     end
   end
   
