@@ -15,7 +15,7 @@ require './lib/mouse'
 include Utility
 
 class GameWindow < Gosu::Window
-  attr_accessor :space, :platforms, :backgrounds
+  attr_accessor :space, :platforms, :backgrounds, :GameState, :victory
   def initialize
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
     
@@ -30,6 +30,7 @@ class GameWindow < Gosu::Window
       @menuItems << [title, xDrawPos, yDrawPos]
       yDrawPos += yIncrement
     end
+
     @GameState = :menu
     @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
 
@@ -70,6 +71,9 @@ class GameWindow < Gosu::Window
     # (for each main update, we actually step the physics engine several (CP_SUBSTEPS) times)
 
     # ... control stuff that doesn't directly affect physics ...
+    if @player.victory == true
+      @GameState = :menu
+    end
     if @GameState == :game
       update_camera
      # turns on and off and implements editing mode
@@ -87,6 +91,9 @@ class GameWindow < Gosu::Window
   def draw
     if @GameState == :menu
       @titleFont.draw("Libra", (self.width/2) - @titleFont.text_width("Libra")/2, self.height/8, 0)
+      if @player.victory == true
+        @font.draw("You won!", (self.width/2) - @font.text_width("You won!")/2, self.height/8 + 30, 0)
+      end
       @menuItems.each do |i|
         @font.draw(i[0], i[1], i[2], 1)
       end
