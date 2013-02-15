@@ -58,6 +58,10 @@ class Player
     end
   end
 
+  def pos
+    return @body.pos
+  end
+
   def go_left
     if Player.off_ground
       @body.apply_force(CP::Vec2.new(-IN_AIR_X_FORCE, 0.0),CP::Vec2.new(0,0.0))
@@ -129,6 +133,15 @@ class Player
       @body.v += CP::Vec2.new(-@body.v.x / 100, 0.0)
       @body.v.x = 0.0 if @body.v.x.abs < 2.0
     end
+
+    if @body.pos.y > 1125
+      @body.pos.y = 0
+      @body.pos.x = 0
+      @body.vel.x = 0
+      @body.vel.y = 0
+    end
+
+#    if @body.pos.x >  && @body.pos.
   end
   
   def draw(camera)

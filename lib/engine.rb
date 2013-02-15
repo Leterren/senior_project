@@ -93,6 +93,8 @@ class GameWindow < Gosu::Window
       #@font.draw("Press Enter for game", 10, 10, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
       #@font.draw("Press Escape for exit", 10, 30, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
     elsif @GameState == :game
+      @font.draw(@player.pos.x.to_s, 10, 30, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
+      @font.draw(@player.pos.y.to_s, 10, 45, ZOrder::HUD, 1.0, 1.0, 0xffffff00)
       #@background_image.draw(*@camera.world_to_screen(CP::Vec2.new(0,0)).to_a,ZOrder::Background)
       @backgrounds.each {|b| b.draw(@camera) }
       @platforms.each {|p| p.draw(@camera) }
