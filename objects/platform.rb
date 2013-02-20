@@ -25,6 +25,7 @@ class Platform
     @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
      # Player can stand on this
     @shape.collision_type = :solid
+    @shape.object = self
     space.add_shape @shape
   end
 
