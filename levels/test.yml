@@ -1,0 +1,10 @@
+---
+:objects:
+  - Player:
+    - 0
+    - 0
+    - :right
+  - Platform:
+    - -16
+    - 200
+    - dirtblocks.png

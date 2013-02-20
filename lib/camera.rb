@@ -1,35 +1,38 @@
-# keeps track of the viewing window within the larger world
+require './lib/utility'
+include Utility
+
 class Camera
-  attr_accessor :x, :y, :parax, :paray
+  attr_accessor :pos, :limits, :screen
 
-  def initialize(x, y)
-    @x = x.to_f, @y = y.to_f
+  def initialize (w, h)
+    @pos = Vec2.new(0, 0)
+    @limits = Rect.infinite
+    @screen = Rect.new(-w/2, -h/2, w/2, h/2)
   end
 
-  def world_to_screen(world_coords)
-    world_coords - self.to_vec2
+  def reset
+    @pos = Vec2.new(0, 0)
+    @limits = Rect.infinite
   end
 
-  def screen_to_world(screen_coords)
-    self.to_vec2 + screen_coords
+  def limit (bound)
+    @limits = @limits.intersect(bound)
+    @pos = @limits.constrain(@pos)
   end
 
-  def x_parallax_world_to_screen(world_coords, scroll_rate_offset)
-    paraself = @parax ? CP::Vec2.new(@parax, @y) : CP::Vec2::ZERO
-    screen_coords = world_coords - paraself
-    CP::Vec2.new(screen_coords.x / (scroll_rate_offset * PARALLAX_SEPARATION_FACTOR), screen_coords.y)
+  def attend (p)
+     # Guard against nans
+    return unless p.x == p.x && p.y == p.y
+    @pos = @limits.constrain(p)
   end
 
-  def near_parallax(world_coords)
-    paraself = @parax ? CP::Vec2.new(@parax, @paray) : CP::Vec2::ZERO
-    world_coords - paraself
+  def to_screen (p, factor = 1.0)
+    return p - (@pos * factor) - @screen.lt
   end
 
-  def to_vec2
-    CP::Vec2.new(self.x, self.y)
+  def from_screen (p)
+    return p + @screen.lt + @pos
   end
 
-  def to_a
-    [x, y]
-  end
 end
+
