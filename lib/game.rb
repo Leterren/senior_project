@@ -19,7 +19,7 @@ class Game < Gosu::Window
 
   FRAME = 1.0/60.0
 
-  GRAVITY = 200.0
+  GRAVITY = 240.0
 
   INITIAL_LEVEL = 'test'
 

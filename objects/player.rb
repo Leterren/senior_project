@@ -5,11 +5,11 @@ class Player
 
    # Limits both falling speed and running speed, I guess
    # TODO: split these functions apart
-  SPEED_LIMIT = 75.0
-  JUMP_IMPULSE = 200.0
-  GROUND_ACCEL = 200.0
-  AIR_ACCEL = 200.0
-  SKID_DECEL = 300.0
+  SPEED_LIMIT = 1.0/0.0
+  JUMP_IMPULSE = 1200.0
+  GROUND_ACCEL = 1200.0
+  AIR_ACCEL = 1200.0
+  SKID_DECEL = 1800.0
 
   attr_accessor :ground
   
