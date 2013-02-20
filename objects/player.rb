@@ -3,13 +3,13 @@ require './lib/objects.rb'
 
 class Player
 
-   # Limits both falling speed and running speed, I guess
-   # TODO: split these functions apart
-  SPEED_LIMIT = 1.0/0.0
   JUMP_IMPULSE = 1200.0
-  GROUND_ACCEL = 1200.0
-  AIR_ACCEL = 1200.0
-  SKID_DECEL = 1800.0
+  GROUND_ACCEL = 100.0
+  GROUND_TOP_SPEED = 300.0
+  AIR_ACCEL = 80.0
+  AIR_TOP_SPEED = 200.0
+  SKID_DECEL = 300.0
+  FALLING_TOP_SPEED = 600.0
 
   attr_accessor :ground
   
@@ -30,7 +30,6 @@ class Player
      # Physicsy stuff
     @body = CP::Body.new(1.0, CP::INFINITY)  # mass, moi
     @body.pos = @start
-    @body.v_limit = SPEED_LIMIT
     @body.object = self
     game.space.add_body(@body)
 
@@ -63,6 +62,26 @@ class Player
   end
 
   def act (game)
+     # Basic motion control
+    if game.button_down?(Gosu::KbLeft) && !game.button_down?(Gosu::KbRight)
+      if @ground
+        @body.apply_force(Vec2.new(-AIR_ACCEL, 0), Vec2.new(0, 0))
+      else
+        @body.apply_force(Vec2.new(-GROUND_ACCEL, 0), Vec2.new(0, 0))
+      end
+    elsif game.button_down?(Gosu::KbRight)
+      if @ground
+        @body.apply_force(Vec2.new(AIR_ACCEL, 0), Vec2.new(0, 0))
+      else
+        @body.apply_force(Vec2.new(GROUND_ACCEL, 0), Vec2.new(0, 0))
+      end
+    end
+    if game.button_down?(Gosu::KbUp)
+      if @ground
+        @body.apply_impulse(Vec2.new(0, -JUMP_IMPULSE), Vec2.new(0, 0))
+        @ground = nil
+      end
+    end
   end
 
   def react (game)
