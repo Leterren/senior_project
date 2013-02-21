@@ -1,12 +1,13 @@
 ---
 :objects:
+  - Boundary: [0, 0, 2400, 1154]
   - Player:
     - 0
     - 0
     - :right
   - Background:
-    - 0
-    - 0
+    - -400
+    - -300
     - dark-bg.png
     - 0.5
   - Platform:

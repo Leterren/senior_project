@@ -6,12 +6,12 @@ class Player
 
   JUMP_IMPULSE = 10.0
   GROUND_ACCEL = 0.4
-  GROUND_TOP_SPEED = 3.0
+  GROUND_TOP_SPEED = 6.0
   AIR_ACCEL = 0.3
-  AIR_TOP_SPEED = 2.0
+  AIR_TOP_SPEED = 4.0
   STOP_DECEL = 0.4
   SKID_DECEL = 0.6
-  FALLING_TOP_SPEED = 6.0
+  FALLING_TOP_SPEED = 12.0
 
    # Determines the friction for non-ground collisions.
   MISC_FRICTION = 0.0

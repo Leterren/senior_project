@@ -20,6 +20,15 @@ class Camera
     @pos = @limits.constrain(@pos)
   end
 
+  def limit_edges (bound)
+    @limits = Rect.new(
+      bound.l - @screen.l,
+      bound.t - @screen.t,
+      bound.r - @screen.r,
+      bound.b - @screen.b
+    )
+  end
+
   def attend (p)
      # Guard against nans
     return unless p.x == p.x && p.y == p.y

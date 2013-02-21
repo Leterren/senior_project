@@ -7,9 +7,6 @@ include Utility
 
 require './lib/camera.rb'
 require './lib/z_order.rb'
-require './objects/platform.rb'
-require './objects/background.rb'
-require './objects/player.rb'
 
 class Game < Gosu::Window
 
@@ -25,7 +22,7 @@ class Game < Gosu::Window
 
   GRAVITY = 0.4
 
-  INITIAL_LEVEL = 'test'
+  INITIAL_LEVEL = 'dark'
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font
 
