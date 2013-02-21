@@ -72,7 +72,7 @@ class Player
      # Basic motion control
     if game.button_down?(Gosu::KbLeft) && !game.button_down?(Gosu::KbRight)
       if @ground
-        @direction == :left
+        @direction = :left
         if @body.vel.x > -GROUND_TOP_SPEED
           @body.apply_impulse(Vec2.new((@body.vel.x > 0 ? -SKID_DECEL : -GROUND_ACCEL), 0), Vec2.new(0, 0))
           if @body.vel.x < -GROUND_TOP_SPEED
@@ -89,7 +89,7 @@ class Player
       end
     elsif game.button_down?(Gosu::KbRight)
       if @ground
-        @direction == :right
+        @direction = :right
         if @body.vel.x < GROUND_TOP_SPEED
           @body.apply_impulse(Vec2.new((@body.vel.x > 0 ? SKID_DECEL : GROUND_ACCEL), 0), Vec2.new(0, 0))
           if @body.vel.x > GROUND_TOP_SPEED
