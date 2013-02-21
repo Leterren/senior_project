@@ -19,6 +19,9 @@ class Game < Gosu::Window
 
    # I think if space is measured in pixels, time should be in frames.
   FRAME = 1.0
+   # This shouldn't be necessary, but oh well.
+   # Changing this value should not affect timing on the large scale.
+  PHYSICS_SUBSTEPS = 6
 
   GRAVITY = 0.4
 
@@ -47,7 +50,7 @@ class Game < Gosu::Window
     @camera.reset
     if @state == :level
       @objects.each { |o| o.act(self) }
-      @space.step FRAME
+      PHYSICS_SUBSTEPS.times { @space.step FRAME / PHYSICS_SUBSTEPS }
       @objects.each { |o| o.react(self) }
     end
   end
