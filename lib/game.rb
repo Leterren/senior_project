@@ -17,12 +17,10 @@ class Game < Gosu::Window
   SCREEN_WIDTH = 800
   SCREEN_HEIGHT = 600
 
-   # How much time is ostensibly used by one physics step
-  FRAME = 1.0/60.0
-   # Changing this should not affect physics on the large scale.
-  PHYSICS_SUBSTEPS = 6
+   # I think if space is measured in pixels, time should be in frames.
+  FRAME = 1.0
 
-  GRAVITY = 400.0
+  GRAVITY = 0.4
 
   INITIAL_LEVEL = 'test'
 
@@ -49,9 +47,7 @@ class Game < Gosu::Window
     @camera.reset
     if @state == :level
       @objects.each { |o| o.act(self) }
-      PHYSICS_SUBSTEPS.times do
-        @space.step FRAME / PHYSICS_SUBSTEPS
-      end
+      @space.step FRAME
       @objects.each { |o| o.react(self) }
     end
   end
