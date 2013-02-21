@@ -29,7 +29,7 @@ module Utility
     end
 
     def self.infinite
-      Rect.new(-10000.0, -10000.0, 10000.0, 10000.0)
+      Rect.new(-1.0/0.0, -1.0/0.0, 1.0/0.0, 1.0/0.0)
     end
 
     def to_a
