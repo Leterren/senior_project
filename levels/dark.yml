@@ -1,6 +1,6 @@
 ---
 :objects:
-  - Boundary: [0, 0, 2400, 1154]
+  - Boundary: [-100, -100, 2400, 1154]
   - Player:
     - 0
     - 0
