@@ -54,17 +54,28 @@ class Game < Gosu::Window
   end
 
   def button_down (id)
-    if id == Gosu::KbEscape
-      close
-    end
-    if @state == :main_menu
-      if id == Gosu::KbEnter || id == Gosu::KbReturn
-        load_level(INITIAL_LEVEL)
-        @state = :level
+    if self.text_input
+      if id == Gosu::KbEscape
+        self.text_input = nil
       end
-    elsif @state == :level
-      if id == Gosu::KbE
-        @editing = !@editing
+    else
+      if id == Gosu::KbEscape
+        close
+      end
+      if @state == :main_menu
+        if id == Gosu::KbEnter || id == Gosu::KbReturn
+          load_level(INITIAL_LEVEL)
+          @state = :level
+        end
+      elsif @state == :level
+        if id == Gosu::KbE
+          @editing = !@editing
+        end
+        if @editing
+          if id == Gosu::KbT
+            self.text_input = Gosu::TextInput.new
+          end
+        end
       end
     end
   end
@@ -73,6 +84,9 @@ class Game < Gosu::Window
     if @state == :level
       if @editing
         @objects.each { |o| o.debug_draw(self) }
+        if self.text_input
+          @main_font.draw(text_input.text, 0, self.height - 20, ZOrder::HUD)
+        end
       else
         @objects.each { |o| o.draw(self) }
       end
