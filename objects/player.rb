@@ -59,6 +59,7 @@ class Player
       if contact.normal(0).y > 0.7  # A little less than sqrt(2)/2
         player_s.object.ground = solid_s.object
       end
+      return true  # Go through with this collision
     end
     def separate (player_s, solid_s, contact)
       if player_s.object.ground == solid_s.object
