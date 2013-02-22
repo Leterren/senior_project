@@ -1,0 +1,5 @@
+
+module ZOrder
+  BACKGROUND, FAR, BACK, OBJECTS, PLAYER, FRONT, NEAR, HUD = *0..7
+end
+

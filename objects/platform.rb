@@ -1,29 +1,41 @@
-# creates a single platform
+require './lib/config'
+require './lib/utility'
+require './lib/objects'
+include Utility
+
+# This represents a single platform.  Its physical size takes on the dimensions of its image.
+
 class Platform
-  def initialize(window, x, y, image_filename)
-    @image_filename = image_filename
-    space = window.space
-    
-    # TODO : make my own platforms with a single image
-    @tileset = Gosu::Image.load_tiles(window, "#{IMAGES_DIR}/#{image_filename}", 60, 60, true)
-
-    # create shape and body and add shape to space
-    h = @tileset[0].height
-    w = @tileset[0].width
-    shape_array = [CP::Vec2.new(0,0), CP::Vec2.new(0, w), CP::Vec2.new(h, w), CP::Vec2.new(h, 0)]
-    @body = CP::Body.new_static()
-    @body.p = CP::Vec2.new(x, y)
-    @body.object = self # set user-definable object field to be this Platform object
-    shape = CP::Shape::Poly.new(@body, shape_array, CP::Vec2.new(0,0))
-    shape.collision_type = :platform
-    space.add_shape(shape)
-  end
-
-  def draw(camera)
-    @tileset[0].draw(*camera.world_to_screen(CP::Vec2.new(@body.p.x, @body.p.y)).to_a, ZOrder::Objects)
-  end
-
+  include GameObject
   def to_a
-    [@body.p.x.to_i, @body.p.y.to_i, @image_filename]
+    [@body.pos.x, @body.pos.y, @image_filename]
   end
+  def initialize (game, x, y, image_filename)
+    @image_filename = image_filename
+    space = game.space
+    @tileset = Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{image_filename}", 60, 60, true)
+     # physicsy stuff
+    w = @tileset[0].width
+    h = @tileset[0].height
+    @body = CP::Body.new_static
+    @body.pos = Vec2.new(x, y)
+    @body.object = self
+
+    poly = [Vec2.new(0, 0), Vec2.new(0, h), Vec2.new(w, h), Vec2.new(w, 0)]
+    @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
+     # Player can stand on this
+    @shape.collision_type = :solid
+    @shape.object = self
+    space.add_shape @shape
+  end
+
+  def unload (game)
+    game.space.remove_shape @shape
+  end
+
+  def draw (game)
+    @tileset[0].draw(*game.camera.to_screen(@body.pos).to_a, ZOrder::BACK)
+  end
+
 end
+

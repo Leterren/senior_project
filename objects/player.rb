@@ -1,178 +1,144 @@
+require 'gosu'
+require './lib/objects.rb'
+
 class Player
-  attr_reader :body, :victory
-
-  @@off_ground = false
-  def self.off_ground=(val)
-    @@off_ground = val
-  end
-  def self.off_ground
-    @@off_ground
-  end
-
-  def initialize(window, x, y)
-    space = window.space
-    @victory = false
-
-    # init direction he's facing
-    @facing_dir = :right
-
-    # init wow sound for jumps
-    @wow = Gosu::Sample.new(window, "#{SOUNDS_DIR}/wow.wav")
-
-    # Load all animation frames
-    @standing, @walk1, @walk2, @jump =
-      *Gosu::Image.load_tiles(window, "#{IMAGES_DIR}/player.png", 50, 50, false)
-
-    # the current image depends on his activity
-    @cur_image = @standing
-
-    # create physical properties and add to space
-    mass = @standing.height * @standing.width / MASS_DIVIDER
-    @body = CP::Body.new(mass, CP::INFINITY)
-    @body.object = self # user-defined object is this Player
-    @body.p = CP::Vec2.new(x, y)
-    @body.v_limit = PLAYER_MAX_V
-    shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0.0,0.0))
-    shape.u = 0.5 # friction coefficient
-    shape.e = 0.0 # elasticity
-    shape.collision_type = :player
-    space.add_body(@body)
-    space.add_shape(shape)
-
-    #ground sensor:
-    ground_sensor = CP::Shape::Circle.new(@body, 3.0, CP::Vec2.new(0.0,25.0))
-    ground_sensor.sensor = true
-    ground_sensor.collision_type = :ground_sensor 
-    space.add_shape(ground_sensor)
-
-    # setup ground sensor collision handlers
-    space.add_collision_handler(:ground_sensor, :wall, GSCollisionHandler.new)
-    space.add_collision_handler(:ground_sensor, :platform, GSCollisionHandler.new)
-
-    # @reset_pts = [450, 2300]
-    @reset_pts = [0,0]
-  end
-
-  class GSCollisionHandler
-    def begin(a,b,arb)
-      Player.off_ground = false
-    end
-    def separate
-      Player.off_ground = true
-    end
-  end
-
-  def pos
-    return @body.pos
-  end
-
-  def go_left
-    if Player.off_ground
-      @body.apply_force(CP::Vec2.new(-IN_AIR_X_FORCE, 0.0),CP::Vec2.new(0,0.0))
-    else
-      @body.apply_force(CP::Vec2.new(-ON_GROUND_X_FORCE, 0.0),CP::Vec2.new(0,0.0))
-    end
-  end
-
-  def spin_around_left
-    @body.apply_force(CP::Vec2.new(-SPIN_AROUND_FORCE, 0.0),CP::Vec2.new(0,0.0))
-  end
-
-  def go_right
-    if Player.off_ground
-      @body.apply_force(CP::Vec2.new(IN_AIR_X_FORCE, 0.0),CP::Vec2.new(0,0.0))
-    else
-      @body.apply_force(CP::Vec2.new(ON_GROUND_X_FORCE, 0.0),CP::Vec2.new(0,0.0))
-    end
-  end
-
-  def spin_around_right
-    @body.apply_force(CP::Vec2.new(SPIN_AROUND_FORCE, 0.0),CP::Vec2.new(0,0.0))
-  end
-
-  def go_up
-    @body.apply_impulse(CP::Vec2.new(0.0, -JUMP_IMPULSE), CP::Vec2.new(0,0))
-  end
-
-  def victoryset(bool)
-    @victory = bool
-  end
-
-  def update(milliseconds, left_pressed, right_pressed, up_pressed)
-    if (@body.v.x.abs < VX_MARGIN_CUT_TO_ZERO)
-      @cur_image = @standing
-    else
-      @cur_image = (milliseconds / ANIM_DIVISOR % 2 == 0) ? @walk1 : @walk2
-    end
-
-    if (Player.off_ground)
-      @cur_image = @jump
-    end
-
-    going_left = (@body.v.x < 0)
-    @body.reset_forces
-    if left_pressed
-      @facing_dir = :left
-      if !going_left
-        spin_around_left
-      else
-        go_left
-      end
-    end
-    if right_pressed
-      @facing_dir = :right
-      if going_left
-        spin_around_right
-      else
-        go_right
-      end
-    end
-    if up_pressed && !Player.off_ground
-      if !@up_still_pressed
-        @up_still_pressed = true
-      end
-      go_up
-    end
-    @up_still_pressed = false if !up_pressed
 
 
-    if !left_pressed && !right_pressed
-      @body.v += CP::Vec2.new(-@body.v.x / 100, 0.0)
-      @body.v.x = 0.0 if @body.v.x.abs < 2.0
-    end
+  JUMP_IMPULSE = 10.0
+  GROUND_ACCEL = 0.4
+  GROUND_TOP_SPEED = 6.0
+  AIR_ACCEL = 0.3
+  AIR_TOP_SPEED = 4.0
+  STOP_DECEL = 0.4
+  SKID_DECEL = 0.6
+  FALLING_TOP_SPEED = 12.0
 
-    if @body.pos.y > (WORLD_HEIGHT - 30)
-      @body.pos.y = @reset_pts[0]
-      @body.pos.x = @reset_pts[1]
-      @body.vel.y = 0
-      @body.vel.x = 0
-      @wow.play(0.5, 1.4)
-    end
+   # Determines the friction for non-ground collisions.
+  MISC_FRICTION = 0.0
 
-
-    if @body.pos.x > 2200 && @body.pos.x < 2400 && @body.pos.y < 500 && @body.pos.y > 300
-      @reset_pts = [450, 2300]
-    end
-
-    if @body.pos.x > 180 && @body.pos.x < 250 && @body.pos.y > 150 && body.pos.y < 250
-      #window.GameState = :menu
-      @victory = true
-      @reset_pts = [0, 0]    
-      @body.pos.x = 0
-      @body.pos.y = 0
-      @body.vel.y = 0
-      @body.vel.x = 0
-    end
-  end
+  attr_accessor :ground, :ground_friction
   
-  def draw(camera)
-    if @facing_dir == :left then
-      factor = 1.0
-    else
-      factor = -1.0
-    end
-    @cur_image.draw_rot(*camera.world_to_screen(CP::Vec2.new(@body.p.x, @body.p.y)).to_a, ZOrder::Player, @body.a, 0.5, 0.5, factor)
+  include GameObject
+  def to_a
+    [@start.x, @start.y, @direction]
   end
-  
+  def initialize (game, x, y, dir)
+     # Initialize
+    @start = Vec2.new(x, y)
+    @direction = dir
+    @ground = nil
+    @walk_speed = 0.0
+    @ground_friction = 2.0
+     # Load resources
+    @@wow = Gosu::Sample.new(game, "#{SOUNDS_DIR}/wow.wav")
+    @@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
+      game, "#{IMAGES_DIR}/player.png", 50, 50, false
+    )
+     # Physicsy stuff
+    @body = CP::Body.new(1.0, CP::INFINITY)  # mass, moi
+    @body.pos = @start
+    @body.object = self
+    game.space.add_body(@body)
+
+     # TODO: Make a polygon shape that mimics the player image
+    @shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0, 0))
+    @shape.u = 0.0  # friction
+    @shape.e = 0.0  # elasticity
+    @shape.collision_type = :player
+    @shape.object = self
+    game.space.add_shape(@shape)
+
+    game.space.add_collision_handler(:player, :solid, Solid_Collisions.new)
+
+  end
+
+  class Solid_Collisions
+    def begin (player_s, solid_s, contact)
+       # The player can stand on something if the contact direction
+       # is at most around 45° from flat
+      if contact.normal(0).y > 0.7  # A little less than sqrt(2)/2
+        player_s.object.ground = solid_s.object
+      end
+      return true  # Go through with the collision in any case
+    end
+    def separate (player_s, solid_s, contact)
+      if player_s.object.ground == solid_s.object
+        player_s.object.ground = nil
+      end
+    end
+  end
+
+  def act (game)
+     # Basic motion control
+    if game.button_down?(Gosu::KbLeft) && !game.button_down?(Gosu::KbRight)
+      if @ground
+        @direction = :left
+        if @body.vel.x > -GROUND_TOP_SPEED
+          @body.apply_impulse(Vec2.new((@body.vel.x > 0 ? -SKID_DECEL : -GROUND_ACCEL), 0), Vec2.new(0, 0))
+          if @body.vel.x < -GROUND_TOP_SPEED
+            @body.vel = Vec2.new(-GROUND_TOP_SPEED, @body.vel.y);
+          end
+        end
+      else
+        if @body.vel.x > -AIR_TOP_SPEED
+          @body.apply_impulse(Vec2.new(-AIR_ACCEL, 0), Vec2.new(0, 0))
+          if @body.vel.x < -AIR_TOP_SPEED
+            @body.vel = Vec2.new(-AIR_TOP_SPEED, @body.vel.y)
+          end
+        end
+      end
+    elsif game.button_down?(Gosu::KbRight)
+      if @ground
+        @direction = :right
+        if @body.vel.x < GROUND_TOP_SPEED
+          @body.apply_impulse(Vec2.new((@body.vel.x > 0 ? SKID_DECEL : GROUND_ACCEL), 0), Vec2.new(0, 0))
+          if @body.vel.x > GROUND_TOP_SPEED
+            @body.vel = Vec2.new(GROUND_TOP_SPEED, @body.vel.y);
+          end
+        end
+      else
+        if @body.vel.x < AIR_TOP_SPEED
+          @body.apply_impulse(Vec2.new(AIR_ACCEL, 0), Vec2.new(0, 0))
+          if @body.vel.x > AIR_TOP_SPEED
+            @body.vel = Vec2.new(AIR_TOP_SPEED, @body.vel.y)
+          end
+        end
+      end
+    else
+      if @ground
+        if @body.vel.x > 0
+          @body.apply_impulse(Vec2.new(-STOP_DECEL, 0), Vec2.new(0, 0))
+          if @body.vel.x < 0
+            @body.vel.x = 0
+          end
+        elsif @body.vel.x < 0
+          @body.apply_impulse(Vec2.new(STOP_DECEL, 0), Vec2.new(0, 0))
+          if @body.vel.x > 0
+            @body.vel.x = 0
+          end
+        end
+      else
+         # No change to velocity when neutral in the air
+      end
+    end
+    if game.button_down?(Gosu::KbUp)
+      if @ground
+        @body.apply_impulse(Vec2.new(0, -JUMP_IMPULSE), Vec2.new(0, 0))
+        @ground = nil
+      end
+    end
+  end
+
+  def react (game)
+    game.camera.attend(@body.pos)
+  end
+
+  def draw (game)
+    x_scale = @direction == :left ? 1.0 : -1.0
+    frame = @ground ? @@stand : @@jump
+    frame.draw_rot(*game.camera.to_screen(@body.pos).to_a, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
+    game.main_font.draw(@body.pos.x, 4, 4, ZOrder::HUD)
+    game.main_font.draw(@body.pos.y, 4, 32, ZOrder::HUD)
+  end
+
 end
-

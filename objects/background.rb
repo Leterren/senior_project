@@ -1,15 +1,23 @@
-class Background
-  def initialize(window, x, y, image_filename, zorder)
-    @image = Gosu::Image.new(window, "#{BACKGROUNDS_DIR}/#{image_filename}", true)
-    @pos = CP::Vec2.new(x,y)
-    @zorder = zorder
-  end
+require './lib/config'
+require './lib/utility'
+require './lib/objects'
+include Utility
 
-  def draw(camera)
-    @image.draw(*camera.x_parallax_world_to_screen(@pos, @zorder+1).to_a, @zorder)
-  end
+class Background
+  include GameObject
 
   def to_a
-    []
+    [@pos.x, @pos.y, @image_filename, @scroll_factor]
+  end
+
+  def initialize (game, x, y, image_filename, scroll_factor)
+    @image_filename = image_filename
+    @image = Gosu::Image.new(game, "#{BACKGROUNDS_DIR}/#{image_filename}", true)
+    @pos = Vec2.new(x, y)
+    @scroll_factor = scroll_factor
+  end
+
+  def draw (game)
+    @image.draw(*game.camera.to_screen(@pos, @scroll_factor).to_a, ZOrder::BACKGROUND)
   end
 end
