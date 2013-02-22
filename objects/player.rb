@@ -14,7 +14,7 @@ class Player
   FALLING_TOP_SPEED = 12.0
 
    # Determines the friction for non-ground collisions.
-  MISC_FRICTION = 0.0
+  MISC_FRICTION = 0.4
 
   attr_accessor :ground, :ground_friction
   
@@ -42,7 +42,7 @@ class Player
 
      # TODO: Make a polygon shape that mimics the player image
     @shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0, 0))
-    @shape.u = 0.0  # friction
+    @shape.u = MISC_FRICTION  # friction
     @shape.e = 0.0  # elasticity
     @shape.collision_type = :player
     @shape.object = self
@@ -58,6 +58,7 @@ class Player
        # is at most around 45° from flat
       if contact.normal(0).y > 0.7  # A little less than sqrt(2)/2
         player_s.object.ground = solid_s.object
+        contact.u = 0.0
       end
       return true  # Go through with this collision
     end
