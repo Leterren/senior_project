@@ -53,13 +53,12 @@ class Player
   end
 
   class Solid_Collisions
-    def begin (player_s, solid_s, contact)
+    def pre_solve (player_s, solid_s, contact)
        # The player can stand on something if the contact direction
        # is at most around 45° from flat
       if contact.normal(0).y > 0.7  # A little less than sqrt(2)/2
         player_s.object.ground = solid_s.object
       end
-      return true  # Go through with the collision in any case
     end
     def separate (player_s, solid_s, contact)
       if player_s.object.ground == solid_s.object
