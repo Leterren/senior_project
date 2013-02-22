@@ -24,7 +24,7 @@ class Game < Gosu::Window
 
   INITIAL_LEVEL = 'dark'
 
-  attr_accessor :window, :space, :objects, :state, :camera, :main_font
+  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editing
 
   def initialize
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
@@ -34,6 +34,7 @@ class Game < Gosu::Window
     @main_font = Gosu::Font.new(self, Gosu::default_font_name, 20)
 
     @state = :main_menu
+    @editing = false
 
     @objects = []
     @space = CP::Space.new
@@ -61,12 +62,20 @@ class Game < Gosu::Window
         load_level(INITIAL_LEVEL)
         @state = :level
       end
+    elsif @state == :level
+      if id == Gosu::KbE
+        @editing = !@editing
+      end
     end
   end
 
   def draw
     if @state == :level
-      @objects.each { |o| o.draw(self) }
+      if @editing
+        @objects.each { |o| o.debug_draw(self) }
+      else
+        @objects.each { |o| o.draw(self) }
+      end
     elsif @state == :main_menu
       @title_font.draw("Libra", self.width/2 - @title_font.text_width("Libra")/2, self.height/8, 0)
     end

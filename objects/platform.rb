@@ -37,5 +37,9 @@ class Platform
     @tileset[0].draw(*game.camera.to_screen(@body.pos).to_a, ZOrder::BACK)
   end
 
+  def click_area
+    Rect.new(@body.pos.x, @body.pos.y, @body.pos.x + @tileset[0].width, @body.pos.y + @tileset[0].height)
+  end
+
 end
 

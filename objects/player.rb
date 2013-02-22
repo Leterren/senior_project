@@ -141,4 +141,8 @@ class Player
     game.main_font.draw(@body.pos.y, 4, 32, ZOrder::HUD)
   end
 
+  def click_area
+    Rect.new(@body.pos.x - 25, @body.pos.y - 25, @body.pos.x + 25, @body.pos.y + 25)
+  end
+
 end
