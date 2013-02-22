@@ -11,7 +11,7 @@ class Player
   AIR_TOP_SPEED = 4.0
   STOP_DECEL = 0.4
   SKID_DECEL = 0.6
-  FALLING_TOP_SPEED = 12.0
+  FALL_TOP_SPEED = 12.0
 
    # Determines the friction for non-ground collisions.
   MISC_FRICTION = 0.4
@@ -119,7 +119,9 @@ class Player
           end
         end
       else
-         # No change to velocity when neutral in the air
+        if @body.vel.y > FALL_TOP_SPEED
+          @body.vel = Vec2.new(@body.vel.x, FALL_TOP_SPEED)
+        end
       end
     end
     if game.button_down?(Gosu::KbUp)
