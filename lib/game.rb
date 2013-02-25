@@ -94,7 +94,7 @@ class Game < Gosu::Window
   end
 
   def draw
-    @main_font.draw(@state.to_s, 2, self.height - 20, ZOrder::HUD)
+    @main_font.draw(@state.to_s, 8, self.height - 28, ZOrder::HUD)
     if @state == :level
       if @editing
         @objects.each_index { |i| @objects[i].debug_draw(self, i == @editor.selected_index) }

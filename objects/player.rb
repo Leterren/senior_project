@@ -151,8 +151,8 @@ class Player
     x_scale = @direction == :left ? 1.0 : -1.0
     frame = @ground ? @@stand : @@jump
     frame.draw_rot(*game.camera.to_screen(@body.pos).to_a, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
-    game.main_font.draw(@body.pos.x, 4, 4, ZOrder::HUD)
-    game.main_font.draw(@body.pos.y, 4, 24, ZOrder::HUD)
+    game.main_font.draw(@body.pos.x, 8, Game::SCREEN_HEIGHT - 68, ZOrder::HUD)
+    game.main_font.draw(@body.pos.y, 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD)
   end
 
   def click_area
