@@ -20,9 +20,9 @@ class Player
   
   include GameObject
   def to_a
-    [@start.x, @start.y, @direction]
+    [@start.x, @start.y, @direction, @death]
   end
-  def initialize (game, x, y, dir)
+  def initialize (game, x, y, dir, death)
      # Initialize
     @start = Vec2.new(x, y)
     @direction = dir
@@ -40,6 +40,7 @@ class Player
     @body.object = self
     game.space.add_body(@body)
 
+    @death = death
     @reset_point = [x,y]
 
      # TODO: Make a polygon shape that mimics the player image
@@ -148,7 +149,7 @@ class Player
 
   def react (game)
     game.camera.attend(@body.pos)
-    if @body.pos.y >= 1200 #game.leveldeaththreshold[game.current_level], should read from game.rb the current level's death point
+    if @body.pos.y >= @death
       @body.pos.x = @reset_point[0]
       @body.pos.y = @reset_point[1]
       @body.vel.x = 0
