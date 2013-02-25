@@ -40,10 +40,20 @@ class Player
     @body.object = self
     game.space.add_body(@body)
 
-    @reset_point = [50,0] #[x,y]
+    @reset_point = [x,y]
 
      # TODO: Make a polygon shape that mimics the player image
     @shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0, 0))
+    
+    verts = Array.new
+=begin
+    verts.push(CP::Vec2.new(-16,16))
+    verts.push(CP::Vec2.new(16,16))
+    verts.push(CP::Vec2.new(16,-16))
+    verts.push(CP::Vec2.new(-16,16))
+    puts CP::Shape::Poly.valid?(verts)
+    #@shape = CP::Shape::Poly.new(@body, verts, 25)
+=end    
     @shape.u = MISC_FRICTION  # friction
     @shape.e = 0.0  # elasticity
     @shape.collision_type = :player
@@ -103,7 +113,8 @@ class Player
         if @body.vel.x < AIR_TOP_SPEED
           @body.apply_impulse(Vec2.new(AIR_ACCEL, 0), Vec2.new(0, 0))
           if @body.vel.x > AIR_TOP_SPEED
-            @body.vel = Vec2.new(AIR_TOP_SPEED, @body.vel.y)
+            #@body.vel = Vec2.new(AIR_TOP_SPEED, @body.vel.y)
+            @body.vel.x = AIR_TOP_SPEED
           end
         end
       end
@@ -122,7 +133,8 @@ class Player
         end
       else
         if @body.vel.y > FALL_TOP_SPEED
-          @body.vel = Vec2.new(@body.vel.x, FALL_TOP_SPEED)
+          #@body.vel = Vec2.new(@body.vel.x, FALL_TOP_SPEED)
+          @body.vel.y = FALL_TOP_SPEED
         end
       end
     end

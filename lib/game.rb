@@ -23,9 +23,8 @@ class Game < Gosu::Window
   GRAVITY = 0.4
 
   INITIAL_LEVEL = 'dark'
-  leveldeaththreshold = {'dark' => 1200}
 
-  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editing#, :INITIAL_LEVEL, :leveldeaththreshold
+  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editing#, :INITIAL_LEVEL
 
   def initialize
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
