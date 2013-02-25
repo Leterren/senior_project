@@ -63,14 +63,6 @@ class Game < Gosu::Window
       end
     else
 
-      #if id == Gosu::KbEscape
-      # if @state == :main_menu || @state == :pause_menu
-      #    close
-      #  elsif @state == :level
-      #    @state = :pause_menu
-      #  end
-      #end
-
       if @state == :main_menu ##############
         if id == Gosu::KbEnter || id == Gosu::KbReturn
           load_level(INITIAL_LEVEL)
