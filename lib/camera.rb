@@ -2,25 +2,30 @@ require './lib/utility'
 include Utility
 
 class Camera
-  attr_accessor :pos, :limits, :screen
+  attr_accessor :pos, :limits, :screen, :free
 
   def initialize (w, h)
+    @free = false
     @pos = Vec2.new(0, 0)
     @limits = Rect.infinite
     @screen = Rect.new(-w/2, -h/2, w/2, h/2)
   end
 
   def reset
-    @pos = Vec2.new(0, 0)
+    unless @free
+      @pos = Vec2.new(0, 0)
+    end
     @limits = Rect.infinite
   end
 
   def limit (bound)
+    return if @free
     @limits = @limits.intersect(bound)
     @pos = @limits.constrain(@pos)
   end
 
   def limit_edges (bound)
+    return if @free
     @limits = Rect.new(
       bound.l - @screen.l,
       bound.t - @screen.t,
@@ -30,6 +35,7 @@ class Camera
   end
 
   def attend (p)
+    return if @free
      # Guard against nans
     return unless p.x == p.x && p.y == p.y
     @pos = @limits.constrain(p)
