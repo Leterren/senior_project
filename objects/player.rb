@@ -6,11 +6,11 @@ class Player
   include GameObject
 
   JUMP_IMPULSE = 10.0
-  GROUND_ACCEL = 0.4
-  GROUND_TOP_SPEED = 6.0
+  GROUND_ACCEL = 0.3
+  GROUND_TOP_SPEED = 5.0
   AIR_ACCEL = 0.3
   AIR_TOP_SPEED = 4.0
-  STOP_DECEL = 0.4
+  STOP_DECEL = 0.5
   SKID_DECEL = 0.6
   FALL_TOP_SPEED = 12.0
 
@@ -20,9 +20,9 @@ class Player
   attr_accessor :ground, :ground_friction
   
   def to_a
-    [@start.x, @start.y, @direction]
+    [@start.x, @start.y, @direction, @death]
   end
-  def initialize (game, x, y, dir)
+  def initialize (game, x, y, dir, death)
      # Initialize
     @start = Vec2.new(x, y)
     @direction = dir
@@ -40,8 +40,15 @@ class Player
     @body.object = self
     game.space.add_body(@body)
 
-     # TODO: Make a polygon shape that mimics the player image
-    @shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0, 0))
+    @death = death
+    @reset_point = [x,y]
+
+    #poly = [Vec2.new(-17, -25), Vec2.new(-17, 19), Vec2.new(17, 19), Vec2.new(17, -25)]
+    poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
+    @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
+    # TODO: Make a polygon shape that mimics the player image
+    #oldshape: @shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0, 0))
+
     @shape.u = MISC_FRICTION  # friction
     @shape.e = 0.0  # elasticity
     @shape.collision_type = :player
@@ -94,14 +101,16 @@ class Player
         if @body.vel.x < GROUND_TOP_SPEED
           @body.apply_impulse(Vec2.new((@body.vel.x > 0 ? SKID_DECEL : GROUND_ACCEL), 0), Vec2.new(0, 0))
           if @body.vel.x > GROUND_TOP_SPEED
-            @body.vel = Vec2.new(GROUND_TOP_SPEED, @body.vel.y);
+            #@body.vel = Vec2.new(GROUND_TOP_SPEED, @body.vel.y);
+            @body.vel.x = GROUND_TOP_SPEED
           end
         end
       else
         if @body.vel.x < AIR_TOP_SPEED
           @body.apply_impulse(Vec2.new(AIR_ACCEL, 0), Vec2.new(0, 0))
           if @body.vel.x > AIR_TOP_SPEED
-            @body.vel = Vec2.new(AIR_TOP_SPEED, @body.vel.y)
+            #@body.vel = Vec2.new(AIR_TOP_SPEED, @body.vel.y)
+            @body.vel.x = AIR_TOP_SPEED
           end
         end
       end
@@ -120,7 +129,8 @@ class Player
         end
       else
         if @body.vel.y > FALL_TOP_SPEED
-          @body.vel = Vec2.new(@body.vel.x, FALL_TOP_SPEED)
+          #@body.vel = Vec2.new(@body.vel.x, FALL_TOP_SPEED)
+          @body.vel.y = FALL_TOP_SPEED
         end
       end
     end
@@ -134,14 +144,21 @@ class Player
 
   def react (game)
     game.camera.attend(@body.pos)
+    if @body.pos.y >= @death
+      @@wow.play
+      @body.pos.x = @reset_point[0]
+      @body.pos.y = @reset_point[1]
+      @body.vel.x = 0
+      @body.vel.y = 0
+    end
   end
-
+  
   def draw (game)
     x_scale = @direction == :left ? 1.0 : -1.0
     frame = @ground ? @@stand : @@jump
     frame.draw_rot(*game.camera.to_screen(@body.pos).to_a, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
-#    game.main_font.draw(@body.pos.x, 4, 4, ZOrder::HUD)
-#    game.main_font.draw(@body.pos.y, 4, 32, ZOrder::HUD)
+    game.main_font.draw(@body.pos.x, 4, 4, ZOrder::HUD)
+    game.main_font.draw(@body.pos.y, 4, 24, ZOrder::HUD)
   end
 
   def click_area

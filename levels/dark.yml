@@ -6,14 +6,23 @@
     - 2400
     - 1195
   - Player:
-    - 0
+    - 50
     - 0
     - :right
+    - 1200
   - Background:
     - -400
     - -300
     - dark-bg.png
     - 0.5
+  - Platform:
+    - 1872
+    - 388
+    - darkblocks.png
+  - Platform:
+    - 1600
+    - 80
+    - darkblocks.png
   - Platform:
     - 94
     - 945
@@ -363,10 +372,6 @@
     - 354
     - darkblocks.png
   - Platform:
-    - 1852
-    - 366
-    - darkblocks.png
-  - Platform:
     - 1556
     - 494
     - darkblocks.png
@@ -411,7 +416,11 @@
     - 113
     - darkblocks.png
   - Platform:
-    - 1504
+    - 1540
+    - 74
+    - darkblocks.png
+  - Platform:
+    - 1490
     - 74
     - darkblocks.png
   - Platform:
@@ -428,7 +437,7 @@
     - darkblocks.png
   - Platform:
     - 653
-    - 368
+    - 342
     - darkblocks.png
   - Platform:
     - 168

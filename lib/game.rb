@@ -56,31 +56,53 @@ class Game < Gosu::Window
   end
 
   def button_down (id)
+
     if self.text_input
       if id == Gosu::KbEscape
         self.text_input = nil
       end
     else
-      if id == Gosu::KbEscape
-        close
-      end
-      if @state == :main_menu
+
+      #if id == Gosu::KbEscape
+      # if @state == :main_menu || @state == :pause_menu
+      #    close
+      #  elsif @state == :level
+      #    @state = :pause_menu
+      #  end
+      #end
+
+      if @state == :main_menu ##############
         if id == Gosu::KbEnter || id == Gosu::KbReturn
           load_level(INITIAL_LEVEL)
           @state = :level
         end
-      elsif @state == :level
+        if id == Gosu::KbEscape
+          close
+        end
+      elsif @state == :level ##############
         if id == Gosu::KbE
           @editing = !@editing
+        end
+        if id == Gosu::KbEscape
+          @state = :pause_menu
         end
         if @editing
           @editor.button_down id
         end
+      elsif @state == :pause_menu ##############
+        if id == Gosu::KbEscape
+          close
+        end
+        if id == Gosu::KbEnter || id == Gosu::KbReturn
+          @state = :level
+        end 
       end
+
     end
   end
 
   def draw
+    @main_font.draw(@state.to_s, 2, self.height - 20, ZOrder::HUD)
     if @state == :level
       if @editing
         @objects.each_index { |i| @objects[i].debug_draw(self, i == @editor.selected_index) }
@@ -89,7 +111,13 @@ class Game < Gosu::Window
         @objects.each { |o| o.draw(self) }
       end
     elsif @state == :main_menu
-      @title_font.draw("Libra", self.width/2 - @title_font.text_width("Libra")/2, self.height/8, 0)
+      @title_font.draw("Libra", self.width/2 - @title_font.text_width("Libra")/2, self.height/8, ZOrder::HUD)
+      @main_font.draw("Start Game (Enter)", self.width/8, self.height/4, 0)
+      @main_font.draw("Exit Game (Escape)", self.width/8, self.height/3, 0)
+    elsif @state == :pause_menu
+      @title_font.draw("Paused", self.width/2 - @title_font.text_width("Paused")/2, self.height/8, ZOrder::HUD)
+      @main_font.draw("Resume Game (Enter)", self.width/8, self.height/4, 0)
+      @main_font.draw("Exit Game (Escape)", self.width/8, self.height/3, 0)
     end
   end
 
