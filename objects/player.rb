@@ -154,7 +154,7 @@ class Player
   end
 
   def click_area
-    Rect.new(@body.pos.x - 25, @body.pos.y - 25, @body.pos.x + 25, @body.pos.y + 25)
+    Rect.new(@start.x - 17, @start.y - 25, @start.x + 17, @start.y + 25)
   end
 
 end
