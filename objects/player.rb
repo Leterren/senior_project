@@ -41,7 +41,7 @@ class Player
     game.space.add_body(@body)
 
     @death = death
-    @reset_point = [x,y]
+    @reset_point = @start
 
     poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
     @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
@@ -140,10 +140,8 @@ class Player
     game.camera.attend(@body.pos)
     if @body.pos.y >= @death
       @@wow.play
-      @body.pos.x = @reset_point[0]
-      @body.pos.y = @reset_point[1]
-      @body.vel.x = 0
-      @body.vel.y = 0
+      @body.pos = @reset_point
+      @body.vel = Vec2.new(0, 0)
     end
   end
   

@@ -34,7 +34,7 @@ class Editor
     classname = GameObject::editable_classes[@class_index].name
     game.main_font.draw(
       classname,
-      Game::SCREEN_WIDTH - 8 - game.main_font.text_width(classname),
+      game.width - 8 - game.main_font.text_width(classname),
       8,
       ZOrder::HUD
     )
