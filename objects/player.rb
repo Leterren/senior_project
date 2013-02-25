@@ -5,7 +5,7 @@ class Player
 
 
   JUMP_IMPULSE = 10.0
-  GROUND_ACCEL = 0.4
+  GROUND_ACCEL = 0.2
   GROUND_TOP_SPEED = 6.0
   AIR_ACCEL = 0.3
   AIR_TOP_SPEED = 4.0
@@ -39,6 +39,8 @@ class Player
     @body.pos = @start
     @body.object = self
     game.space.add_body(@body)
+
+    @reset_point = [50,0] #[x,y]
 
      # TODO: Make a polygon shape that mimics the player image
     @shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0, 0))
@@ -134,6 +136,12 @@ class Player
 
   def react (game)
     game.camera.attend(@body.pos)
+    if @body.pos.y >= 1200 #game.leveldeaththreshold[game.current_level], should read from game.rb the current level's death point
+      @body.pos.x = @reset_point[0]
+      @body.pos.y = @reset_point[1]
+      @body.vel.x = 0
+      @body.vel.y = 0
+    end
   end
 
   def draw (game)
@@ -141,7 +149,7 @@ class Player
     frame = @ground ? @@stand : @@jump
     frame.draw_rot(*game.camera.to_screen(@body.pos).to_a, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
     game.main_font.draw(@body.pos.x, 4, 4, ZOrder::HUD)
-    game.main_font.draw(@body.pos.y, 4, 32, ZOrder::HUD)
+    game.main_font.draw(@body.pos.y, 4, 24, ZOrder::HUD)
   end
 
   def click_area
