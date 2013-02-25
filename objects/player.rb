@@ -152,7 +152,7 @@ class Player
       @body.vel.y = 0
     end
   end
-
+  
   def draw (game)
     x_scale = @direction == :left ? 1.0 : -1.0
     frame = @ground ? @@stand : @@jump
