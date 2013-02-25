@@ -7,6 +7,7 @@ include Utility
 
 class Platform
   include GameObject
+
   def to_a
     [@body.pos.x, @body.pos.y, @image_filename]
   end

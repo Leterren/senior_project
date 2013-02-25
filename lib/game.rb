@@ -7,6 +7,7 @@ include Utility
 
 require './lib/camera.rb'
 require './lib/z_order.rb'
+require './lib/editor.rb'
 
 class Game < Gosu::Window
 
@@ -24,7 +25,7 @@ class Game < Gosu::Window
 
   INITIAL_LEVEL = 'dark'
 
-  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editing
+  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editing, :editor
 
   def initialize
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
@@ -35,6 +36,7 @@ class Game < Gosu::Window
 
     @state = :main_menu
     @editing = false
+    @editor = Editor.new
 
     @objects = []
     @space = CP::Space.new
@@ -72,9 +74,7 @@ class Game < Gosu::Window
           @editing = !@editing
         end
         if @editing
-          if id == Gosu::KbT
-            self.text_input = Gosu::TextInput.new
-          end
+          @editor.button_down id
         end
       end
     end
@@ -83,10 +83,8 @@ class Game < Gosu::Window
   def draw
     if @state == :level
       if @editing
-        @objects.each { |o| o.debug_draw(self) }
-        if self.text_input
-          @main_font.draw(text_input.text, 0, self.height - 20, ZOrder::HUD)
-        end
+        @objects.each_index { |i| @objects[i].debug_draw(self, i == @editor.selected_index) }
+        @editor.draw self
       else
         @objects.each { |o| o.draw(self) }
       end
