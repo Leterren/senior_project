@@ -43,18 +43,11 @@ class Player
     @death = death
     @reset_point = [x,y]
 
-     # TODO: Make a polygon shape that mimics the player image
-    @shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0, 0))
-    
-    verts = Array.new
-=begin
-    verts.push(CP::Vec2.new(-16,16))
-    verts.push(CP::Vec2.new(16,16))
-    verts.push(CP::Vec2.new(16,-16))
-    verts.push(CP::Vec2.new(-16,16))
-    puts CP::Shape::Poly.valid?(verts)
-    #@shape = CP::Shape::Poly.new(@body, verts, 25)
-=end    
+    poly = [Vec2.new(-17, -25), Vec2.new(-17, 19), Vec2.new(17, 19), Vec2.new(17, -25)]
+    @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
+    # TODO: Make a polygon shape that mimics the player image
+    #oldshape: @shape = CP::Shape::Circle.new(@body, 25.0, CP::Vec2.new(0, 0))
+
     @shape.u = MISC_FRICTION  # friction
     @shape.e = 0.0  # elasticity
     @shape.collision_type = :player
