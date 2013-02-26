@@ -130,7 +130,8 @@ class Editor
         if game.text_input.instance_of? PropEditor and game.text_input.prop_i == i
           text_input.draw 8, 28 + 20*i
         else
-          game.main_font.draw @selected_repr[i].to_s, 8, 28 + 20*i, ZOrder::HUD
+          color = @prop_index == i ? Gosu::Color::YELLOW : Gosu::Color::WHITE
+          game.main_font.draw @selected_repr[i].to_s, 8, 28 + 20*i, ZOrder::HUD, 1, 1, color
         end
       end
     end
