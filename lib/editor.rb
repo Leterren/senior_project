@@ -24,17 +24,17 @@ class Editor
       if @class_index < 0
         @class_index = GameObject::editable_classes.length - 1
       end
-    elsif @selected_repr and id == Gosu::KbW
+    elsif id == Gosu::KbW and @selected_repr
       @prop_index -= 1
       if @prop_index < 0 or @prop_index >= @selected_repr.length
         @prop_index = @selected_repr.length - 1
       end
-    elsif @selected_repr and id == Gosu::KbS
+    elsif id == Gosu::KbS and @selected_repr
       @prop_index += 1
       if @prop_index >= @selected_repr.length + 1
         @prop_index = 0
       end
-    elsif @prop_index >= 0 and @prop_index < @selected_repr.length and id == Gosu::KbReturn
+    elsif id == Gosu::KbReturn and @prop_index >= 0 and @prop_index < @selected_repr.length
       game.text_input = Gosu::TextInput.new
       game.text_input.text = @selected_repr[@prop_index]
     elsif id == Gosu::Kb1
