@@ -25,7 +25,11 @@ class Game < Gosu::Window
 
   INITIAL_LEVEL = 'dark'
 
-  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editing, :editor
+  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor
+
+  def needs_cursor?
+    true
+  end
 
   def initialize
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
@@ -35,7 +39,6 @@ class Game < Gosu::Window
     @main_font = Gosu::Font.new(self, Gosu::default_font_name, 20)
 
     @state = :main_menu
-    @editing = false
     @editor = Editor.new
 
     @objects = []
@@ -73,12 +76,12 @@ class Game < Gosu::Window
         end
       elsif @state == :level ##############
         if id == Gosu::KbE
-          @editing = !@editing
+          editor.toggle(self)
         end
         if id == Gosu::KbEscape
           @state = :pause_menu
         end
-        if @editing
+        if @editor.enabled
           @editor.button_down id
         end
       elsif @state == :pause_menu ##############
@@ -96,7 +99,7 @@ class Game < Gosu::Window
   def draw
     @main_font.draw(@state.to_s, 8, self.height - 28, ZOrder::HUD)
     if @state == :level
-      if @editing
+      if @editor.enabled
         @objects.each_index { |i| @objects[i].debug_draw(self, i == @editor.selected_index) }
         @editor.draw self
       else

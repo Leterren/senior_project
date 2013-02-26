@@ -1,9 +1,10 @@
 
 class Editor
 
-  attr_accessor :selected_index
+  attr_accessor :selected_index, :enabled
 
   def initialize
+    @enabled = false
     @class_index = 0
     @selected_index = -1
   end
@@ -20,6 +21,25 @@ class Editor
         @class_index = GameObject::editable_classes.length
       end
     end
+  end
+
+  def enable (game)
+    @enabled = true
+    game.camera.free = true
+  end
+  def disable (game)
+    game.camera.free = false
+    @enabled = false
+  end
+  def toggle (game)
+    if @enabled
+      disable(game)
+    else
+      enable(game)
+    end
+  end
+
+  def update (game)
   end
 
   def draw (game)
