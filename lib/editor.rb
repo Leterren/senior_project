@@ -54,6 +54,7 @@ class Editor
       game.camera.pos.y += (game.mouse_y - game.height + SCROLL_THRESHOLD) / SCROLL_DIVISOR
     end
     world_mouse = game.camera.from_screen(Vec2.new(game.mouse_x, game.mouse_y))
+    currect = nil
     if game.button_down? Gosu::MsLeft
       @selected_index = -1
       game.objects.each_index do |i|
@@ -63,8 +64,10 @@ class Editor
            #  is not visible from the camera's current position
           unless (ca + Rect.new(-12, -12, 12, 12)).contains game.camera.area
             if ca.contains world_mouse
-              @selected_index = i
-              return
+              if !currect or (ca.t > currect.t)
+                currect = ca
+                @selected_index = i
+              end
             end
           end
         end
