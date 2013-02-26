@@ -2,7 +2,7 @@ require 'yaml'
 
 class Editor
 
-  attr_accessor :selected_index, :enabled
+  attr_accessor :selected_index, :selected_repr, :enabled
 
   def initialize
     @enabled = false
@@ -33,8 +33,9 @@ class Editor
       if @prop_index >= @selected_repr.length + 1
         @prop_index = 0
       end
-    elsif @selected_repr and id == Gosu::KbReturn
-      game.text_input = PropEditor.new(game, self, @prop_index)
+    elsif @prop_index >= 0 and @prop_index < @selected_repr.length and id == Gosu::KbReturn
+      game.text_input = Gosu::TextInput.new
+      game.text_input.text = @selected_repr[@prop_index]
     end
   end
 
@@ -102,33 +103,19 @@ class Editor
     end
   end
 
-   # This allows you to edit objects one property at a time with the keyboard
-  class PropEditor < Gosu::TextInput
-    attr_accessor :prop_i, :prop_s
-    def initialize (game, editor, prop_i)
-      @game = game
-      @editor = editor
-      @prop_i = prop_i
-      text = editor.selected_repr[prop_i]
-    end
-    def cancel  # no-op
-    end
-    def commit
-       # TODO
-    end
-    def draw (x, y)
-      pre = text.substr 0, caret_pos
-      @game.main_font.draw(text, x, y, ZOrder::HUD)
-      @game.main_font.draw('_', x + @game.main_font.text_width(pre), y + 2, ZOrder::HUD)
-    end
+  def cancel_input
+  end
+  def commit_input
   end
 
   def draw (game)
     if @selected_index >= 0
       game.main_font.draw game.objects[@selected_index].class.name, 8, 8, ZOrder::HUD
       @selected_repr.each_index do |i|
-        if game.text_input.instance_of? PropEditor and game.text_input.prop_i == i
-          text_input.draw 8, 28 + 20*i
+        if game.text_input and @prop_index == i
+          pre = game.text_input.text[0..game.text_input.caret_pos]
+          game.main_font.draw(game.text_input.text, 8, 28 + 20*i, ZOrder::HUD)
+          game.main_font.draw('_', 8 + game.main_font.text_width(pre), 30 + 20*i, ZOrder::HUD)
         else
           color = @prop_index == i ? Gosu::Color::YELLOW : Gosu::Color::WHITE
           game.main_font.draw @selected_repr[i].to_s, 8, 28 + 20*i, ZOrder::HUD, 1, 1, color
