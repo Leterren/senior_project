@@ -37,6 +37,8 @@ class Editor
     elsif @prop_index >= 0 and @prop_index < @selected_repr.length and id == Gosu::KbReturn
       game.text_input = Gosu::TextInput.new
       game.text_input.text = @selected_repr[@prop_index]
+    elsif id == Gosu::Kb1
+      game.save_level
     end
   end
 

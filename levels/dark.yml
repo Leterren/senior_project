@@ -1,634 +1,633 @@
 ---
 :objects:
-  - Boundary:
-    - -100
-    - -100
-    - 2400
-    - 1195
-  - Player:
-    - 50
-    - 0
-    - :right
-    - 1200
-  - Background:
-    - -400
-    - -300
-    - dark-bg.png
-    - 0.5
-  - Platform:
-    - 1872
-    - 388
-    - darkblocks.png
-  - Platform:
-    - 1600
-    - 80
-    - darkblocks.png
-  - Platform:
-    - 94
-    - 945
-    - darkblocks.png
-  - Platform:
-    - 94
-    - 853
-    - darkblocks.png
-  - Platform:
-    - 94
-    - 777
-    - darkblocks.png
-  - Platform:
-    - 94
-    - 696
-    - darkblocks.png
-  - Platform:
-    - 94
-    - 606
-    - darkblocks.png
-  - Platform:
-    - 94
-    - 525
-    - darkblocks.png
-  - Platform:
-    - 94
-    - 466
-    - darkblocks.png
-  - Platform:
-    - 94
-    - 389
-    - darkblocks.png
-  - Platform:
-    - 92
-    - 315
-    - darkblocks.png
-  - Platform:
-    - 97
-    - 246
-    - darkblocks.png
-  - Platform:
-    - 100
-    - 188
-    - darkblocks.png
-  - Platform:
-    - 104
-    - 125
-    - darkblocks.png
-  - Platform:
-    - 111
-    - 48
-    - darkblocks.png
-  - Platform:
-    - 118
-    - 2
-    - darkblocks.png
-  - Platform:
-    - -57
-    - 1000
-    - darkblocks.png
-  - Platform:
-    - -62
-    - 1053
-    - darkblocks.png
-  - Platform:
-    - -59
-    - 1079
-    - darkblocks.png
-  - Platform:
-    - -53
-    - 1101
-    - darkblocks.png
-  - Platform:
-    - -52
-    - 1135
-    - darkblocks.png
-  - Platform:
-    - -52
-    - 987
-    - darkblocks.png
-  - Platform:
-    - -54
-    - 955
-    - darkblocks.png
-  - Platform:
-    - -63
-    - 929
-    - darkblocks.png
-  - Platform:
-    - -61
-    - 901
-    - darkblocks.png
-  - Platform:
-    - -67
-    - 859
-    - darkblocks.png
-  - Platform:
-    - -67
-    - 838
-    - darkblocks.png
-  - Platform:
-    - -60
-    - 820
-    - darkblocks.png
-  - Platform:
-    - -60
-    - 802
-    - darkblocks.png
-  - Platform:
-    - -64
-    - 765
-    - darkblocks.png
-  - Platform:
-    - -56
-    - 740
-    - darkblocks.png
-  - Platform:
-    - -57
-    - 715
-    - darkblocks.png
-  - Platform:
-    - -61
-    - 657
-    - darkblocks.png
-  - Platform:
-    - -62
-    - 640
-    - darkblocks.png
-  - Platform:
-    - -60
-    - 605
-    - darkblocks.png
-  - Platform:
-    - -51
-    - 591
-    - darkblocks.png
-  - Platform:
-    - -54
-    - 580
-    - darkblocks.png
-  - Platform:
-    - -54
-    - 568
-    - darkblocks.png
-  - Platform:
-    - -53
-    - 559
-    - darkblocks.png
-  - Platform:
-    - -50
-    - 693
-    - darkblocks.png
-  - Platform:
-    - 239
-    - 1052
-    - darkblocks.png
-  - Platform:
-    - 304
-    - 1055
-    - darkblocks.png
-  - Platform:
-    - 392
-    - 980
-    - darkblocks.png
-  - Platform:
-    - 478
-    - 982
-    - darkblocks.png
-  - Platform:
-    - 420
-    - 750
-    - darkblocks.png
-  - Platform:
-    - 625
-    - 745
-    - darkblocks.png
-  - Platform:
-    - 698
-    - 744
-    - darkblocks.png
-  - Platform:
-    - 817
-    - 901
-    - darkblocks.png
-  - Platform:
-    - 897
-    - 905
-    - darkblocks.png
-  - Platform:
-    - 1055
-    - 837
-    - darkblocks.png
-  - Platform:
-    - 1132
-    - 842
-    - darkblocks.png
-  - Platform:
-    - 1272
-    - 725
-    - darkblocks.png
-  - Platform:
-    - 1346
-    - 727
-    - darkblocks.png
-  - Platform:
-    - 1504
-    - 722
-    - darkblocks.png
-  - Platform:
-    - 1573
-    - 719
-    - darkblocks.png
-  - Platform:
-    - 1788
-    - 725
-    - darkblocks.png
-  - Platform:
-    - 1861
-    - 727
-    - darkblocks.png
-  - Platform:
-    - 2095
-    - 676
-    - darkblocks.png
-  - Platform:
-    - 2168
-    - 678
-    - darkblocks.png
-  - Platform:
-    - 2346
-    - 776
-    - darkblocks.png
-  - Platform:
-    - 2352
-    - 830
-    - darkblocks.png
-  - Platform:
-    - 2359
-    - 874
-    - darkblocks.png
-  - Platform:
-    - 2357
-    - 923
-    - darkblocks.png
-  - Platform:
-    - 2349
-    - 970
-    - darkblocks.png
-  - Platform:
-    - 2359
-    - 1032
-    - darkblocks.png
-  - Platform:
-    - 2356
-    - 1024
-    - darkblocks.png
-  - Platform:
-    - 2355
-    - 567
-    - darkblocks.png
-  - Platform:
-    - 2348
-    - 633
-    - darkblocks.png
-  - Platform:
-    - 2353
-    - 680
-    - darkblocks.png
-  - Platform:
-    - 2357
-    - 736
-    - darkblocks.png
-  - Platform:
-    - 565
-    - 1065
-    - darkblocks.png
-  - Platform:
-    - 242
-    - 867
-    - darkblocks.png
-  - Platform:
-    - 351
-    - 748
-    - darkblocks.png
-  - Platform:
-    - 2345
-    - 367
-    - darkblocks.png
-  - Platform:
-    - 2334
-    - 399
-    - darkblocks.png
-  - Platform:
-    - 2339
-    - 441
-    - darkblocks.png
-  - Platform:
-    - 2350
-    - 476
-    - darkblocks.png
-  - Platform:
-    - 2353
-    - 538
-    - darkblocks.png
-  - Platform:
-    - 2348
-    - 582
-    - darkblocks.png
-  - Platform:
-    - 2267
-    - 549
-    - darkblocks.png
-  - Platform:
-    - 2108
-    - 440
-    - darkblocks.png
-  - Platform:
-    - 2334
-    - 116
-    - darkblocks.png
-  - Platform:
-    - 2334
-    - 221
-    - darkblocks.png
-  - Platform:
-    - 2339
-    - 192
-    - darkblocks.png
-  - Platform:
-    - 2342
-    - 170
-    - darkblocks.png
-  - Platform:
-    - 2328
-    - 294
-    - darkblocks.png
-  - Platform:
-    - 2332
-    - 272
-    - darkblocks.png
-  - Platform:
-    - 2347
-    - 376
-    - darkblocks.png
-  - Platform:
-    - 2339
-    - 354
-    - darkblocks.png
-  - Platform:
-    - 1556
-    - 494
-    - darkblocks.png
-  - Platform:
-    - 1366
-    - 341
-    - darkblocks.png
-  - Platform:
-    - 1421
-    - 402
-    - darkblocks.png
-  - Platform:
-    - 1529
-    - 232
-    - darkblocks.png
-  - Platform:
-    - 1528
-    - 239
-    - darkblocks.png
-  - Platform:
-    - 2360
-    - 1095
-    - darkblocks.png
-  - Platform:
-    - 1633
-    - 501
-    - darkblocks.png
-  - Platform:
-    - 1356
-    - 411
-    - darkblocks.png
-  - Platform:
-    - 1601
-    - 243
-    - darkblocks.png
-  - Platform:
-    - 1801
-    - 115
-    - darkblocks.png
-  - Platform:
-    - 1877
-    - 113
-    - darkblocks.png
-  - Platform:
-    - 1540
-    - 74
-    - darkblocks.png
-  - Platform:
-    - 1490
-    - 74
-    - darkblocks.png
-  - Platform:
-    - 1292
-    - 129
-    - darkblocks.png
-  - Platform:
-    - 1435
-    - 77
-    - darkblocks.png
-  - Platform:
-    - 966
-    - 150
-    - darkblocks.png
-  - Platform:
-    - 653
-    - 342
-    - darkblocks.png
-  - Platform:
-    - 168
-    - 226
-    - darkblocks.png
-  - Platform:
-    - 238
-    - 233
-    - darkblocks.png
-  - Platform:
-    - 383
-    - 236
-    - darkblocks.png
-  - Platform:
-    - 458
-    - 229
-    - darkblocks.png
-  - Platform:
-    - 159
-    - 231
-    - darkblocks.png
-  - Platform:
-    - 220
-    - 241
-    - darkblocks.png
-  - Platform:
-    - 178
-    - 876
-    - darkblocks.png
-  - Platform:
-    - 171
-    - 870
-    - darkblocks.png
-  - Platform:
-    - 1217
-    - 124
-    - darkblocks.png
-  - Platform:
-    - 892
-    - 158
-    - darkblocks.png
-  - Platform:
-    - 892
-    - 150
-    - darkblocks.png
-  - Platform:
-    - 317
-    - 235
-    - darkblocks.png
-  - Platform:
-    - -51
-    - 507
-    - darkblocks.png
-  - Platform:
-    - -60
-    - 483
-    - darkblocks.png
-  - Platform:
-    - -61
-    - 449
-    - darkblocks.png
-  - Platform:
-    - -55
-    - 410
-    - darkblocks.png
-  - Platform:
-    - -58
-    - 367
-    - darkblocks.png
-  - Platform:
-    - -59
-    - 319
-    - darkblocks.png
-  - Platform:
-    - -56
-    - 283
-    - darkblocks.png
-  - Platform:
-    - -58
-    - 244
-    - darkblocks.png
-  - Platform:
-    - -60
-    - 198
-    - darkblocks.png
-  - Platform:
-    - -61
-    - 179
-    - darkblocks.png
-  - Platform:
-    - -68
-    - 122
-    - darkblocks.png
-  - Platform:
-    - -61
-    - 94
-    - darkblocks.png
-  - Platform:
-    - -52
-    - 48
-    - darkblocks.png
-  - Platform:
-    - -53
-    - 12
-    - darkblocks.png
-  - Platform:
-    - 718
-    - 1006
-    - darkblocks.png
-  - Platform:
-    - 41
-    - 1111
-    - darkblocks.png
-  - Platform:
-    - -7
-    - 1122
-    - darkblocks.png
-  - Platform:
-    - 102
-    - 1125
-    - darkblocks.png
-  - Platform:
-    - 101
-    - 906
-    - darkblocks.png
-  - Platform:
-    - 95
-    - 825
-    - darkblocks.png
-  - Platform:
-    - 95
-    - 746
-    - darkblocks.png
-  - Platform:
-    - 99
-    - 660
-    - darkblocks.png
-  - Platform:
-    - 99
-    - 577
-    - darkblocks.png
-  - Platform:
-    - 98
-    - 511
-    - darkblocks.png
-  - Platform:
-    - 95
-    - 440
-    - darkblocks.png
-  - Platform:
-    - 1373
-    - 398
-    - darkblocks.png
-  - Platform:
-    - 1365
-    - 387
-    - darkblocks.png
-  - Platform:
-    - -59
-    - 167
-    - darkblocks.png
-  - Platform:
-    - 112
-    - 96
-    - darkblocks.png
-  - Platform:
-    - 106
-    - 170
-    - darkblocks.png
-  - Platform:
-    - 106
-    - 227
-    - darkblocks.png
-  - Platform:
-    - 100
-    - 289
-    - darkblocks.png
-  - Platform:
-    - 97
-    - 363
-    - darkblocks.png
-  - Platform:
-    - 292
-    - 248
-    - darkblocks.png
-  - Platform:
-    - 360
-    - 249
-    - darkblocks.png
-  - Platform:
-    - 433
-    - 247
-    - darkblocks.png
-:meta: {}
+- Boundary:
+  - -100
+  - -100
+  - 2400
+  - 1195
+- Player:
+  - 50.0
+  - 0.0
+  - :right
+  - 1200
+- Background:
+  - -400.0
+  - -300.0
+  - dark-bg.png
+  - 0.5
+- Platform:
+  - 1872.0
+  - 388.0
+  - darkblocks.png
+- Platform:
+  - 1600.0
+  - 80.0
+  - darkblocks.png
+- Platform:
+  - 94.0
+  - 945.0
+  - darkblocks.png
+- Platform:
+  - 94.0
+  - 853.0
+  - darkblocks.png
+- Platform:
+  - 94.0
+  - 777.0
+  - darkblocks.png
+- Platform:
+  - 94.0
+  - 696.0
+  - darkblocks.png
+- Platform:
+  - 94.0
+  - 606.0
+  - darkblocks.png
+- Platform:
+  - 94.0
+  - 525.0
+  - darkblocks.png
+- Platform:
+  - 94.0
+  - 466.0
+  - darkblocks.png
+- Platform:
+  - 94.0
+  - 389.0
+  - darkblocks.png
+- Platform:
+  - 92.0
+  - 315.0
+  - darkblocks.png
+- Platform:
+  - 97.0
+  - 246.0
+  - darkblocks.png
+- Platform:
+  - 100.0
+  - 188.0
+  - darkblocks.png
+- Platform:
+  - 104.0
+  - 125.0
+  - darkblocks.png
+- Platform:
+  - 111.0
+  - 48.0
+  - darkblocks.png
+- Platform:
+  - 118.0
+  - 2.0
+  - darkblocks.png
+- Platform:
+  - -57.0
+  - 1000.0
+  - darkblocks.png
+- Platform:
+  - -62.0
+  - 1053.0
+  - darkblocks.png
+- Platform:
+  - -59.0
+  - 1079.0
+  - darkblocks.png
+- Platform:
+  - -53.0
+  - 1101.0
+  - darkblocks.png
+- Platform:
+  - -52.0
+  - 1135.0
+  - darkblocks.png
+- Platform:
+  - -52.0
+  - 987.0
+  - darkblocks.png
+- Platform:
+  - -54.0
+  - 955.0
+  - darkblocks.png
+- Platform:
+  - -63.0
+  - 929.0
+  - darkblocks.png
+- Platform:
+  - -61.0
+  - 901.0
+  - darkblocks.png
+- Platform:
+  - -67.0
+  - 859.0
+  - darkblocks.png
+- Platform:
+  - -67.0
+  - 838.0
+  - darkblocks.png
+- Platform:
+  - -60.0
+  - 820.0
+  - darkblocks.png
+- Platform:
+  - -60.0
+  - 802.0
+  - darkblocks.png
+- Platform:
+  - -64.0
+  - 765.0
+  - darkblocks.png
+- Platform:
+  - -56.0
+  - 740.0
+  - darkblocks.png
+- Platform:
+  - -57.0
+  - 715.0
+  - darkblocks.png
+- Platform:
+  - -61.0
+  - 657.0
+  - darkblocks.png
+- Platform:
+  - -62.0
+  - 640.0
+  - darkblocks.png
+- Platform:
+  - -60.0
+  - 605.0
+  - darkblocks.png
+- Platform:
+  - -51.0
+  - 591.0
+  - darkblocks.png
+- Platform:
+  - -54.0
+  - 580.0
+  - darkblocks.png
+- Platform:
+  - -54.0
+  - 568.0
+  - darkblocks.png
+- Platform:
+  - -53.0
+  - 559.0
+  - darkblocks.png
+- Platform:
+  - -50.0
+  - 693.0
+  - darkblocks.png
+- Platform:
+  - 239.0
+  - 1052.0
+  - darkblocks.png
+- Platform:
+  - 304.0
+  - 1055.0
+  - darkblocks.png
+- Platform:
+  - 392.0
+  - 980.0
+  - darkblocks.png
+- Platform:
+  - 478.0
+  - 982.0
+  - darkblocks.png
+- Platform:
+  - 420.0
+  - 750.0
+  - darkblocks.png
+- Platform:
+  - 625.0
+  - 745.0
+  - darkblocks.png
+- Platform:
+  - 698.0
+  - 744.0
+  - darkblocks.png
+- Platform:
+  - 817.0
+  - 901.0
+  - darkblocks.png
+- Platform:
+  - 897.0
+  - 905.0
+  - darkblocks.png
+- Platform:
+  - 1055.0
+  - 837.0
+  - darkblocks.png
+- Platform:
+  - 1132.0
+  - 842.0
+  - darkblocks.png
+- Platform:
+  - 1272.0
+  - 725.0
+  - darkblocks.png
+- Platform:
+  - 1346.0
+  - 727.0
+  - darkblocks.png
+- Platform:
+  - 1504.0
+  - 722.0
+  - darkblocks.png
+- Platform:
+  - 1573.0
+  - 719.0
+  - darkblocks.png
+- Platform:
+  - 1788.0
+  - 725.0
+  - darkblocks.png
+- Platform:
+  - 1861.0
+  - 727.0
+  - darkblocks.png
+- Platform:
+  - 2095.0
+  - 676.0
+  - darkblocks.png
+- Platform:
+  - 2168.0
+  - 678.0
+  - darkblocks.png
+- Platform:
+  - 2346.0
+  - 776.0
+  - darkblocks.png
+- Platform:
+  - 2352.0
+  - 830.0
+  - darkblocks.png
+- Platform:
+  - 2359.0
+  - 874.0
+  - darkblocks.png
+- Platform:
+  - 2357.0
+  - 923.0
+  - darkblocks.png
+- Platform:
+  - 2349.0
+  - 970.0
+  - darkblocks.png
+- Platform:
+  - 2359.0
+  - 1032.0
+  - darkblocks.png
+- Platform:
+  - 2356.0
+  - 1024.0
+  - darkblocks.png
+- Platform:
+  - 2355.0
+  - 567.0
+  - darkblocks.png
+- Platform:
+  - 2348.0
+  - 633.0
+  - darkblocks.png
+- Platform:
+  - 2353.0
+  - 680.0
+  - darkblocks.png
+- Platform:
+  - 2357.0
+  - 736.0
+  - darkblocks.png
+- Platform:
+  - 565.0
+  - 1065.0
+  - darkblocks.png
+- Platform:
+  - 242.0
+  - 867.0
+  - darkblocks.png
+- Platform:
+  - 351.0
+  - 748.0
+  - darkblocks.png
+- Platform:
+  - 2345.0
+  - 367.0
+  - darkblocks.png
+- Platform:
+  - 2334.0
+  - 399.0
+  - darkblocks.png
+- Platform:
+  - 2339.0
+  - 441.0
+  - darkblocks.png
+- Platform:
+  - 2350.0
+  - 476.0
+  - darkblocks.png
+- Platform:
+  - 2353.0
+  - 538.0
+  - darkblocks.png
+- Platform:
+  - 2348.0
+  - 582.0
+  - darkblocks.png
+- Platform:
+  - 2267.0
+  - 549.0
+  - darkblocks.png
+- Platform:
+  - 2108.0
+  - 440.0
+  - darkblocks.png
+- Platform:
+  - 2334.0
+  - 116.0
+  - darkblocks.png
+- Platform:
+  - 2334.0
+  - 221.0
+  - darkblocks.png
+- Platform:
+  - 2339.0
+  - 192.0
+  - darkblocks.png
+- Platform:
+  - 2342.0
+  - 170.0
+  - darkblocks.png
+- Platform:
+  - 2328.0
+  - 294.0
+  - darkblocks.png
+- Platform:
+  - 2332.0
+  - 272.0
+  - darkblocks.png
+- Platform:
+  - 2347.0
+  - 376.0
+  - darkblocks.png
+- Platform:
+  - 2339.0
+  - 354.0
+  - darkblocks.png
+- Platform:
+  - 1556.0
+  - 494.0
+  - darkblocks.png
+- Platform:
+  - 1366.0
+  - 341.0
+  - darkblocks.png
+- Platform:
+  - 1421.0
+  - 402.0
+  - darkblocks.png
+- Platform:
+  - 1529.0
+  - 232.0
+  - darkblocks.png
+- Platform:
+  - 1528.0
+  - 239.0
+  - darkblocks.png
+- Platform:
+  - 2360.0
+  - 1095.0
+  - darkblocks.png
+- Platform:
+  - 1633.0
+  - 501.0
+  - darkblocks.png
+- Platform:
+  - 1356.0
+  - 411.0
+  - darkblocks.png
+- Platform:
+  - 1601.0
+  - 243.0
+  - darkblocks.png
+- Platform:
+  - 1801.0
+  - 115.0
+  - darkblocks.png
+- Platform:
+  - 1877.0
+  - 113.0
+  - darkblocks.png
+- Platform:
+  - 1540.0
+  - 74.0
+  - darkblocks.png
+- Platform:
+  - 1490.0
+  - 74.0
+  - darkblocks.png
+- Platform:
+  - 1292.0
+  - 129.0
+  - darkblocks.png
+- Platform:
+  - 1435.0
+  - 77.0
+  - darkblocks.png
+- Platform:
+  - 966.0
+  - 150.0
+  - darkblocks.png
+- Platform:
+  - 653.0
+  - 342.0
+  - darkblocks.png
+- Platform:
+  - 168.0
+  - 226.0
+  - darkblocks.png
+- Platform:
+  - 238.0
+  - 233.0
+  - darkblocks.png
+- Platform:
+  - 383.0
+  - 236.0
+  - darkblocks.png
+- Platform:
+  - 458.0
+  - 229.0
+  - darkblocks.png
+- Platform:
+  - 159.0
+  - 231.0
+  - darkblocks.png
+- Platform:
+  - 220.0
+  - 241.0
+  - darkblocks.png
+- Platform:
+  - 178.0
+  - 876.0
+  - darkblocks.png
+- Platform:
+  - 171.0
+  - 870.0
+  - darkblocks.png
+- Platform:
+  - 1217.0
+  - 124.0
+  - darkblocks.png
+- Platform:
+  - 892.0
+  - 158.0
+  - darkblocks.png
+- Platform:
+  - 892.0
+  - 150.0
+  - darkblocks.png
+- Platform:
+  - 317.0
+  - 235.0
+  - darkblocks.png
+- Platform:
+  - -51.0
+  - 507.0
+  - darkblocks.png
+- Platform:
+  - -60.0
+  - 483.0
+  - darkblocks.png
+- Platform:
+  - -61.0
+  - 449.0
+  - darkblocks.png
+- Platform:
+  - -55.0
+  - 410.0
+  - darkblocks.png
+- Platform:
+  - -58.0
+  - 367.0
+  - darkblocks.png
+- Platform:
+  - -59.0
+  - 319.0
+  - darkblocks.png
+- Platform:
+  - -56.0
+  - 283.0
+  - darkblocks.png
+- Platform:
+  - -58.0
+  - 244.0
+  - darkblocks.png
+- Platform:
+  - -60.0
+  - 198.0
+  - darkblocks.png
+- Platform:
+  - -61.0
+  - 179.0
+  - darkblocks.png
+- Platform:
+  - -68.0
+  - 122.0
+  - darkblocks.png
+- Platform:
+  - -61.0
+  - 94.0
+  - darkblocks.png
+- Platform:
+  - -52.0
+  - 48.0
+  - darkblocks.png
+- Platform:
+  - -53.0
+  - 12.0
+  - darkblocks.png
+- Platform:
+  - 718.0
+  - 1006.0
+  - darkblocks.png
+- Platform:
+  - 41.0
+  - 1111.0
+  - darkblocks.png
+- Platform:
+  - -7.0
+  - 1122.0
+  - darkblocks.png
+- Platform:
+  - 102.0
+  - 1125.0
+  - darkblocks.png
+- Platform:
+  - 101.0
+  - 906.0
+  - darkblocks.png
+- Platform:
+  - 95.0
+  - 825.0
+  - darkblocks.png
+- Platform:
+  - 95.0
+  - 746.0
+  - darkblocks.png
+- Platform:
+  - 99.0
+  - 660.0
+  - darkblocks.png
+- Platform:
+  - 99.0
+  - 577.0
+  - darkblocks.png
+- Platform:
+  - 98.0
+  - 511.0
+  - darkblocks.png
+- Platform:
+  - 95.0
+  - 440.0
+  - darkblocks.png
+- Platform:
+  - 1373.0
+  - 398.0
+  - darkblocks.png
+- Platform:
+  - 1365.0
+  - 387.0
+  - darkblocks.png
+- Platform:
+  - -59.0
+  - 167.0
+  - darkblocks.png
+- Platform:
+  - 112.0
+  - 96.0
+  - darkblocks.png
+- Platform:
+  - 106.0
+  - 170.0
+  - darkblocks.png
+- Platform:
+  - 106.0
+  - 227.0
+  - darkblocks.png
+- Platform:
+  - 100.0
+  - 289.0
+  - darkblocks.png
+- Platform:
+  - 97.0
+  - 363.0
+  - darkblocks.png
+- Platform:
+  - 292.0
+  - 248.0
+  - darkblocks.png
+- Platform:
+  - 360.0
+  - 249.0
+  - darkblocks.png
+- Platform:
+  - 433.0
+  - 247.0
+  - darkblocks.png

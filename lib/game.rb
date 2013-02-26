@@ -134,7 +134,7 @@ class Game < Gosu::Window
     end
     puts "Loading level: #{name}"
     data = nil
-    File.open("levels/#{name}.yml") do |f|
+    File.open "levels/#{name}.yml" do |f|
       data = YAML::load(f.read)
     end
     @current_level = name
@@ -148,6 +148,18 @@ class Game < Gosu::Window
          # Create it.
         @objects << cl.new(self, *val)
       end
+    end
+  end
+
+  def save_level
+    puts "Saving level: #{@current_level}"
+    data = {
+      objects: @objects.map do |o|
+        { o.class.name => o.to_a }
+      end
+    }
+    File.open "levels/#{@current_level}.yml", 'w' do |f|
+      f.print YAML::dump(data)
     end
   end
 
