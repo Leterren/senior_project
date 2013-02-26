@@ -55,6 +55,9 @@ class Game < Gosu::Window
       @objects.each { |o| o.act(self) }
       PHYSICS_SUBSTEPS.times { @space.step FRAME / PHYSICS_SUBSTEPS }
       @objects.each { |o| o.react(self) }
+      if @editor.enabled
+        @editor.update self
+      end
     end
   end
 

@@ -39,7 +39,20 @@ class Editor
     end
   end
 
+  SCROLL_THRESHOLD = 100
+  SCROLL_DIVISOR = SCROLL_THRESHOLD / 10
+
   def update (game)
+    if (game.mouse_x > 0 && game.mouse_x < SCROLL_THRESHOLD)
+      game.camera.pos.x -= (SCROLL_THRESHOLD - game.mouse_x) / SCROLL_DIVISOR
+    elsif (game.mouse_x > game.width - SCROLL_THRESHOLD && game.mouse_x < game.width)
+      game.camera.pos.x += (game.mouse_x - game.width + SCROLL_THRESHOLD) / SCROLL_DIVISOR
+    end
+    if (game.mouse_y > 0 && game.mouse_y < SCROLL_THRESHOLD)
+      game.camera.pos.y -= (SCROLL_THRESHOLD - game.mouse_y) / SCROLL_DIVISOR
+    elsif (game.mouse_y > game.height - SCROLL_THRESHOLD && game.mouse_y < game.height)
+      game.camera.pos.y += (game.mouse_y - game.height + SCROLL_THRESHOLD) / SCROLL_DIVISOR
+    end
   end
 
   def draw (game)
