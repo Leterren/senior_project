@@ -128,12 +128,12 @@ class Editor
     if @selected_index >= 0
       game.main_font.draw game.objects[@selected_index].class.name, 8, 8, ZOrder::HUD
       @selected_repr.each_index do |i|
-        color = @prop_index == i ? Gosu::Color::YELLOW : Gosu::Color::WHITE
         if game.text_input and @prop_index == i
           pre = game.text_input.text[0..game.text_input.caret_pos]
-          game.main_font.draw(game.text_input.text, 8, 28 + 20*i, ZOrder::HUD, 1, 1, color)
+          game.main_font.draw(game.text_input.text, 8, 28 + 20*i, ZOrder::HUD, 1, 1, Gosu::Color::RED)
           game.main_font.draw('_', 8 + game.main_font.text_width(pre), 30 + 20*i, ZOrder::HUD)
         else
+          color = @prop_index == i ? Gosu::Color::YELLOW : Gosu::Color::WHITE
           game.main_font.draw @selected_repr[i].to_s, 8, 28 + 20*i, ZOrder::HUD, 1, 1, color
         end
       end
