@@ -10,7 +10,7 @@ class Background
     [@pos.x, @pos.y, @image_filename, @scroll_factor]
   end
 
-  def initialize (game, x, y, image_filename, scroll_factor)
+  def initialize (game, x, y, image_filename = 'dark-bg.png', scroll_factor = 0.5)
     @image_filename = image_filename
     @image = Gosu::Image.new(game, "#{BACKGROUNDS_DIR}/#{image_filename}", true)
     @pos = Vec2.new(x, y)

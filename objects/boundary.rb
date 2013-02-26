@@ -7,7 +7,7 @@ class Boundary
     [@bounds.l, @bounds.t, @bounds.r, @bounds.b]
   end
 
-  def initialize (game, l, t, r, b)
+  def initialize (game, l, t, r = l + 400, b = t + 400)
     @bounds = Rect.new(l, t, r, b)
   end
 

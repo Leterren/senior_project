@@ -22,7 +22,7 @@ class Player
   def to_a
     [@start.x, @start.y, @direction, @death]
   end
-  def initialize (game, x, y, dir, death)
+  def initialize (game, x, y, dir = :right, death = 1.0/0.0)
      # Initialize
     @start = Vec2.new(x, y)
     @direction = dir

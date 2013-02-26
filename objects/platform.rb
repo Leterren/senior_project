@@ -11,7 +11,7 @@ class Platform
   def to_a
     [@body.pos.x, @body.pos.y, @image_filename]
   end
-  def initialize (game, x, y, image_filename)
+  def initialize (game, x, y, image_filename = 'dirtblocks.png')
     @image_filename = image_filename
     space = game.space
     @tileset = Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{image_filename}", 60, 60, true)
