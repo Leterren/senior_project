@@ -63,8 +63,13 @@ class Game < Gosu::Window
 
   def button_down (id)
 
+     # text_input must be subtyped to have .cancel and .commit
     if self.text_input
       if id == Gosu::KbEscape
+        self.text_input.cancel
+        self.text_input = nil
+      elsif id == Gosu::KbReturn
+        self.text_input.commit
         self.text_input = nil
       end
     else
@@ -85,7 +90,7 @@ class Game < Gosu::Window
           @state = :pause_menu
         end
         if @editor.enabled
-          @editor.button_down id
+          @editor.button_down self, id
         end
       elsif @state == :pause_menu ##############
         if id == Gosu::KbEscape
