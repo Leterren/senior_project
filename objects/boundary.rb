@@ -14,4 +14,8 @@ class Boundary
   def react (game)
     game.camera.limit_edges(@bounds)
   end
+
+  def click_area
+    @bounds
+  end
 end
