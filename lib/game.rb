@@ -65,10 +65,10 @@ class Game < Gosu::Window
 
     if self.text_input
       if id == Gosu::KbEscape
-        editor.cancel_input
+        editor.cancel_input self
         self.text_input = nil
       elsif id == Gosu::KbReturn
-        editor.commit_input
+        editor.commit_input self
         self.text_input = nil
       end
     else
