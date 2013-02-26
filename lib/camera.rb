@@ -49,5 +49,9 @@ class Camera
     return p + @screen.lt + @pos
   end
 
+  def area
+    return @screen + @pos
+  end
+
 end
 

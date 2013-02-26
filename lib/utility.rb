@@ -55,7 +55,13 @@ module Utility
     end
 
     def contains (p)
-      p.x > @l && p.y > @t && p.x < @r && p.y < @b
+      if p.instance_of? Vec2
+        p.x > @l && p.y > @t && p.x < @r && p.y < @b
+      elsif p.instance_of? Rect
+        p.l > @l && p.t > @t && p.r < @r && p.b < @b
+      else
+        raise TypeError.new
+      end
     end
 
     def constrain (p)
@@ -63,6 +69,25 @@ module Utility
         p.x < @l ? @l : p.x > @r ? @r : p.x,
         p.y < @t ? @t : p.y > @b ? @b : p.y
       )
+    end
+    def + (x)
+      if x.instance_of? Vec2
+        return Rect.new(
+          @l + x.x, @t + x.y, @r + x.x, @b + x.y
+        )
+      elsif x.instance_of? Rect
+        return Rect.new(
+          @l + x.l, @t + x.t, @r + x.r, @b + x.b
+        )
+      else
+        raise TypeError.new
+      end
+    end
+    def - (x)
+      return self + (- x)
+    end
+    def - ()
+      return Rect.new(-@l, -@t, -@r, -@b)
     end
   end
 
