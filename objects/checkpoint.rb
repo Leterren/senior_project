@@ -38,6 +38,8 @@ class Checkpoint
       if player_s.object.recent_checkpoint < checkpoint_s.object.order
         player_s.object.reset_point = checkpoint_s.body.pos
         player_s.object.recent_checkpoint = checkpoint_s.object.order
+        player_s.object.message = "Checkpoint!"
+        player_s.object.message_timer = 30
       end
       return true  # Go through with this collision
     end

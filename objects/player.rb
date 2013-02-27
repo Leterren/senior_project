@@ -17,7 +17,7 @@ class Player
    # Determines the friction for non-ground collisions.
   MISC_FRICTION = 0.4
 
-  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :walk_start
+  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :walk_start
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -52,6 +52,10 @@ class Player
     @shape.e = 0.0  # elasticity
     @shape.collision_type = :player
     @shape.object = self
+
+    @message = "Hello World"
+    @message_timer = 0
+
     game.space.add_shape(@shape)
 
     game.space.add_collision_handler(:player, :solid, Solid_Collisions.new)
@@ -154,6 +158,7 @@ class Player
   end
   
   def draw (game)
+    screen_pos = game.camera.to_screen(@body.pos)
     x_scale = @direction == :left ? 1.0 : -1.0
     frame = @@jump
     if @ground
@@ -169,9 +174,13 @@ class Player
     else
       frame = @@jump
     end
-    frame.draw_rot(*game.camera.to_screen(@body.pos).to_a, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
+    frame.draw_rot(screen_pos.x, screen_pos.y, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
     game.main_font.draw(@body.pos.x, 8, Game::SCREEN_HEIGHT - 68, ZOrder::HUD)
     game.main_font.draw(@body.pos.y, 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD)
+    if @message_timer > 0
+      game.main_font.draw_rel(@message, screen_pos.x, screen_pos.y - 30, ZOrder::HUD, 0.5, 1, 1, 1, 0xffffff00)
+      @message_timer -= 1 
+    end
   end
 
   def click_area
