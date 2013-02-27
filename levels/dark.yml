@@ -15,6 +15,18 @@
   - -300.0
   - dark-bg.png
   - 0.5
+- Checkpoint:
+  - 2300
+  - 530
+  - 100
+  - 100
+  - 1
+- Checkpoint:
+  - 1875
+  - 90
+  - 100
+  - 100
+  - 2
 - Platform:
   - 1872.0
   - 388.0
@@ -452,7 +464,7 @@
   - 236.0
   - darkblocks.png
 - Platform:
-  - 458.0
+  - 480.0
   - 229.0
   - darkblocks.png
 - Platform:
