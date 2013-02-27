@@ -137,7 +137,7 @@ class Player
         end
       end
     end
-    if game.button_down?(Gosu::KbUp)
+    if game.button_down?(Gosu::KbUp) || game.button_down?(Gosu::KbSpace)
       if @ground
         @body.apply_impulse(Vec2.new(0, -JUMP_IMPULSE), Vec2.new(0, 0))
         @ground = nil

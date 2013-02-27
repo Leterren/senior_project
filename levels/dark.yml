@@ -16,17 +16,23 @@
   - dark-bg.png
   - 0.5
 - Checkpoint:
-  - 2300
-  - 525
+  - 2300.0
+  - 525.0
   - 100
   - 100
   - 1
 - Checkpoint:
-  - 1875
-  - 90
+  - 1875.0
+  - 90.0
   - 100
   - 100
   - 2
+- Victorypoint:
+  - 150.0
+  - 130.0
+  - 128
+  - 128
+  - portal.png
 - Platform:
   - 1872.0
   - 388.0
@@ -384,8 +390,8 @@
   - 354.0
   - darkblocks.png
 - Platform:
-  - 1556.0
-  - 494.0
+  - 1565.0
+  - 497.0
   - darkblocks.png
 - Platform:
   - 1366.0
@@ -476,7 +482,7 @@
   - 241.0
   - darkblocks.png
 - Platform:
-  - 178.0
+  - 200.0
   - 876.0
   - darkblocks.png
 - Platform:
