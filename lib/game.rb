@@ -113,11 +113,11 @@ class Game < Gosu::Window
         @objects.each { |o| o.draw(self) }
       end
     elsif @state == :main_menu
-      @title_font.draw("Libra", self.width/2 - @title_font.text_width("Libra")/2, self.height/8, ZOrder::HUD)
+      @title_font.draw_rel("Libra", self.width/2, self.height/8, ZOrder::HUD, 0.5, 1)
       @main_font.draw("Start Game (Enter)", self.width/8, self.height/4, 0)
       @main_font.draw("Exit Game (Escape)", self.width/8, self.height/3, 0)
     elsif @state == :pause_menu
-      @title_font.draw("Paused", self.width/2 - @title_font.text_width("Paused")/2, self.height/8, ZOrder::HUD)
+      @title_font.draw_rel("Paused", self.width/2, self.height/8, ZOrder::HUD, 0.5, 1)
       @main_font.draw("Resume Game (Enter)", self.width/8, self.height/4, 0)
       @main_font.draw("Exit Game (Escape)", self.width/8, self.height/3, 0)
     end

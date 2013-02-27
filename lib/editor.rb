@@ -42,9 +42,14 @@ class Editor
     elsif id == Gosu::MsRight and @class_index >= 0
       world_mouse = game.camera.from_screen(Vec2.new(game.mouse_x, game.mouse_y))
       game.objects << GameObject::editable_classes[@class_index].new(game, world_mouse.x, world_mouse.y)
-    elsif id == Gosu::MsMiddle and @selected_index >= 0
+    elsif id == Gosu::MsMiddle and @selected_a
       world_mouse = game.camera.from_screen(Vec2.new(game.mouse_x, game.mouse_y))
       game.objects << game.objects[@selected_index].class.new(game, world_mouse.x, world_mouse.y, *@selected_a[2..@selected_a.length-1])
+    elsif id == Gosu::KbDelete and @selected_index 
+      game.objects[@selected_index].unload game
+      game.objects.delete_at @selected_index
+      @selected_index = -1
+      @selected_a = nil
     end
   end
 
@@ -131,7 +136,7 @@ class Editor
   end
 
   def draw (game)
-    if @selected_index >= 0
+    if @selected_repr
       game.main_font.draw game.objects[@selected_index].class.name, 8, 8, ZOrder::HUD
       @selected_repr.each_index do |i|
         if game.text_input and @prop_index == i
