@@ -11,7 +11,7 @@ class Checkpoint
   def to_a
   	[@body.pos.x, @body.pos.y, @width, @height, @order]
   end
-  def initialize (game, x, y, width, height, order)
+  def initialize (game, x, y, width = 100, height = 100, order = 1)
     space = game.space
      # physicsy stuff
     @body = CP::Body.new_static
