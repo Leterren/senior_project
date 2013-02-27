@@ -17,7 +17,7 @@ class Player
    # Determines the friction for non-ground collisions.
   MISC_FRICTION = 0.4
 
-  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint
+  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :walk_start
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -29,6 +29,7 @@ class Player
     @ground = nil
     @walk_speed = 0.0
     @ground_friction = 2.0
+    @walk_start = x
      # Load resources
     @@wow = Gosu::Sample.new(game, "#{SOUNDS_DIR}/wow.wav")
     @@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
@@ -62,6 +63,9 @@ class Player
        # The player can stand on something if the contact direction
        # is at most around 45° from flat
       if contact.normal(0).y > 0.7  # A little less than sqrt(2)/2
+        if (!player_s.object.ground)
+          player_s.object.walk_start = player_s.body.pos.x
+        end
         player_s.object.ground = solid_s.object
         contact.u = 0.0
       end
@@ -144,11 +148,27 @@ class Player
       @body.pos = @reset_point
       @body.vel = Vec2.new(0, 0)
     end
+    if @body.vel.x.abs < 0.1
+      @walk_start = @body.pos.x
+    end
   end
   
   def draw (game)
     x_scale = @direction == :left ? 1.0 : -1.0
-    frame = @ground ? @@stand : @@jump
+    frame = @@jump
+    if @ground
+      if @body.vel.x.abs < 0.1
+        frame = @@stand
+      else
+        if (@body.pos.x - walk_start).abs % 50 < 25
+          frame = @@walk1
+        else
+          frame = @@walk2
+        end
+      end
+    else
+      frame = @@jump
+    end
     frame.draw_rot(*game.camera.to_screen(@body.pos).to_a, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
     game.main_font.draw(@body.pos.x, 8, Game::SCREEN_HEIGHT - 68, ZOrder::HUD)
     game.main_font.draw(@body.pos.y, 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD)
