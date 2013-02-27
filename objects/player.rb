@@ -17,7 +17,7 @@ class Player
    # Determines the friction for non-ground collisions.
   MISC_FRICTION = 0.4
 
-  attr_accessor :ground, :ground_friction
+  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -41,6 +41,7 @@ class Player
     game.space.add_body(@body)
 
     @death = death
+    @recent_checkpoint = 0
     @reset_point = @start
 
     poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
