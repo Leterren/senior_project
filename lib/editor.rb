@@ -39,6 +39,12 @@ class Editor
       game.text_input.text = @selected_repr[@prop_index]
     elsif id == Gosu::Kb1
       game.save_level
+    elsif id == Gosu::MsRight and @class_index >= 0
+      world_mouse = game.camera.from_screen(Vec2.new(game.mouse_x, game.mouse_y))
+      game.objects << GameObject::editable_classes[@class_index].new(game, world_mouse.x, world_mouse.y)
+    elsif id == Gosu::MsMiddle and @selected_index >= 0
+      world_mouse = game.camera.from_screen(Vec2.new(game.mouse_x, game.mouse_y))
+      game.objects << game.objects[@selected_index].class.new(game, world_mouse.x, world_mouse.y, *@selected_a[2..@selected_a.length-1])
     end
   end
 
