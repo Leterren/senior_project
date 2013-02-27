@@ -28,7 +28,6 @@ class Checkpoint
     @order = order
     @width = width
     @height = height
-    int = 0
   end
   def click_area
     Rect.new(@body.pos.x - @width/2, @body.pos.y - @height/2, @body.pos.x + @width/2, @body.pos.y + @height/2)
