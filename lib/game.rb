@@ -25,7 +25,7 @@ class Game < Gosu::Window
 
   INITIAL_LEVEL = 'dark'
 
-  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor
+  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victoryboolean
 
   def needs_cursor?
     true
@@ -35,9 +35,8 @@ class Game < Gosu::Window
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
     self.caption = "Libra Dev Build"
 
-    @title_font = Gosu::Font.new(self, "Helvetica", 30)
+    @title_font = Gosu::Font.new(self, "Helvetica", 40)
     @main_font = Gosu::Font.new(self, Gosu::default_font_name, 20)
-
     @state = :main_menu
     @editor = Editor.new
 
@@ -46,7 +45,8 @@ class Game < Gosu::Window
     @space.gravity = Vec2.new(0.0, GRAVITY)
 
     @camera = Camera.new(SCREEN_WIDTH, SCREEN_HEIGHT)
-
+    @exitareyousure = false
+    @victoryboolean = false
   end
 
   def update
@@ -75,6 +75,7 @@ class Game < Gosu::Window
 
       if @state == :main_menu ##############
         if id == Gosu::KbEnter || id == Gosu::KbReturn
+          @victoryboolean = false
           load_level(INITIAL_LEVEL)
           @state = :level
         end
@@ -93,10 +94,18 @@ class Game < Gosu::Window
         end
       elsif @state == :pause_menu ##############
         if id == Gosu::KbEscape
-          close
+          if @exitareyousure == false
+            @exitareyousure = true
+          else
+            @state = :main_menu
+          end
         end
         if id == Gosu::KbEnter || id == Gosu::KbReturn
-          @state = :level
+          if @exitareyousure == false
+            @state = :level
+          else
+            @exitareyousure = false
+          end
         end 
       end
 
@@ -114,18 +123,39 @@ class Game < Gosu::Window
         @objects.each { |o| o.draw(self) }
       end
     elsif @state == :main_menu
-      @title_font.draw_rel("Libra", self.width/2, self.height/8, ZOrder::HUD, 0.5, 1)
-      @main_font.draw("Start Game (Enter)", self.width/8, self.height/4, 0)
-      @main_font.draw("Exit Game (Escape)", self.width/8, self.height/3, 0)
+      if victoryboolean == false
+        draw_quad(0, self.height/2, 0xFF000000, self.width, self.height/2, 0xFF000000, self.width, self.height, 0xFF777777, 0, self.height, 0xFF777777)
+        @title_font.draw_rel("Libra", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
+        @main_font.draw("Start Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
+        @main_font.draw("Exit Game [Escape]", self.width/8, self.height/3, ZOrder::HUD, 1, 1, 0xff888888)
+      else
+        draw_quad(0, self.height/2, 0xFF000000, self.width, self.height/2, 0xFF000000, self.width, self.height, 0xFF777777, 0, self.height, 0xFF777777)
+        @title_font.draw_rel("You win!", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
+        @main_font.draw("Restart Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
+        @main_font.draw("Exit Game [Escape]", self.width/8, self.height/3, ZOrder::HUD, 1, 1, 0xff888888)
+      end
     elsif @state == :pause_menu
-      @title_font.draw_rel("Paused", self.width/2, self.height/8, ZOrder::HUD, 0.5, 1)
-      @main_font.draw("Resume Game (Enter)", self.width/8, self.height/4, 0)
-      @main_font.draw("Exit Game (Escape)", self.width/8, self.height/3, 0)
+      @title_font.draw_rel("Paused", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xFF888888)
+      if @exitareyousure == false
+        @main_font.draw("Resume Game [Enter]", self.width/8, self.height/4, 0, 1, 1, 0xFF666666)
+        @main_font.draw("Return to Main Menu [Escape]", self.width/8, self.height/3, 0, 1, 1, 0xFF777777)
+      end
+      if @exitareyousure == true
+        @main_font.draw("Are you sure you want to exit to menu? Progress will be lost.", self.width/8, self.height/4, 0, 1, 1, 0xFF666666)
+        @main_font.draw("-> Yes [Escape]", self.width/8, self.height/4 + 20, 0, 1, 1, 0xFF666666)
+        @main_font.draw("-> No [Enter]", self.width/8, self.height/4 + 40, 0, 1, 1, 0xFF666666)
+      end
     end
   end
 
+  def reset
+    @state = :main_menu
+    unload_level
+  end
+
   def unload_level
-    @objects.each { |o| o.unload }
+    @objects.each { |o| o.unload(self) }
+    @objects = []
     @current_level = nil
   end
 

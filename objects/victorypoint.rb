@@ -6,6 +6,7 @@ require './lib/objects'
 include Utility
 
 class Victorypoint
+  attr_accessor :game
   include GameObject
   def to_a
   	[@body.pos.x, @body.pos.y, @width, @height, @image_filename]
@@ -14,11 +15,12 @@ class Victorypoint
     @image_filename = image_filename
     @image = Gosu::Image.new(game, "#{IMAGES_DIR}/#{image_filename}", true)
     space = game.space
+    @game = game
      # physicsy stuff
     @body = CP::Body.new_static
     @body.pos = Vec2.new(x, y)
     @body.object = self 
-    poly = [Vec2.new(0, 0), Vec2.new(0, height), Vec2.new(width, height), Vec2.new(width, 0)]
+    poly = [Vec2.new(width/4, height/4), Vec2.new(width/4, 3*height/4), Vec2.new(3*width/4, 3*height/4), Vec2.new(3*width/4, height/4)]
     @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
      # Player will acheive victory when collision happens
     @shape.collision_type = :victorypoint
@@ -37,6 +39,7 @@ class Victorypoint
     def begin (player_s, victorypoint_s, contact)
       player_s.object.message = "Victory!"
       player_s.object.message_timer = 60
+      player_s.object.victory
       return true  # Go through with this collision
     end
   end
@@ -48,5 +51,4 @@ class Victorypoint
   def unload (game)
     game.space.remove_shape @shape
   end
-
 end

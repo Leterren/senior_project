@@ -23,43 +23,44 @@ class Player
     [@start.x, @start.y, @direction, @death]
   end
   def initialize (game, x, y, dir = :right, death = 1.0/0.0)
-     # Initialize
-    @start = Vec2.new(x, y)
-    @direction = dir
-    @ground = nil
-    @walk_speed = 0.0
-    @ground_friction = 2.0
-    @walk_start = x
-     # Load resources
-    @@wow = Gosu::Sample.new(game, "#{SOUNDS_DIR}/wow.wav")
-    @@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
-      game, "#{IMAGES_DIR}/player.png", 50, 50, false
-    )
-     # Physicsy stuff
-    @body = CP::Body.new(1.0, CP::INFINITY)  # mass, moi
-    @body.pos = @start
-    @body.object = self
-    game.space.add_body(@body)
 
-    @death = death
-    @recent_checkpoint = 0
-    @reset_point = @start
+      @game = game
+      # Initialize
+      @start = Vec2.new(x, y)
+      @direction = dir
+      @ground = nil
+      @walk_speed = 0.0
+      @ground_friction = 2.0
+      @walk_start = x
+       # Load resources
+      @@wow = Gosu::Sample.new(game, "#{SOUNDS_DIR}/wow.wav")
+      @@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
+        game, "#{IMAGES_DIR}/player.png", 50, 50, false
+      )
+       # Physicsy stuff
+      @body = CP::Body.new(1.0, CP::INFINITY)  # mass, moi
+      @body.pos = @start
+      @body.object = self
+      game.space.add_body(@body)
 
-    poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
-    @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
+      @death = death
+      @recent_checkpoint = 0
+      @reset_point = @start
 
-    @shape.u = MISC_FRICTION  # friction
-    @shape.e = 0.0  # elasticity
-    @shape.collision_type = :player
-    @shape.object = self
+      poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
+      @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
 
-    @message = "Hello World"
-    @message_timer = 0
+      @shape.u = MISC_FRICTION  # friction
+      @shape.e = 0.0  # elasticity
+      @shape.collision_type = :player
+      @shape.object = self
 
-    game.space.add_shape(@shape)
+      @message = "Hello World"
+      @message_timer = 0
 
-    game.space.add_collision_handler(:player, :solid, Solid_Collisions.new)
+      game.space.add_shape(@shape)
 
+      game.space.add_collision_handler(:player, :solid, Solid_Collisions.new)
   end
 
   class Solid_Collisions
@@ -183,8 +184,19 @@ class Player
     end
   end
 
+  def victory
+    @game.victoryboolean = true
+    @game.state = :main_menu
+    @game.unload_level
+  end
+
   def click_area
     Rect.new(@start.x - 17, @start.y - 25, @start.x + 17, @start.y + 25)
+  end
+
+  def unload (game)
+    game.space.remove_shape @shape
+
   end
 
 end
