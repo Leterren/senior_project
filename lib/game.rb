@@ -142,8 +142,8 @@ class Game < Gosu::Window
       end
       if @exitareyousure == true
         @main_font.draw("Are you sure you want to exit to menu? Progress will be lost.", self.width/8, self.height/4, 0, 1, 1, 0xFF666666)
-        @main_font.draw("-> Yes [Escape]", self.width/8, self.height/4 + 20, 0, 1, 1, 0xFF666666)
-        @main_font.draw("-> No [Enter]", self.width/8, self.height/4 + 40, 0, 1, 1, 0xFF666666)
+        @main_font.draw("-> Yes [Escape]", self.width/8, self.height/4 + 30, 0, 1, 1, 0xFF666666)
+        @main_font.draw("-> No [Enter]", self.width/8, self.height/4 + 60, 0, 1, 1, 0xFF666666)
       end
     end
   end

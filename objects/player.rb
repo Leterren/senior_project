@@ -17,7 +17,7 @@ class Player
    # Determines the friction for non-ground collisions.
   MISC_FRICTION = 0.4
 
-  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :walk_start
+  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :walk_start, :previctory, :falltimer, :currentHP, :body
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -43,6 +43,9 @@ class Player
       @body.object = self
       game.space.add_body(@body)
 
+      @MAX_HP = 100
+      @currentHP = @MAX_HP
+      @falltimer = 0
       @death = death
       @recent_checkpoint = 0
       @reset_point = @start
@@ -57,6 +60,7 @@ class Player
 
       @message = "Hello World"
       @message_timer = 0
+      @previctory = false
 
       game.space.add_shape(@shape)
 
@@ -74,6 +78,13 @@ class Player
         player_s.object.ground = solid_s.object
         contact.u = 0.0
       end
+       # fall damage handler
+      if player_s.object.ground
+        if player_s.object.falltimer > 45 #&& player_s.object.body.vel.y > 9
+          player_s.object.currentHP -= (player_s.object.falltimer - 45)/2
+        end
+        player_s.object.falltimer = 0
+      end
       return true  # Go through with this collision
     end
     def separate (player_s, solid_s, contact)
@@ -85,7 +96,12 @@ class Player
 
   def act (game)
      # Basic motion control
-    if game.button_down?(Gosu::KbLeft) && !game.button_down?(Gosu::KbRight)
+    if game.button_down?(Gosu::KbEnter) || game.button_down?(Gosu::KbReturn)
+      if @previctory == true
+        self.victory
+      end
+    end 
+    if game.button_down?(Gosu::KbLeft) && !game.button_down?(Gosu::KbRight) && @previctory == false
       if @ground
         @direction = :left
         if @body.vel.x > -GROUND_TOP_SPEED
@@ -102,7 +118,7 @@ class Player
           end
         end
       end
-    elsif game.button_down?(Gosu::KbRight)
+    elsif game.button_down?(Gosu::KbRight) && @previctory == false
       if @ground
         @direction = :right
         if @body.vel.x < GROUND_TOP_SPEED
@@ -138,7 +154,7 @@ class Player
         end
       end
     end
-    if game.button_down?(Gosu::KbUp) || game.button_down?(Gosu::KbSpace)
+    if (game.button_down?(Gosu::KbUp) || game.button_down?(Gosu::KbSpace)) && previctory == false
       if @ground
         @body.apply_impulse(Vec2.new(0, -JUMP_IMPULSE), Vec2.new(0, 0))
         @ground = nil
@@ -148,13 +164,14 @@ class Player
 
   def react (game)
     game.camera.attend(@body.pos)
-    if @body.pos.y >= @death
-      @@wow.play
-      @body.pos = @reset_point
-      @body.vel = Vec2.new(0, 0)
+    if (@body.pos.y >= @death) || (@currentHP < 0)
+      self.die
     end
     if @body.vel.x.abs < 0.1
       @walk_start = @body.pos.x
+    end
+    if !@ground && @body.vel.y > 0
+      @falltimer += 1
     end
   end
   
@@ -178,9 +195,15 @@ class Player
     frame.draw_rot(screen_pos.x, screen_pos.y, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
     game.main_font.draw(@body.pos.x, 8, Game::SCREEN_HEIGHT - 68, ZOrder::HUD)
     game.main_font.draw(@body.pos.y, 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD)
+    game.main_font.draw("HP: #{@currentHP}", 8, Game::SCREEN_HEIGHT - 88, ZOrder::HUD, 1, 1, 0xFFFF0000)
+    game.main_font.draw(@body.vel.y, 8, Game::SCREEN_HEIGHT - 128, ZOrder::HUD)
+    game.main_font.draw("Falltimer: #{@falltimer}", 8, Game::SCREEN_HEIGHT - 108, ZOrder::HUD)
     if @message_timer > 0
       game.main_font.draw_rel(@message, screen_pos.x, screen_pos.y - 30, ZOrder::HUD, 0.5, 1, 1, 1, 0xff00ff00)
       @message_timer -= 1 
+    end
+    if @previctory == true
+      game.main_font.draw_rel("You win! Press [Enter] to continue.", game.width/2, Game::SCREEN_HEIGHT - 20, ZOrder::HUD, 0.5, 1, 1, 1, 0xFF00FF00)
     end
   end
 
@@ -188,6 +211,14 @@ class Player
     @game.victoryboolean = true
     @game.state = :main_menu
     @game.unload_level
+  end
+
+  def die
+    @@wow.play
+    @body.pos = @reset_point
+    @body.vel = Vec2.new(0, 0)
+    @currentHP = @MAX_HP
+    @falltimer = 0
   end
 
   def click_area

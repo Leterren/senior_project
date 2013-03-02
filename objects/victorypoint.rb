@@ -37,9 +37,9 @@ class Victorypoint
 
   class Victorypoint_Collisions
     def begin (player_s, victorypoint_s, contact)
-      player_s.object.message = "Victory!"
-      player_s.object.message_timer = 60
-      player_s.object.victory
+      #player_s.object.message = "Victory!"
+      #player_s.object.message_timer = 60
+      player_s.object.previctory = true
       return true  # Go through with this collision
     end
   end
