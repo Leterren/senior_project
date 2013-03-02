@@ -43,6 +43,7 @@ class Player
       @body.object = self
       game.space.add_body(@body)
 
+      @LIVES = 4
       @MAX_HP = 100
       @currentHP = @MAX_HP
       @falltimer = 0
@@ -208,17 +209,25 @@ class Player
   end
 
   def victory
-    @game.victoryboolean = true
+    @game.victorystate = :win
     @game.state = :main_menu
     @game.unload_level
   end
-
+  def defeat
+    @game.victorystate = :lose
+    @game.state = :main_menu
+    @game.unload_level
+  end
   def die
     @@wow.play
     @body.pos = @reset_point
     @body.vel = Vec2.new(0, 0)
     @currentHP = @MAX_HP
     @falltimer = 0
+    @LIVES -= 1
+    if @LIVES == 0
+      self.defeat
+    end
   end
 
   def click_area

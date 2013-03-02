@@ -25,7 +25,7 @@ class Game < Gosu::Window
 
   INITIAL_LEVEL = 'dark'
 
-  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victoryboolean
+  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate
 
   def needs_cursor?
     true
@@ -46,7 +46,7 @@ class Game < Gosu::Window
 
     @camera = Camera.new(SCREEN_WIDTH, SCREEN_HEIGHT)
     @exitareyousure = false
-    @victoryboolean = false
+    @victorystate = :neutral
   end
 
   def update
@@ -75,7 +75,7 @@ class Game < Gosu::Window
 
       if @state == :main_menu ##############
         if id == Gosu::KbEnter || id == Gosu::KbReturn
-          @victoryboolean = false
+          @victorystate = :neutral
           load_level(INITIAL_LEVEL)
           @state = :level
         end
@@ -123,14 +123,19 @@ class Game < Gosu::Window
         @objects.each { |o| o.draw(self) }
       end
     elsif @state == :main_menu
-      if victoryboolean == false
+      if victorystate == :neutral
         draw_quad(0, self.height/2, 0xFF000000, self.width, self.height/2, 0xFF000000, self.width, self.height, 0xFF777777, 0, self.height, 0xFF777777)
         @title_font.draw_rel("Libra", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
         @main_font.draw("Start Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
         @main_font.draw("Exit Game [Escape]", self.width/8, self.height/3, ZOrder::HUD, 1, 1, 0xff888888)
-      else
+      elsif victorystate == :win
         draw_quad(0, self.height/2, 0xFF000000, self.width, self.height/2, 0xFF000000, self.width, self.height, 0xFF777777, 0, self.height, 0xFF777777)
-        @title_font.draw_rel("You win!", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
+        @title_font.draw_rel("Victory!", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
+        @main_font.draw("Restart Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
+        @main_font.draw("Exit Game [Escape]", self.width/8, self.height/3, ZOrder::HUD, 1, 1, 0xff888888)
+      elsif victorystate == :lose
+        draw_quad(0, self.height/2, 0xFF000000, self.width, self.height/2, 0xFF000000, self.width, self.height, 0xFF777777, 0, self.height, 0xFF777777)
+        @title_font.draw_rel("Defeat!", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
         @main_font.draw("Restart Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
         @main_font.draw("Exit Game [Escape]", self.width/8, self.height/3, ZOrder::HUD, 1, 1, 0xff888888)
       end
