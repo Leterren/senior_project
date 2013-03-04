@@ -17,7 +17,7 @@ class Player
    # Determines the friction for non-ground collisions.
   MISC_FRICTION = 0.4
 
-  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :walk_start, :previctory, :falltimer, :currentHP, :body
+  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :walk_start, :previctory, :falltimer, :currentHP, :body, :falldamage
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -81,10 +81,7 @@ class Player
       end
        # fall damage handler
       if player_s.object.ground
-        if player_s.object.falltimer > 45 #&& player_s.object.body.vel.y > 9
-          player_s.object.currentHP -= (player_s.object.falltimer - 45)/2
-        end
-        player_s.object.falltimer = 0
+        player_s.object.falldamage
       end
       return true  # Go through with this collision
     end
@@ -197,7 +194,7 @@ class Player
     game.main_font.draw(@body.pos.x, 8, Game::SCREEN_HEIGHT - 68, ZOrder::HUD)
     game.main_font.draw(@body.pos.y, 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD)
     game.main_font.draw("HP: #{@currentHP}", 8, Game::SCREEN_HEIGHT - 88, ZOrder::HUD, 1, 1, 0xFFFF0000)
-    game.main_font.draw(@body.vel.y, 8, Game::SCREEN_HEIGHT - 128, ZOrder::HUD)
+    game.main_font.draw_rel("Lives: #{@LIVES}", Game::SCREEN_WIDTH - 5, 5, ZOrder::HUD, 1, 0, 1, 1, 0xFFFFFF00)
     game.main_font.draw("Falltimer: #{@falltimer}", 8, Game::SCREEN_HEIGHT - 108, ZOrder::HUD)
     if @message_timer > 0
       game.main_font.draw_rel(@message, screen_pos.x, screen_pos.y - 30, ZOrder::HUD, 0.5, 1, 1, 1, 0xff00ff00)
@@ -217,6 +214,16 @@ class Player
     @game.victorystate = :lose
     @game.state = :main_menu
     @game.unload_level
+  end
+  def falldamage
+    if @falltimer > 45 #&& player_s.object.body.vel.y > 9
+      @currentHP -= (@falltimer - 45)/2
+      @@wow.play
+    end
+    #if (@player.vel.y < -16) || (@player.vel.x.abs > 16)
+    #  @currentHP -= 
+    #end
+    @falltimer = 0
   end
   def die
     @@wow.play
