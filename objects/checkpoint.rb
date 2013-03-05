@@ -19,7 +19,7 @@ class Checkpoint
     @body.object = self 
     poly = [Vec2.new(-width/2, -height/2), Vec2.new(-width/2, height/2), Vec2.new(width/2, height/2), Vec2.new(width/2, -height/2)]
     @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
-     # Player will update reset_point when collision happens
+     # Player will update reset_point when collision of type :checkpoint happens
     @shape.collision_type = :checkpoint
     @shape.object = self
     @shape.sensor = true

@@ -17,7 +17,8 @@ class Player
    # Determines the friction for non-ground collisions.
   MISC_FRICTION = 0.4
 
-  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :walk_start, :previctory, :falltimer, :currentHP, :body, :falldamage
+  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer
+  attr_accessor :previctory, :falltimer, :currentHP, :body, :falldamage, :walk_start
   
   def to_a
     [@start.x, @start.y, @direction, @death]

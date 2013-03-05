@@ -5,16 +5,20 @@
   - -100
   - 2400
   - 1195
-- Player:
-  - 50.0
-  - 0.0
-  - :right
-  - 1200
 - Background:
   - -400.0
   - -300.0
   - dark-bg.png
   - 0.5
+- Player:
+  - 50.0
+  - 0.0
+  - :right
+  - 1200
+- Enemy:
+  - 382.0
+  - 210.0
+  - :right
 - Checkpoint:
   - 2325.0
   - 525.0
