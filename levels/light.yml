@@ -1,0 +1,31 @@
+---
+:objects:
+- Player:
+  - 0.0
+  - 0.0
+  - :right
+  - .inf
+- Platform:
+  - -16.0
+  - 200.0
+  - lightblocks.png
+- Platform:
+  - 111.20000000000002
+  - 171.1000000014894
+  - lightblocks.png
+- Platform:
+  - 245.20000000000002
+  - 136.1000000014894
+  - lightblocks.png
+- Platform:
+  - 377.5000000000001
+  - 25.100000001489406
+  - lightblocks.png
+- Platform:
+  - 202.8
+  - -53.69999999851055
+  - lightblocks.png
+- Platform:
+  - 75.80000000000001
+  - -121.69999999851055
+  - lightblocks.png

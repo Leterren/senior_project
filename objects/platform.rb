@@ -14,10 +14,10 @@ class Platform
   def initialize (game, x, y, image_filename = 'dirtblocks.png')
     @image_filename = image_filename
     space = game.space
-    @tileset = Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{image_filename}", 60, 60, true)
+    @image = Gosu::Image.new(game, "#{IMAGES_DIR}/#{image_filename}", false)
      # physicsy stuff
-    w = @tileset[0].width
-    h = @tileset[0].height
+    w = @image.width
+    h = @image.height
     @body = CP::Body.new_static
     @body.pos = Vec2.new(x, y)
     @body.object = self
@@ -35,11 +35,11 @@ class Platform
   end
 
   def draw (game)
-    @tileset[0].draw(*game.camera.to_screen(@body.pos).to_a, ZOrder::BACK)
+    @image.draw(*game.camera.to_screen(@body.pos).to_a, ZOrder::BACK)
   end
 
   def click_area
-    Rect.new(@body.pos.x, @body.pos.y, @body.pos.x + @tileset[0].width, @body.pos.y + @tileset[0].height)
+    Rect.new(@body.pos.x, @body.pos.y, @body.pos.x + @image.width, @body.pos.y + @image.height)
   end
 
 end
