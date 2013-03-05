@@ -23,7 +23,7 @@ class Game < Gosu::Window
 
   GRAVITY = 0.4
 
-  INITIAL_LEVEL = 'dark'
+  INITIAL_LEVEL = 'test'
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate
 
