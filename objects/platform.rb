@@ -6,12 +6,14 @@ include Utility
 # This represents a single platform.  Its physical size takes on the dimensions of its image.
 
 class Platform
+  attr_accessor :game
   include GameObject
 
   def to_a
     [@body.pos.x, @body.pos.y, @image_filename]
   end
   def initialize (game, x, y, image_filename = 'dirtblocks.png')
+    @game = game
     @image_filename = image_filename
     space = game.space
     @image = Gosu::Image.new(game, "#{IMAGES_DIR}/#{image_filename}", false)
@@ -30,11 +32,11 @@ class Platform
     space.add_shape @shape
   end
 
-  def unload (game)
+  def unload ()
     game.space.remove_shape @shape
   end
 
-  def draw (game)
+  def draw ()
     @image.draw(*game.camera.to_screen(@body.pos).to_a, ZOrder::BACK)
   end
 

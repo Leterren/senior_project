@@ -11,6 +11,7 @@ require './lib/editor.rb'
 
 class Game < Gosu::Window
 
+  attr_accessor :game
    # Game-specific
   SCREEN_WIDTH = 800
   SCREEN_HEIGHT = 600
@@ -32,6 +33,7 @@ class Game < Gosu::Window
   end
 
   def initialize
+    $game = self
     super SCREEN_WIDTH, SCREEN_HEIGHT, false
     self.caption = "Libra Dev Build"
 
@@ -52,11 +54,11 @@ class Game < Gosu::Window
   def update
     @camera.reset
     if @state == :level
-      @objects.each { |o| o.act(self) }
+      @objects.each { |o| o.act() }
       PHYSICS_SUBSTEPS.times { @space.step FRAME / PHYSICS_SUBSTEPS }
-      @objects.each { |o| o.react(self) }
+      @objects.each { |o| o.react() }
       if @editor.enabled
-        @editor.update self
+        @editor.update
       end
     end
   end
@@ -65,10 +67,10 @@ class Game < Gosu::Window
 
     if self.text_input
       if id == Gosu::KbEscape
-        editor.cancel_input self
+        editor.cancel_input
         self.text_input = nil
       elsif id == Gosu::KbReturn
-        editor.commit_input self
+        editor.commit_input
         self.text_input = nil
       end
     else
@@ -84,13 +86,13 @@ class Game < Gosu::Window
         end
       elsif @state == :level ##############
         if id == Gosu::KbE
-          editor.toggle(self)
+          editor.toggle()
         end
         if id == Gosu::KbEscape
           @state = :pause_menu
         end
         if @editor.enabled
-          @editor.button_down self, id
+          @editor.button_down id
         end
       elsif @state == :pause_menu ##############
         if id == Gosu::KbEscape
@@ -117,10 +119,10 @@ class Game < Gosu::Window
     if @state == :level
       self.caption = "Get to the Warp Point!"
       if @editor.enabled
-        @objects.each_index { |i| @objects[i].debug_draw(self, i == @editor.selected_index) }
-        @editor.draw self
+        @objects.each_index { |i| @objects[i].debug_draw(i == @editor.selected_index) }
+        @editor.draw
       else
-        @objects.each { |o| o.draw(self) }
+        @objects.each { |o| o.draw() }
       end
     elsif @state == :main_menu
       if victorystate == :neutral
@@ -159,7 +161,7 @@ class Game < Gosu::Window
   end
 
   def unload_level
-    @objects.each { |o| o.unload(self) }
+    @objects.each { |o| o.unload() }
     @objects = []
     @current_level = nil
   end

@@ -6,12 +6,13 @@ require './lib/objects'
 include Utility
 
 class Checkpoint
-  attr_accessor :order
+  attr_accessor :order, :game
   include GameObject
   def to_a
   	[@body.pos.x, @body.pos.y, @width, @height, @order]
   end
   def initialize (game, x, y, width = 100, height = 100, order = 1)
+    @game = game
     space = game.space
      # physicsy stuff
     @body = CP::Body.new_static
@@ -45,7 +46,7 @@ class Checkpoint
     end
   end
 
-  def unload (game)
+  def unload ()
     game.space.remove_shape @shape
   end
 

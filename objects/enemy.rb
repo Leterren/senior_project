@@ -7,14 +7,14 @@ require './lib/objects'
 class Enemy
 	include GameObject
 
-  	attr_accessor :combatresolved
+  	attr_accessor :combatresolved, :game
   
   	def to_a
   		[@start.x, @start.y, @direction]
 	end
 	def initialize (game, x, y, dir = :right)
+      @game = game
     	space = game.space
-    	@game = game
     	@direction = dir
     	@@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
         	game, "#{IMAGES_DIR}/player2.png", 50, 50, false
@@ -40,21 +40,22 @@ class Enemy
         	player_s.object.message = "Combat!"
         	player_s.object.message_timer = 30
         	enemy_s.object.combatresolved = true
+          #enemy_s.object.game.state = :combat
         	return true
       	end
   	end
 
-	def act (game)
+	def act ()
 
 	end
 
-  	def react (game)
+  	def react ()
   		if combatresolved
-  			self.unload(@game)
+  			self.unload()
   		end
   	end
   
- 	def draw (game)
+ 	def draw ()
  		if !combatresolved
     		x_scale = @direction == :left ? 1.0 : -1.0
     		frame = @@stand
@@ -66,7 +67,7 @@ class Enemy
     	Rect.new(@start.x - 17, @start.y - 25, @start.x + 17, @start.y + 25)
   	end
 
-  	def unload (game)
+  	def unload ()
     	game.space.remove_shape @shape
   	end
 end

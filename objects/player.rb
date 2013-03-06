@@ -18,13 +18,12 @@ class Player
   MISC_FRICTION = 0.4
 
   attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer
-  attr_accessor :previctory, :falltimer, :currentHP, :body, :falldamage, :walk_start
+  attr_accessor :previctory, :falltimer, :currentHP, :body, :falldamage, :walk_start, :game
   
   def to_a
     [@start.x, @start.y, @direction, @death]
   end
   def initialize (game, x, y, dir = :right, death = 1.0/0.0)
-
       @game = game
       # Initialize
       @start = Vec2.new(x, y)
@@ -93,7 +92,7 @@ class Player
     end
   end
 
-  def act (game)
+  def act ()
      # Basic motion control
     if game.button_down?(Gosu::KbEnter) || game.button_down?(Gosu::KbReturn)
       if @previctory == true
@@ -161,7 +160,7 @@ class Player
     end
   end
 
-  def react (game)
+  def react ()
     game.camera.attend(@body.pos)
     if (@body.pos.y >= @death) || (@currentHP < 0)
       self.die
@@ -174,7 +173,7 @@ class Player
     end
   end
   
-  def draw (game)
+  def draw ()
     screen_pos = game.camera.to_screen(@body.pos)
     x_scale = @direction == :left ? 1.0 : -1.0
     frame = @@jump
@@ -207,14 +206,14 @@ class Player
   end
 
   def victory
-    @game.victorystate = :win
-    @game.state = :main_menu
-    @game.unload_level
+    game.victorystate = :win
+    game.state = :main_menu
+    game.unload_level
   end
   def defeat
-    @game.victorystate = :lose
-    @game.state = :main_menu
-    @game.unload_level
+    game.victorystate = :lose
+    game.state = :main_menu
+    game.unload_level
   end
   def falldamage
     if @falltimer > 45 #&& player_s.object.body.vel.y > 9
@@ -242,7 +241,7 @@ class Player
     Rect.new(@start.x - 17, @start.y - 25, @start.x + 17, @start.y + 25)
   end
 
-  def unload (game)
+  def unload ()
     game.space.remove_shape @shape
 
   end

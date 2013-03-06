@@ -12,10 +12,10 @@ class Victorypoint
   	[@body.pos.x, @body.pos.y, @width, @height, @image_filename]
   end
   def initialize (game, x, y, width = 100, height = 100, image_filename = 'portal.png')
+    @game = game
     @image_filename = image_filename
     @image = Gosu::Image.new(game, "#{IMAGES_DIR}/#{image_filename}", true)
     space = game.space
-    @game = game
      # physicsy stuff
     @body = CP::Body.new_static
     @body.pos = Vec2.new(x, y)
@@ -40,15 +40,16 @@ class Victorypoint
       #player_s.object.message = "Victory!"
       #player_s.object.message_timer = 60
       player_s.object.previctory = true
+      
       return true  # Go through with this collision
     end
   end
 
-  def draw (game)
+  def draw ()
     @image.draw(*game.camera.to_screen(@body.pos).to_a, ZOrder::FAR)
   end
 
-  def unload (game)
+  def unload ()
     game.space.remove_shape @shape
   end
 end

@@ -11,16 +11,16 @@ module GameObject
     @@editable_classes << cl
   end
 
-  def unload (game)
+  def unload ()
   end
-  def act (game)
+  def act ()
   end
-  def react (game)
+  def react ()
   end
-  def draw (game)
+  def draw ()
   end
-  def debug_draw (game, is_selected)
-    draw(game)
+  def debug_draw (is_selected)
+    draw()
     ca = click_area
     if ca
       calt = game.camera.to_screen ca.lt
