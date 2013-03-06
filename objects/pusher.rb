@@ -62,11 +62,11 @@ class Pusher
     end
   end
 
-  def draw (game)
-    @image.draw(*game.camera.to_screen(@body.pos).to_a, ZOrder::FAR)
+  def draw
+    @image.draw(*@game.camera.to_screen(@body.pos).to_a, ZOrder::FAR)
   end
 
-  def unload (game)
-    game.space.remove_shape @shape
+  def unload
+    @game.space.remove_shape @shape
   end
 end
