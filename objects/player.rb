@@ -162,7 +162,7 @@ class Player
 
   def react ()
     game.camera.attend(@body.pos)
-    if (@body.pos.y >= @death) || (@currentHP < 0)
+    if (@body.pos.y >= @death) || (@currentHP <= 0)
       self.die
     end
     if @body.vel.x.abs < 0.1
