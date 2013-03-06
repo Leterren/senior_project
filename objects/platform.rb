@@ -35,6 +35,8 @@ class Platform
   def unload ()
     game.space.remove_shape @shape
   end
+  def reset ()
+  end
 
   def draw ()
     @image.draw(*game.camera.to_screen(@body.pos).to_a, ZOrder::BACK)

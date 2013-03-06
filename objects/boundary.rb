@@ -19,4 +19,7 @@ class Boundary
   def click_area
     @bounds
   end
+
+  def reset()
+  end
 end

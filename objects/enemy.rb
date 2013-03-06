@@ -64,9 +64,12 @@ class Enemy
 
 	def click_area
     	Rect.new(@start.x - 17, @start.y - 25, @start.x + 17, @start.y + 25)
-  	end
+  end
 
-  	def unload ()
+  def unload ()
     	game.space.remove_shape @shape
-  	end
+  end
+
+  def reset()
+  end
 end

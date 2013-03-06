@@ -23,4 +23,6 @@ class Background
   def draw ()
     @image.draw(*game.camera.to_screen(@pos, @scroll_factor).to_a, ZOrder::BACKGROUND)
   end
+  def reset()
+  end
 end

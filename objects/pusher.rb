@@ -69,4 +69,6 @@ class Pusher
   def unload
     @game.space.remove_shape @shape
   end
+  def reset()
+  end
 end

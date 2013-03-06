@@ -247,6 +247,7 @@ class Player
     @message_timer = 45
     @message_color = 0xFFFF0000
     @message = "-1 Life!"
+    @game.objects.each { |o| o.reset() }
     if @LIVES == 0
       self.defeat
     end
@@ -258,6 +259,8 @@ class Player
 
   def unload ()
     game.space.remove_shape @shape
+  end
+  def reset()
   end
 
 end

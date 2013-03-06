@@ -6,7 +6,7 @@ include Utility
 # This represents a single platform.  Its physical size takes on the dimensions of its image.
 
 class Buff
-  attr_accessor :game, :image_filename, :pickedup
+  attr_accessor :game, :image_filename, :pickedup, :initialize
   include GameObject
 
   def to_a
@@ -34,6 +34,7 @@ class Buff
     game.space.add_collision_handler(:player, :buff, Buff_Collisions.new)
 
     @pickedup = false
+    @loaded = true
   end
 
   class Buff_Collisions
@@ -54,6 +55,10 @@ class Buff
 
   def unload ()
     game.space.remove_shape @shape
+  end
+  def reset()
+    @pickedup = false
+    game.space.add_shape @shape
   end
 
   def draw ()
