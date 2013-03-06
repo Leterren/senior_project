@@ -18,7 +18,7 @@ class Player
   MISC_FRICTION = 0.4
 
   attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :message_color
-  attr_accessor :previctory, :falltimer, :currentHP, :body, :falldamage, :walk_start, :game, :damage
+  attr_accessor :previctory, :falltimer, :currentHP, :body, :walk_start, :game, :modifyHP
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -84,7 +84,7 @@ class Player
        # fall damage handler
       if player_s.object.ground
         if (player_s.object.falltimer > 45)
-          player_s.object.damage((player_s.object.falltimer - 45) / 2)
+          player_s.object.modifyHP(-((player_s.object.falltimer - 45) / 2))
         end
         player_s.object.falltimer = 0
       end
@@ -170,6 +170,9 @@ class Player
     if (@body.pos.y >= @death) || (@currentHP <= 0)
       self.die
     end
+    if (@currentHP > @MAX_HP)
+      @currentHP = @MAX_HP
+    end
     if @body.vel.x.abs < 0.1
       @walk_start = @body.pos.x
     end
@@ -219,13 +222,19 @@ class Player
     game.state = :main_menu
     game.unload_level
   end
-  def damage(dmg)
-    if dmg >= 1
-    @currentHP -= dmg
-    @@wow.play
-    @message = "#{-dmg} HP"
-    @message_color = 0xFFFF0000
-    @message_timer = 40
+  def modifyHP(amount)
+    if amount <= -1
+      @currentHP += amount
+      @@wow.play
+      @message = "#{amount} HP"
+      @message_color = 0xFFFF0000
+      @message_timer = 40
+    end
+    if amount >= 1
+      @currentHP += amount
+      @message = "+#{amount} HP"
+      @message_color = 0xFF00FFFF
+      @message_timer = 40
     end
   end
   def die

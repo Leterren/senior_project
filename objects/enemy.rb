@@ -46,15 +46,14 @@ class Enemy
   	end
 
 	def act ()
-
 	end
 
-  	def react ()
-  		if combatresolved
-  			self.unload()
-  		end
-  	end
-  
+	def react ()
+		if @combatresolved
+			self.unload()
+		end
+	end
+
  	def draw ()
  		if !combatresolved
     		x_scale = @direction == :left ? 1.0 : -1.0

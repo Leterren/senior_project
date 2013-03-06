@@ -7,6 +7,7 @@ require './objects/boundary.rb'
 require './objects/checkpoint.rb'
 require './objects/victorypoint.rb'
 require './objects/pusher.rb'
+require './objects/buff.rb'
 
 game = Game.new
 game.show
