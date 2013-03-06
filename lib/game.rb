@@ -24,7 +24,7 @@ class Game < Gosu::Window
 
   GRAVITY = 0.4
 
-  INITIAL_LEVEL = 'light'
+  INITIAL_LEVEL = 'dark'
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
 
@@ -40,7 +40,7 @@ class Game < Gosu::Window
     @title_font = Gosu::Font.new(self, "Helvetica", 40)
     @main_font = Gosu::Font.new(self, Gosu::default_font_name, 20)
     @state = :main_menu
-    @editor = Editor.new
+    @editor = Editor.new(self)
 
     @objects = []
     @player
@@ -113,12 +113,14 @@ class Game < Gosu::Window
       elsif @state == :combat
         if id == Gosu::KbEnter || id == Gosu::KbReturn
           @state = :level
-          @player.message = "You won!"
-          @player.currentHP -= 20
+          @player.message_color = 0xFF0000FF
+          @player.message = "You win!"
+          @player.currentHP -= 0
         end
         if id == Gosu::KbEscape
           @state = :level
-          @player.message = "You died!"
+          @player.message_color = 0xFFFF0000
+          @player.message = "-1 Life"
           @player.die
         end
       end

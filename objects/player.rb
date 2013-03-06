@@ -17,8 +17,8 @@ class Player
    # Determines the friction for non-ground collisions.
   MISC_FRICTION = 0.4
 
-  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer
-  attr_accessor :previctory, :falltimer, :currentHP, :body, :falldamage, :walk_start, :game
+  attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :message_color
+  attr_accessor :previctory, :falltimer, :currentHP, :body, :falldamage, :walk_start, :game, :damage
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -62,6 +62,7 @@ class Player
 
       @message = "Hello World"
       @message_timer = 0
+      @message_color = 0xFF00FF00
       @previctory = false
 
       game.space.add_shape(@shape)
@@ -82,7 +83,10 @@ class Player
       end
        # fall damage handler
       if player_s.object.ground
-        player_s.object.falldamage
+        if (player_s.object.falltimer > 45)
+          player_s.object.damage((player_s.object.falltimer - 45) / 2)
+        end
+        player_s.object.falltimer = 0
       end
       return true  # Go through with this collision
     end
@@ -196,9 +200,8 @@ class Player
     game.main_font.draw(@body.pos.y, 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD)
     game.main_font.draw("HP: #{@currentHP}", 8, Game::SCREEN_HEIGHT - 88, ZOrder::HUD, 1, 1, 0xFFFF0000)
     game.main_font.draw_rel("Lives: #{@LIVES}", Game::SCREEN_WIDTH - 5, 5, ZOrder::HUD, 1, 0, 1, 1, 0xFFFFFF00)
-    game.main_font.draw("Falltimer: #{@falltimer}", 8, Game::SCREEN_HEIGHT - 108, ZOrder::HUD)
     if @message_timer > 0
-      game.main_font.draw_rel(@message, screen_pos.x, screen_pos.y - 30, ZOrder::HUD, 0.5, 1, 1, 1, 0xff00ff00)
+      game.main_font.draw_rel(@message, screen_pos.x, screen_pos.y - 30, ZOrder::HUD, 0.5, 1, 1, 1, @message_color)
       @message_timer -= 1 
     end
     if @previctory == true
@@ -216,15 +219,14 @@ class Player
     game.state = :main_menu
     game.unload_level
   end
-  def falldamage
-    if @falltimer > 45 #&& player_s.object.body.vel.y > 9
-      @currentHP -= (@falltimer - 45)/2
-      @@wow.play
+  def damage(dmg)
+    if dmg >= 1
+    @currentHP -= dmg
+    @@wow.play
+    @message = "#{-dmg} HP"
+    @message_color = 0xFFFF0000
+    @message_timer = 40
     end
-    #if (@player.vel.y < -16) || (@player.vel.x.abs > 16)
-    #  @currentHP -= 
-    #end
-    @falltimer = 0
   end
   def die
     @@wow.play
@@ -233,6 +235,9 @@ class Player
     @currentHP = @MAX_HP
     @falltimer = 0
     @LIVES -= 1
+    @message_timer = 45
+    @message_color = 0xFFFF0000
+    @message = "-1 Life!"
     if @LIVES == 0
       self.defeat
     end

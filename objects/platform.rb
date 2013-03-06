@@ -15,7 +15,7 @@ class Platform
   def initialize (game, x, y, image_filename = 'dirtblocks.png')
     @game = game
     @image_filename = image_filename
-    space = game.space
+    space = @game.space
     @image = Gosu::Image.new(game, "#{IMAGES_DIR}/#{image_filename}", false)
      # physicsy stuff
     w = @image.width
