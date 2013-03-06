@@ -26,7 +26,7 @@ class Game < Gosu::Window
 
   INITIAL_LEVEL = 'dark'
 
-  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate
+  attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
 
   def needs_cursor?
     true
@@ -43,6 +43,7 @@ class Game < Gosu::Window
     @editor = Editor.new
 
     @objects = []
+    @player
     @space = CP::Space.new
     @space.gravity = Vec2.new(0.0, GRAVITY)
 
@@ -109,6 +110,17 @@ class Game < Gosu::Window
             @exitareyousure = false
           end
         end 
+      elsif @state == :combat
+        if id == Gosu::KbEnter || id == Gosu::KbReturn
+          @state = :level
+          @player.message = "You won!"
+          @player.currentHP -= 20
+        end
+        if id == Gosu::KbEscape
+          @state = :level
+          @player.message = "You died!"
+          @player.die
+        end
       end
 
     end
@@ -152,6 +164,11 @@ class Game < Gosu::Window
         @main_font.draw("-> Yes [Escape]", self.width/8, self.height/4 + 30, 0, 1, 1, 0xFF666666)
         @main_font.draw("-> No [Enter]", self.width/8, self.height/4 + 60, 0, 1, 1, 0xFF666666)
       end
+    elsif @state == :combat
+      @title_font.draw_rel("YOU ARE FIGHTING", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xFF888888)
+      @main_font.draw("Do you win?", self.width/8, self.height/4, 0, 1, 1, 0xFF666666)
+      @main_font.draw("-> Yes [Enter]", self.width/8, self.height/4 + 30, 0, 1, 1, 0xFF666666)
+      @main_font.draw("-> No [Escape]", self.width/8, self.height/4 + 60, 0, 1, 1, 0xFF666666)
     end
   end
 

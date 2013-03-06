@@ -25,6 +25,7 @@ class Player
   end
   def initialize (game, x, y, dir = :right, death = 1.0/0.0)
       @game = game
+      @game.player = self
       # Initialize
       @start = Vec2.new(x, y)
       @direction = dir

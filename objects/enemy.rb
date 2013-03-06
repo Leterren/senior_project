@@ -40,7 +40,7 @@ class Enemy
         	player_s.object.message = "Combat!"
         	player_s.object.message_timer = 30
         	enemy_s.object.combatresolved = true
-          #enemy_s.object.game.state = :combat
+          enemy_s.object.game.state = :combat
         	return true
       	end
   	end
