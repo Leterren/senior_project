@@ -13,7 +13,7 @@ class Editor
     @prop_index = -1
   end
 
-  def button_down (game, id)
+  def button_down (id)
     if id == Gosu::KbD
       @class_index += 1
       if @class_index >= GameObject::editable_classes.length
@@ -53,26 +53,26 @@ class Editor
     end
   end
 
-  def enable (game)
+  def enable ()
     @enabled = true
     game.camera.free = true
   end
-  def disable (game)
+  def disable ()
     game.camera.free = false
     @enabled = false
   end
-  def toggle (game)
+  def toggle ()
     if @enabled
-      disable(game)
+      disable()
     else
-      enable(game)
+      enable()
     end
   end
 
   SCROLL_THRESHOLD = 100
   SCROLL_DIVISOR = SCROLL_THRESHOLD / 10
 
-  def update_selection (game)
+  def update_selection ()
     if @selected_index >= 0
       @selected_a = game.objects[@selected_index].to_a
       @selected_repr = @selected_a.map do |o|
@@ -90,7 +90,7 @@ class Editor
     end
   end
 
-  def update (game)
+  def update ()
     if game.mouse_x > 0 && game.mouse_x < SCROLL_THRESHOLD
       game.camera.pos.x -= (SCROLL_THRESHOLD - game.mouse_x) / SCROLL_DIVISOR
     elsif game.mouse_x > game.width - SCROLL_THRESHOLD && game.mouse_x < game.width
@@ -124,18 +124,18 @@ class Editor
     end
   end
 
-  def cancel_input (game)
+  def cancel_input ()
   end
-  def commit_input (game)
+  def commit_input ()
     new_prop = YAML::load(game.text_input.text)
     new_a = [*@selected_a]
     new_a[@prop_index] = new_prop
-    game.objects[@selected_index].unload(game)
-    game.objects[@selected_index] = game.objects[@selected_index].class.new(game, *new_a)
-    update_selection game
+    game.objects[@selected_index].unload()
+    game.objects[@selected_index] = game.objects[@selected_index].class.new(*new_a)
+    update_selection
   end
 
-  def draw (game)
+  def draw ()
     if @selected_repr
       game.main_font.draw game.objects[@selected_index].class.name, 8, 8, ZOrder::HUD
       @selected_repr.each_index do |i|
