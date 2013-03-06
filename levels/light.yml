@@ -3,19 +3,11 @@
 - Player:
   - 0.0
   - 0.0
-  - :right
-  - .inf
+  - :left
+  - 500
 - Platform:
   - -16.0
   - 200.0
-  - lightblocks.png
-- Platform:
-  - 111.20000000000002
-  - 171.1000000014894
-  - lightblocks.png
-- Platform:
-  - 245.20000000000002
-  - 136.1000000014894
   - lightblocks.png
 - Platform:
   - 377.5000000000001
@@ -29,3 +21,19 @@
   - 75.80000000000001
   - -121.69999999851055
   - lightblocks.png
+- Pusher:
+  - 96.89999999999999
+  - -109.69999999850982
+  - water.png
+- Platform:
+  - 243.59924922239753
+  - 206.2000000029804
+  - lightblocks.png
+- Platform:
+  - 99.3
+  - 305.9666666666668
+  - lightblocks.png
+- Pusher:
+  - 154.0
+  - -84.09999999850989
+  - water.png

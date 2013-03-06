@@ -244,7 +244,6 @@ class Player
 
   def unload ()
     game.space.remove_shape @shape
-
   end
 
 end
