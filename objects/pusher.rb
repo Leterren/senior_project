@@ -48,7 +48,7 @@ class Pusher
 
   class Player_Collisions
     def begin (player_s, pusher_s, contact)
-      player_s.object.modifyHP(-10)
+      player_s.object.modifyHP(-5)
       player_s.body.apply_impulse(Vec2.new(0, 3), Vec2.new(0,0))
       return true  # Go through with this collision
     end
