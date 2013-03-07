@@ -491,10 +491,6 @@
   - darkblocks.png
 - Platform:
   - 892.0
-  - 158.0
-  - darkblocks.png
-- Platform:
-  - 892.0
   - 150.0
   - darkblocks.png
 - Platform:
@@ -681,14 +677,6 @@
   - 1276.5999999999974
   - 965.4666666666669
   - darkblocks.png
-- Platform:
-  - 1500.7386163079545
-  - 986.0
-  - darkblocks.png
-- Buff:
-  - 1515.338616307959
-  - 950.0
-  - HPup.png
 - Buff:
   - 500.7386163079558
   - 181.29999999999964
@@ -701,3 +689,23 @@
   - 1902.8246335939316
   - 81.6000000015953
   - HPup.png
+- Platform:
+  - 1559.406196252212
+  - 990.0
+  - darkblocks.png
+- Buff:
+  - 1581.406196252212
+  - 965.0
+  - HPup.png
+- Platform:
+  - 903.6613225389116
+  - 356.83333333482096
+  - darkblocks.png
+- Buff:
+  - 919.9011038363548
+  - 320.87777777968597
+  - 1up.png
+- Platform:
+  - 945.8438220371613
+  - 356.877777788703
+  - darkblocks.png

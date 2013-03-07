@@ -18,7 +18,7 @@ class Player
   MISC_FRICTION = 0.4
 
   attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :message_color
-  attr_accessor :previctory, :falltimer, :currentHP, :body, :walk_start, :game, :modifyHP
+  attr_accessor :previctory, :falltimer, :currentHP, :body, :walk_start, :game, :modifyHP, :LIVES
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -202,6 +202,7 @@ class Player
     game.main_font.draw(@body.pos.x, 8, Game::SCREEN_HEIGHT - 68, ZOrder::HUD)
     game.main_font.draw(@body.pos.y, 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD)
     game.main_font.draw("HP: #{@currentHP}", 8, Game::SCREEN_HEIGHT - 88, ZOrder::HUD, 1, 1, 0xFFFF0000)
+    game.main_font.draw("#{@ground}", 8, Game::SCREEN_HEIGHT - 108, ZOrder::HUD, 1, 1, 0xFFFF0000)
     game.main_font.draw_rel("Lives: #{@LIVES}", Game::SCREEN_WIDTH - 5, 5, ZOrder::HUD, 1, 0, 1, 1, 0xFFFFFF00)
     if @message_timer > 0
       game.main_font.draw_rel(@message, screen_pos.x, screen_pos.y - 30, ZOrder::HUD, 0.5, 1, 1, 1, @message_color)

@@ -113,7 +113,7 @@ class Game < Gosu::Window
       elsif @state == :combat
         if id == Gosu::KbEnter || id == Gosu::KbReturn
           @state = :level
-          @player.message_color = 0xFF0000FF
+          @player.message_color = 0xFF0033FF
           @player.message = "You win!"
           @player.currentHP -= 0
         end
