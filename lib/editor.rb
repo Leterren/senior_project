@@ -132,7 +132,7 @@ class Editor
     new_a = [*@selected_a]
     new_a[@prop_index] = new_prop
     @game.objects[@selected_index].unload()
-    @game.objects[@selected_index] = @game.objects[@selected_index].class.new(*new_a)
+    @game.objects[@selected_index] = @game.objects[@selected_index].class.new(@game, *new_a)
     update_selection
   end
 
