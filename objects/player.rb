@@ -18,7 +18,7 @@ class Player
   MISC_FRICTION = 0.4
 
   attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :message_color
-  attr_accessor :previctory, :falltimer, :currentHP, :body, :walk_start, :game, :modifyHP, :LIVES
+  attr_accessor :previctory, :falltimer, :currentHP, :body, :walk_start, :game, :modifyHP, :LIVES, :savedHP
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -47,6 +47,7 @@ class Player
       @LIVES = 4
       @MAX_HP = 100
       @currentHP = @MAX_HP
+      @savedHP = @currentHP
       @falltimer = 0
       @death = death
       @recent_checkpoint = 0
@@ -242,7 +243,7 @@ class Player
     @@wow.play
     @body.pos = @reset_point
     @body.vel = Vec2.new(0, 0)
-    @currentHP = @MAX_HP
+    @currentHP = @savedHP
     @falltimer = 0
     @LIVES -= 1
     @message_timer = 45

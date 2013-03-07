@@ -42,6 +42,7 @@ class Checkpoint
         player_s.object.message_color = 0xFF00FF00
         player_s.object.message = "Checkpoint!"
         player_s.object.message_timer = 30
+        player_s.object.savedHP = player_s.object.currentHP
       end
       return true  # Go through with this collision
     end

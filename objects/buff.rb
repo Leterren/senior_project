@@ -44,7 +44,7 @@ class Buff
       end
       if buff_s.object.image_filename == '1up.png'
         player_s.object.LIVES += 1
-        player_s.object.message = "1UP!"
+        player_s.object.message = "+1 Life!"
         player_s.object.message_timer = 45
         player_s.object.message_color = 0xFFFFFF00
       end
