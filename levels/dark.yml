@@ -13,7 +13,7 @@
 - Player:
   - 50.0
   - 0.0
-  - :right
+  - :left
   - 1200
 - Enemy:
   - 382.0
@@ -414,10 +414,6 @@
   - 501.0
   - darkblocks.png
 - Platform:
-  - 1356.0
-  - 411.0
-  - darkblocks.png
-- Platform:
   - 1601.0
   - 243.0
   - darkblocks.png
@@ -709,3 +705,7 @@
   - 945.8438220371613
   - 356.877777788703
   - darkblocks.png
+- Pusher:
+  - 425.99999999999466
+  - 289.5000000014898
+  - water.png

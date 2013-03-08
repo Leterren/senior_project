@@ -27,6 +27,7 @@ class Game < Gosu::Window
   INITIAL_LEVEL = 'dark'
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
+  attr_accessor :load_combat
 
   def needs_cursor?
     true
@@ -47,6 +48,9 @@ class Game < Gosu::Window
     @space = CP::Space.new
     @space.gravity = Vec2.new(0.0, GRAVITY)
 
+    @grid = [[]]
+    @tBackground = TacticalBackground.new(self)
+
     @camera = Camera.new(SCREEN_WIDTH, SCREEN_HEIGHT)
     @exitareyousure = false
     @victorystate = :neutral
@@ -61,6 +65,9 @@ class Game < Gosu::Window
       if @editor.enabled
         @editor.update
       end
+    end
+    if @state == :combat
+      #do combat stuff
     end
   end
 
@@ -158,8 +165,8 @@ class Game < Gosu::Window
     elsif @state == :pause_menu
       @title_font.draw_rel("Paused", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xFF888888)
       if @exitareyousure == false
-        @main_font.draw("Resume Game [Enter]", self.width/8, self.height/4, 0, 1, 1, 0xFF666666)
-        @main_font.draw("Return to Main Menu [Escape]", self.width/8, self.height/3, 0, 1, 1, 0xFF777777)
+        @main_font.draw("Resume Game [Enter]", self.width/8, self.height/4, 0.5, 1, 1, 0xFF666666)
+        @main_font.draw("Return to Main Menu [Escape]", self.width/8, self.height/3, 0.5, 1, 1, 0xFF777777)
       end
       if @exitareyousure == true
         @main_font.draw("Are you sure you want to exit to menu? Progress will be lost.", self.width/8, self.height/4, 0, 1, 1, 0xFF666666)
@@ -167,10 +174,12 @@ class Game < Gosu::Window
         @main_font.draw("-> No [Enter]", self.width/8, self.height/4 + 60, 0, 1, 1, 0xFF666666)
       end
     elsif @state == :combat
-      @title_font.draw_rel("YOU ARE FIGHTING", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xFF888888)
-      @main_font.draw("Do you win?", self.width/8, self.height/4, 0, 1, 1, 0xFF666666)
-      @main_font.draw("-> Yes [Enter]", self.width/8, self.height/4 + 30, 0, 1, 1, 0xFF666666)
-      @main_font.draw("-> No [Escape]", self.width/8, self.height/4 + 60, 0, 1, 1, 0xFF666666)
+      @tBackground.draw
+      @title_font.draw_rel("Combat!", 700, 20, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF888888)
+      @main_font.draw_rel("Do you win?", 685, self.height/4 - 30, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF666666)
+      @main_font.draw_rel("-> Yes [Enter]", 700, self.height/4, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF666666)
+      @main_font.draw_rel("-> No [Escape]", 700, self.height/4 + 30, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF666666)
+
     end
   end
 
@@ -218,6 +227,10 @@ class Game < Gosu::Window
     File.open "levels/#{@current_level}.yml", 'w' do |f|
       f.print YAML::dump(data)
     end
+  end
+
+  def load_combat
+    puts "Loading combat"
   end
 
 end
