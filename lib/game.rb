@@ -27,7 +27,7 @@ class Game < Gosu::Window
   INITIAL_LEVEL = 'dark'
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
-  attr_accessor :load_combat, :combatgridtv, :currentenemy
+  attr_accessor :load_combat, :combatgrid, :currentenemy
 
   def needs_cursor?
     true
@@ -44,12 +44,15 @@ class Game < Gosu::Window
     @editor = Editor.new(self)
 
     @objects = []
-    @player
+
     @currentenemy
     @space = CP::Space.new
     @space.gravity = Vec2.new(0.0, GRAVITY)
 
-    @combatgrid = [[]]
+    @combatgrid = []
+    @combatgrid.each do |i|
+      @combatgrid[i] = []
+    end
     @tBackground = TacticalBackground.new(self)
 
     @camera = Camera.new(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -233,6 +236,9 @@ class Game < Gosu::Window
 
   def load_combat
     puts "Loading combat"
+    @combatgrid.each do |i|
+      puts i
+    end
   end
 
 end

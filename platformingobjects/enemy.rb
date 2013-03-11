@@ -35,17 +35,27 @@ class Enemy
 	end
 
 	class Enemy_Collisions
-    	def begin (player_s, enemy_s, contact)
-        	player_s.object.message = "Combat!"
-        	player_s.object.message_timer = 30
-        	#enemy_s.object.combatresolved = true
-          enemy_s.object.game.currentenemy = enemy_s.object
-          enemy_s.object.game.load_combat
-          enemy_s.object.game.state = :combat
-          #if 
-        	return true
-      	end
-  	end
+  	def begin (player_s, enemy_s, contact)
+    	player_s.object.message = "Combat!"
+    	player_s.object.message_timer = 30
+    	#enemy_s.object.combatresolved = true
+      enemy_s.object.game.currentenemy = enemy_s.object
+      enemy_s.object.game.load_combat
+      enemy_s.object.game.state = :combat
+      i=0
+      while i < 2
+        place = false
+        x = rand(6)
+        y = rand(6)
+        while enemy_s.object.game.combatgrid[x][y] != nil
+          x = rand(6)
+          y = rand(6)
+        end
+        enemy_s.object.game.combatgrid[x][y] = i
+        i += 1
+      end
+    end
+  end
 
 	def act ()
 	end
