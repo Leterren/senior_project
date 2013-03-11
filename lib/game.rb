@@ -27,7 +27,7 @@ class Game < Gosu::Window
   INITIAL_LEVEL = 'dark'
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
-  attr_accessor :load_combat
+  attr_accessor :load_combat, :combatgridtv, :currentenemy
 
   def needs_cursor?
     true
@@ -45,10 +45,11 @@ class Game < Gosu::Window
 
     @objects = []
     @player
+    @currentenemy
     @space = CP::Space.new
     @space.gravity = Vec2.new(0.0, GRAVITY)
 
-    @grid = [[]]
+    @combatgrid = [[]]
     @tBackground = TacticalBackground.new(self)
 
     @camera = Camera.new(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -123,6 +124,7 @@ class Game < Gosu::Window
           @player.message_color = 0xFF0033FF
           @player.message = "You win!"
           @player.currentHP -= 0
+          @currentenemy.combatresolved = true
         end
         if id == Gosu::KbEscape
           @state = :level
@@ -176,9 +178,9 @@ class Game < Gosu::Window
     elsif @state == :combat
       @tBackground.draw
       @title_font.draw_rel("Combat!", 700, 20, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF888888)
-      @main_font.draw_rel("Do you win?", 685, self.height/4 - 30, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF666666)
-      @main_font.draw_rel("-> Yes [Enter]", 700, self.height/4, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF666666)
-      @main_font.draw_rel("-> No [Escape]", 700, self.height/4 + 30, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF666666)
+      @main_font.draw("Do you win?", 620, self.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF666666)
+      @main_font.draw("-> Yes [Enter]", 630, self.height/4, ZOrder::HUD, 1, 1, 0xFF666666)
+      @main_font.draw("-> No [Escape]", 630, self.height/4 + 30, ZOrder::HUD, 1, 1, 0xFF666666)
 
     end
   end

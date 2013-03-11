@@ -6,18 +6,17 @@ require './lib/objects'
 
 class Enemy
 	include GameObject
-
-  	attr_accessor :combatresolved, :game
-  
-  	def to_a
-  		[@start.x, @start.y, @direction]
-	end
-	def initialize (game, x, y, dir = :right)
+	attr_accessor :combatresolved, :game, :sprite
+	def to_a
+		[@start.x, @start.y, @direction, @sprite]
+  end
+	def initialize (game, x, y, dir = :right, sprite)
       @game = game
     	space = game.space
+      @sprite = sprite
     	@direction = dir
     	@@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
-        	game, "#{IMAGES_DIR}/player2.png", 50, 50, false
+        	game, "#{IMAGES_DIR}/#{@sprite}", 50, 50, false
       	)
     	 # physicsy stuff
     	@body = CP::Body.new_static
@@ -39,9 +38,11 @@ class Enemy
     	def begin (player_s, enemy_s, contact)
         	player_s.object.message = "Combat!"
         	player_s.object.message_timer = 30
-        	enemy_s.object.combatresolved = true
+        	#enemy_s.object.combatresolved = true
+          enemy_s.object.game.currentenemy = enemy_s.object
           enemy_s.object.game.load_combat
           enemy_s.object.game.state = :combat
+          #if 
         	return true
       	end
   	end
