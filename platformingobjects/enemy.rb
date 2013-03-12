@@ -10,7 +10,7 @@ class Enemy
 	def to_a
 		[@start.x, @start.y, @direction, @sprite]
   end
-	def initialize (game, x, y, dir = :right, sprite)
+	def initialize (game, x, y, dir = :right, sprite = 'player2.png')
       @game = game
     	space = game.space
       @sprite = sprite
@@ -38,10 +38,10 @@ class Enemy
   	def begin (player_s, enemy_s, contact)
     	player_s.object.message = "Combat!"
     	player_s.object.message_timer = 30
-    	#enemy_s.object.combatresolved = true
       enemy_s.object.game.currentenemy = enemy_s.object
       enemy_s.object.game.load_combat
       enemy_s.object.game.state = :combat
+=begin
       i=0
       while i < 2
         place = false
@@ -54,6 +54,7 @@ class Enemy
         enemy_s.object.game.combatgrid[x][y] = i
         i += 1
       end
+=end
     end
   end
 

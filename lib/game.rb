@@ -24,7 +24,12 @@ class Game < Gosu::Window
 
   GRAVITY = 0.4
 
-  INITIAL_LEVEL = 'dark'
+  #INITIAL_LEVEL = 'light'
+  LEVEL_HASH = {
+    0 => 'dark',
+    1 => 'light'
+  }
+  NUM_LEVELS = 2
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
   attr_accessor :load_combat, :combatgrid, :currentenemy
@@ -43,6 +48,7 @@ class Game < Gosu::Window
     @state = :main_menu
     @editor = Editor.new(self)
 
+    @levelcounter = 0
     @objects = []
 
     @currentenemy
@@ -76,7 +82,6 @@ class Game < Gosu::Window
   end
 
   def button_down (id)
-
     if self.text_input
       if id == Gosu::KbEscape
         editor.cancel_input
@@ -89,8 +94,13 @@ class Game < Gosu::Window
 
       if @state == :main_menu ##############
         if id == Gosu::KbEnter || id == Gosu::KbReturn
-          @victorystate = :neutral
-          load_level(INITIAL_LEVEL)
+          if @victorystate == :win
+            @levelcounter += 1
+          end
+          if @levelcounter > NUM_LEVELS - 1
+            @levelcounter = 0
+          end
+          load_level(LEVEL_HASH[@levelcounter])
           @state = :level
         end
         if id == Gosu::KbEscape
@@ -112,6 +122,8 @@ class Game < Gosu::Window
             @exitareyousure = true
           else
             @state = :main_menu
+            @levelcounter = 0
+            @victorystate = :neutral
           end
         end
         if id == Gosu::KbEnter || id == Gosu::KbReturn
@@ -121,7 +133,7 @@ class Game < Gosu::Window
             @exitareyousure = false
           end
         end 
-      elsif @state == :combat
+      elsif @state == :combat ###############
         if id == Gosu::KbEnter || id == Gosu::KbReturn
           @state = :level
           @player.message_color = 0xFF0033FF
@@ -159,7 +171,11 @@ class Game < Gosu::Window
       elsif victorystate == :win
         draw_quad(0, self.height/2, 0xFF000000, self.width, self.height/2, 0xFF000000, self.width, self.height, 0xFF777777, 0, self.height, 0xFF777777)
         @title_font.draw_rel("Victory!", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
-        @main_font.draw("Restart Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
+        if @levelcounter == NUM_LEVELS - 1
+          @main_font.draw("Restart Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
+        else
+          @main_font.draw("Next Level [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
+        end
         @main_font.draw("Exit Game [Escape]", self.width/8, self.height/3, ZOrder::HUD, 1, 1, 0xff888888)
       elsif victorystate == :lose
         draw_quad(0, self.height/2, 0xFF000000, self.width, self.height/2, 0xFF000000, self.width, self.height, 0xFF777777, 0, self.height, 0xFF777777)

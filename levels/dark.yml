@@ -264,10 +264,6 @@
   - 676.0
   - darkblocks.png
 - Platform:
-  - 2168.0
-  - 678.0
-  - darkblocks.png
-- Platform:
   - 2346.0
   - 776.0
   - darkblocks.png
@@ -711,3 +707,11 @@
   - 425.99999999999466
   - 289.5000000014898
   - water.png
+- Pusher:
+  - 681.3380707990046
+  - -154.6999999985097
+  - water.png
+- Platform:
+  - 2152.6000000000004
+  - 715.1000000014906
+  - darkblocks.png

@@ -14,7 +14,7 @@
   - 25.100000001489406
   - lightblocks.png
 - Platform:
-  - 202.8
+  - 195.0
   - -53.69999999851055
   - lightblocks.png
 - Platform:
@@ -37,3 +37,163 @@
   - 154.0
   - -84.09999999850989
   - water.png
+- Platform:
+  - 330.11623817461447
+  - 153.60000000447064
+  - lightblocks.png
+- Platform:
+  - 362.11623817461447
+  - 90.60000000447064
+  - lightblocks.png
+- Platform:
+  - -61.44328985243746
+  - -223.39999999702036
+  - lightblocks.png
+- Platform:
+  - 99.55671014756254
+  - -355.79999999702045
+  - lightblocks.png
+- Platform:
+  - 296.5567101475625
+  - -351.79999999702045
+  - lightblocks.png
+- Platform:
+  - 594.9567101475628
+  - -248.79999999702045
+  - lightblocks.png
+- Platform:
+  - 703.0567101475624
+  - -344.0999999970205
+  - lightblocks.png
+- Platform:
+  - 602.0567101475624
+  - -471.2999999970209
+  - lightblocks.png
+- Platform:
+  - 77.8345020127627
+  - -309.2999999955295
+  - lightblocks.png
+- Pusher:
+  - 393.98634882015216
+  - -329.9999999970204
+  - water.png
+- Pusher:
+  - 167.20000000932964
+  - -297.0999814079809
+  - water.png
+- Pusher:
+  - 292.60000255242346
+  - -297.89999999403904
+  - water.png
+- Platform:
+  - 477.36864878547794
+  - -567.0
+  - lightblocks.png
+- Platform:
+  - 389.72216001047246
+  - -567.0
+  - lightblocks.png
+- Platform:
+  - 283.72216001047246
+  - -680.0
+  - lightblocks.png
+- Platform:
+  - 206.72216001047246
+  - -680.0
+  - lightblocks.png
+- Pusher:
+  - 532.0
+  - -827.8999999955305
+  - water.png
+- Pusher:
+  - 477.4221600104719
+  - -969.8999999955305
+  - water.png
+- Pusher:
+  - 429.4221600104719
+  - -917.8999999955305
+  - water.png
+- Pusher:
+  - 378.0
+  - -1050.5999999955302
+  - water.png
+- Victorypoint:
+  - 203.70309533128517
+  - -793.8999999985094
+  - 100
+  - 100
+  - portal.png
+- Enemy:
+  - 163.96449991563694
+  - -372.29999999553013
+  - :left
+  - player2.png
+- Enemy:
+  - 346.60000254998755
+  - -697.0999686483228
+  - :right
+  - player2.png
+- Platform:
+  - -110.7411840858338
+  - 123.10000000149168
+  - dirtblocks.png
+- Platform:
+  - -179.44118408583387
+  - 49.70000000149164
+  - dirtblocks.png
+- Platform:
+  - -245.44118408583387
+  - -28.299999998508362
+  - dirtblocks.png
+- Platform:
+  - -318.741184085834
+  - -101.99999999850868
+  - dirtblocks.png
+- Platform:
+  - -231.741184085834
+  - -210.99999999850868
+  - dirtblocks.png
+- Platform:
+  - -164.741184085834
+  - -301.4999999985087
+  - dirtblocks.png
+- Platform:
+  - -89.74118408583399
+  - -382.4999999985087
+  - dirtblocks.png
+- Platform:
+  - -9.741184085833993
+  - -463.19999999850853
+  - dirtblocks.png
+- Platform:
+  - 69.25881591416601
+  - -544.1999999985085
+  - dirtblocks.png
+- Platform:
+  - 151.258815914166
+  - -608.1999999985085
+  - dirtblocks.png
+- Buff:
+  - 338.35881591267594
+  - -378.29999999701806
+  - HPup.png
+- Buff:
+  - 384.6588159126784
+  - -605.0999999970189
+  - HPup.png
+- Platform:
+  - 541.1588159126762
+  - 24.100000002982142
+  - lightblocks.png
+- Platform:
+  - 720.1588159126762
+  - 22.100000002982142
+  - lightblocks.png
+- Platform:
+  - 975.0
+  - -167.89999999701786
+  - lightblocks.png
+- Buff:
+  - 990.0
+  - -199.89999999701786
+  - 1up.png
