@@ -11,27 +11,27 @@ class Enemy
 		[@start.x, @start.y, @direction, @sprite]
   end
 	def initialize (game, x, y, dir = :right, sprite = 'player2.png')
-      @game = game
-    	space = game.space
-      @sprite = sprite
-    	@direction = dir
-    	@@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
-        	game, "#{IMAGES_DIR}/#{@sprite}", 50, 50, false
-      	)
-    	 # physicsy stuff
-    	@body = CP::Body.new_static
-    	@body.pos = Vec2.new(x, y)
-    	@start = @body.pos
-    	@body.object = self 
-    	poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
-      	@shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
-    	@shape.collision_type = :enemy
-    	@shape.object = self
-    	@shape.sensor = true
-    	space.add_shape @shape
-    	game.space.add_collision_handler(:player, :enemy, Enemy_Collisions.new)
+    @game = game
+  	space = game.space
+    @sprite = sprite
+  	@direction = dir
+  	@@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
+      	game, "#{IMAGES_DIR}/#{@sprite}", 50, 50, false
+    	)
+  	 # physicsy stuff
+  	@body = CP::Body.new_static
+  	@body.pos = Vec2.new(x, y)
+  	@start = @body.pos
+  	@body.object = self 
+  	poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
+    	@shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
+  	@shape.collision_type = :enemy
+  	@shape.object = self
+  	@shape.sensor = true
+  	space.add_shape @shape
+  	game.space.add_collision_handler(:player, :enemy, Enemy_Collisions.new)
 
-    	@combatresolved = false
+  	@combatresolved = false
 	end
 
 	class Enemy_Collisions
