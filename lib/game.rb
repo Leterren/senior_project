@@ -32,7 +32,7 @@ class Game < Gosu::Window
   NUM_LEVELS = 2
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
-  attr_accessor :load_combat, :combatgrid, :currentenemy
+  attr_accessor :load_combat, :combatgrid, :currentenemy, :printgrid
 
   def needs_cursor?
     true
@@ -55,9 +55,19 @@ class Game < Gosu::Window
     @space = CP::Space.new
     @space.gravity = Vec2.new(0.0, GRAVITY)
 
+    # making a 10x10 grid populated by things
     @combatgrid = []
-    @combatgrid.each do |i|
-      @combatgrid[i] = []
+    # initialize the grid, you can populate the grid from this point
+    #   by checking the current coords against the current x,y or
+    #   simply assign the values to their proper locations afterward
+    #   I recommend the latter
+    6.times do |x|
+      row = []
+      6.times do |y|
+        # you now have the x,y of your location in the grid
+        row << nil
+      end
+      @combatgrid << row
     end
     @tBackground = TacticalBackground.new(self)
 
@@ -97,7 +107,7 @@ class Game < Gosu::Window
           if @victorystate == :win
             @levelcounter += 1
           end
-          if @levelcounter > NUM_LEVELS - 1
+          if (@levelcounter > NUM_LEVELS - 1) || @victorystate == :lose
             @levelcounter = 0
           end
           load_level(LEVEL_HASH[@levelcounter])
@@ -140,12 +150,14 @@ class Game < Gosu::Window
           @player.message = "You win!"
           @player.currentHP -= 0
           @currentenemy.combatresolved = true
+          self.unload_combat
         end
         if id == Gosu::KbEscape
           @state = :level
           @player.message_color = 0xFFFF0000
           @player.message = "-1 Life"
           @player.die
+          self.unload_combat
         end
       end
 
@@ -252,10 +264,17 @@ class Game < Gosu::Window
 
   def load_combat
     puts "Loading combat"
-    @combatgrid.each do |i|
-      puts i
+    #printgrid
+  end
+  def unload_combat
+    for i in 0..5
+      for j in 0..5
+        @combatgrid[i][j] = nil
+      end
     end
   end
-
+  # print the grid nicely so we can see it
+  def printgrid
+    @combatgrid.each {|row| print "#{row} \n"}
+  end
 end
-

@@ -41,20 +41,19 @@ class Enemy
       enemy_s.object.game.currentenemy = enemy_s.object
       enemy_s.object.game.load_combat
       enemy_s.object.game.state = :combat
-=begin
+
       i=0
-      while i < 2
-        place = false
+      while i < 3
         x = rand(6)
         y = rand(6)
         while enemy_s.object.game.combatgrid[x][y] != nil
           x = rand(6)
           y = rand(6)
         end
-        enemy_s.object.game.combatgrid[x][y] = i
+        enemy_s.object.game.combatgrid[x][y] = i # = tacticalenemy.new
         i += 1
       end
-=end
+      enemy_s.object.game.printgrid
     end
   end
 

@@ -56,7 +56,6 @@ class Player
       poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
       @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
       #@shape = CP::Shape::Circle.new(@body, 25, Vec2.new(0,0))
-
       @shape.u = MISC_FRICTION  # friction
       @shape.e = 0.0  # elasticity
       @shape.collision_type = :player
