@@ -226,6 +226,8 @@ class Game < Gosu::Window
       @title_font.draw_rel("Combat!", 700, 20, ZOrder::HUD, 0.5, 0, 1, 1, 0xFFAAAAAA)
       @main_font.draw("Next Turn [Enter]", 620, self.height - 30, ZOrder::HUD, 1, 1, 0xFFAAAAAA)
       @tobjects.each { |to| to.draw }
+      # print "wat"
+      return nil
     end
   end
 

@@ -34,45 +34,48 @@ class Tenemy
 	end
 
 	def take_turn
-
-		# am i dead?
-		if @HP <= 0
-			@dead = true
+		if @dead
 			@game.combatgrid[@x][@y] = nil
-			@game.tobjects.delete(self)
-		end
-
-		
-		@move_max.times do |i|
-			newx = @x
-			newy = @y
-			distx = @player.x - @x
-			disty = @player.y - @y
-			if distx.abs <= 1 && disty.abs <= 1 && (distx.abs != disty.abs)
-				puts "#{self} attacking"
-				@player.takedamage(@damage)
-				break
-			elsif distx.abs > disty.abs
-				puts "#{self} approaching on x"
-				if distx > 0
-					newx += 1
-				else
-					newx -= 1
-				end
-			else
-				puts "#{self} approaching on y"
-				if disty > 0
-					newy += 1
-				else
-					newy -= 1
-				end
+		else
+			# am i dead?
+			if @HP <= 0
+				@game.combatgrid[@x][@y] = nil
+				puts "#{@game.tobjects.delete(self)} dying"
+				@dead = true
 			end
 
-			if @game.combatgrid[newx][newy].nil?
-				@game.combatgrid[newx][newy] = self
-				@game.combatgrid[@x][@y] = nil
-				@x = newx
-				@y = newy
+			
+			@move_max.times do |i|
+				newx = @x
+				newy = @y
+				distx = @player.x - @x
+				disty = @player.y - @y
+				if distx.abs <= 1 && disty.abs <= 1 && (distx.abs != disty.abs)
+					puts "#{self} attacking"
+					@player.takedamage(@damage)
+					break
+				elsif distx.abs > disty.abs
+					puts "#{self} moving on x"
+					if distx > 0
+						newx += 1
+					else
+						newx -= 1
+					end
+				else
+					puts "#{self} moving on y"
+					if disty > 0
+						newy += 1
+					else
+						newy -= 1
+					end
+				end
+
+				if @game.combatgrid[newx][newy].nil?
+					@game.combatgrid[newx][newy] = self
+					@game.combatgrid[@x][@y] = nil
+					@x = newx
+					@y = newy
+				end
 			end
 		end
 		

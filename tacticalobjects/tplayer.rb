@@ -15,7 +15,7 @@ class Tplayer
 		@y = y
 		@player = player
 		@damage = 20
-		@move_max = 4
+		@move_max = 40
 		@current_move = 0
 		@attack_state = :notyet #:notyet, :aiming, and :finished 
 		@turn_end = false
