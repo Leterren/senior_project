@@ -202,9 +202,9 @@ class Player
     frame.draw_rot(screen_pos.x, screen_pos.y, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
     #game.main_font.draw(@body.pos.x, 8, Game::SCREEN_HEIGHT - 68, ZOrder::HUD)
     #game.main_font.draw(@body.pos.y, 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD)
-    game.main_font.draw("HP: #{@currentHP}", 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD, 1, 1, 0xFFFF0000)
+    game.main_font.draw_rel("HP: #{@currentHP}", Game::SCREEN_WIDTH - 5, 5, ZOrder::HUD, 1, 0, 1, 1, 0xFFFF1111)
     #game.main_font.draw("#{@ground}", 8, Game::SCREEN_HEIGHT - 108, ZOrder::HUD, 1, 1, 0xFFFF0000)
-    game.main_font.draw_rel("Lives: #{@LIVES}", Game::SCREEN_WIDTH - 5, 5, ZOrder::HUD, 1, 0, 1, 1, 0xFFFFFF00)
+    game.main_font.draw_rel("Lives: #{@LIVES}", Game::SCREEN_WIDTH - 5, 25, ZOrder::HUD, 1, 0, 1, 1, 0xFFFFFF66)
     if @message_timer > 0
       game.main_font.draw_rel(@message, screen_pos.x, screen_pos.y - 30, ZOrder::HUD, 0.5, 1, 1, 1, @message_color)
       @message_timer -= 1 
@@ -229,7 +229,7 @@ class Player
       @currentHP += amount
       @@wow.play
       @message = "#{amount} HP"
-      @message_color = 0xFFFF0000
+      @message_color = 0xFFFF1111
       @message_timer = 40
     end
     if amount >= 1

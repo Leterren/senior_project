@@ -32,7 +32,7 @@ class Game < Gosu::Window
   NUM_LEVELS = 2
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
-  attr_accessor :load_combat, :combatgrid, :currentenemy, :printgrid
+  attr_accessor :load_combat, :combatgrid, :currentenemy, :printgrid, :tobjects
 
   def needs_cursor?
     true
@@ -89,10 +89,19 @@ class Game < Gosu::Window
     end
     if @state == :combat
       if @tobjects[@current_turn].take_turn
-        @current_turn++
+        @current_turn += 1
         if @current_turn >= @tobjects.length
           @current_turn = 0
         end
+      end
+      flag = false
+      @tobjects.each do |o|
+        if o.class == Tenemy
+          flag = true
+        end
+      end
+      if flag == false
+        self.win_combat
       end
     end
   end
@@ -153,13 +162,9 @@ class Game < Gosu::Window
         if id == Gosu::KbEnter || id == Gosu::KbReturn
           
         end
+        @tobjects[@current_turn].button_down(id)
         if id == Gosu::KbV
-          @state = :level
-          @player.message_color = 0xFF0033FF
-          @player.message = "You win!"
-          @player.currentHP -= 0
-          @currentenemy.combatresolved = true
-          self.unload_combat
+          self.win_combat
         end
         if id == Gosu::KbEscape
           @state = :level
@@ -174,7 +179,7 @@ class Game < Gosu::Window
   end
 
   def draw
-    @main_font.draw(@state.to_s, 8, self.height - 28, ZOrder::HUD)
+    #@main_font.draw(@state.to_s, 8, self.height - 28, ZOrder::HUD)
     if @state == :level
       self.caption = "Get to the Warp Gate!"
       if @editor.enabled
@@ -216,11 +221,10 @@ class Game < Gosu::Window
         @main_font.draw("-> No [Enter]", self.width/8, self.height/4 + 60, 0, 1, 1, 0xFF666666)
       end
     elsif @state == :combat
+      self.caption = "Defeat the Enemies!"
       @tBackground.draw
-      @title_font.draw_rel("Combat!", 700, 20, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF888888)
-      @main_font.draw("Next Step", 620, self.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF666666)
-      @main_font.draw("-> Yes [Enter]", 630, self.height/4, ZOrder::HUD, 1, 1, 0xFF666666)
-      @main_font.draw("-> No [Escape]", 630, self.height/4 + 30, ZOrder::HUD, 1, 1, 0xFF666666)
+      @title_font.draw_rel("Combat!", 700, 20, ZOrder::HUD, 0.5, 0, 1, 1, 0xFFAAAAAA)
+      @main_font.draw("Next Turn [Enter]", 620, self.height - 30, ZOrder::HUD, 1, 1, 0xFFAAAAAA)
       @tobjects.each { |to| to.draw }
     end
   end
@@ -274,7 +278,8 @@ class Game < Gosu::Window
   def load_combat
     puts "Loading combat"
     @state = :combat
-    x, y = rand(6), rand(6)
+    x = rand(6)
+    y = rand(6)
     tp = Tplayer.new(self, @player, x, y)
     combatgrid[x][y] = tp
     @tobjects << tp
@@ -290,7 +295,16 @@ class Game < Gosu::Window
       combatgrid[x][y] = te
       @tobjects << te
     end
-    printgrid
+    #printgrid
+  end
+  def win_combat
+    @state = :level
+    @player.message_timer = 60
+    @player.message_color = 0xFF0066FF
+    @player.message = "You win!"
+    @player.currentHP -= 0
+    @currentenemy.combatresolved = true
+    self.unload_combat
   end
   def unload_combat
     for i in 0..5
@@ -302,6 +316,7 @@ class Game < Gosu::Window
   end
   # print the grid nicely so we can see it
   def printgrid
+    print "*\n"
     @combatgrid.each do |row|
       print "{"
       row.each do |cell|
@@ -309,5 +324,6 @@ class Game < Gosu::Window
       end
       print "}\n"
     end
+    print "*\n"
   end
 end
