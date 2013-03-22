@@ -88,7 +88,7 @@ class Game < Gosu::Window
       end
     end
     if @state == :combat
-      if @tobjects[@current_turn].take_turn
+      while @tobjects[@current_turn].take_turn
         @current_turn += 1
         if @current_turn >= @tobjects.length
           @current_turn = 0
