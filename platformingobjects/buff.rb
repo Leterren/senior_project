@@ -39,7 +39,7 @@ class Buff
 
   class Buff_Collisions
     def begin (player_s, buff_s, contact)
-      if buff_s.object.image_filename == 'HPup.png' && player_s.object.currentHP < 100
+      if buff_s.object.image_filename == 'HPup.png' && player_s.object.currentHP < player_s.object.MAX_HP
         player_s.object.modifyHP(10)
         buff_s.object.pickedup = true
       end

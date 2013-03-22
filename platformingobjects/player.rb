@@ -18,7 +18,7 @@ class Player
   MISC_FRICTION = 0.4
 
   attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :message_color
-  attr_accessor :previctory, :falltimer, :currentHP, :body, :walk_start, :game, :modifyHP, :LIVES, :savedHP
+  attr_accessor :previctory, :falltimer, :currentHP, :body, :MAX_HP, :walk_start, :game, :modifyHP, :LIVES, :savedHP
   
   def to_a
     [@start.x, @start.y, @direction, @death]

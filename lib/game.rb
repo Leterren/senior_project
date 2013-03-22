@@ -159,19 +159,12 @@ class Game < Gosu::Window
           end
         end 
       elsif @state == :combat ####################################
-        if id == Gosu::KbEnter || id == Gosu::KbReturn
-          
-        end
         @tobjects[@current_turn].button_down(id)
         if id == Gosu::KbV
           self.win_combat
         end
         if id == Gosu::KbEscape
-          @state = :level
-          @player.message_color = 0xFFFF0000
-          @player.message = "-1 Life"
-          @player.die
-          self.unload_combat
+          self.lose_combat
         end
       end
 
@@ -205,7 +198,7 @@ class Game < Gosu::Window
         @main_font.draw("Exit Game [Escape]", self.width/8, self.height/3, ZOrder::HUD, 1, 1, 0xff888888)
       elsif victorystate == :lose
         draw_quad(0, self.height/2, 0xFF000000, self.width, self.height/2, 0xFF000000, self.width, self.height, 0xFF777777, 0, self.height, 0xFF777777)
-        @title_font.draw_rel("Defeat!", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
+        @title_font.draw_rel("Game Over!", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
         @main_font.draw("Restart Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
         @main_font.draw("Exit Game [Escape]", self.width/8, self.height/3, ZOrder::HUD, 1, 1, 0xff888888)
       end
@@ -302,8 +295,8 @@ class Game < Gosu::Window
   def win_combat
     @state = :level
     @player.message_timer = 60
-    # @player.message_color = 0xFF0066FF
-    # @player.message = "You win!"
+    @player.message_color = 0xFF0066FF
+    @player.message = "You win!"
     @player.currentHP -= 0
     @currentenemy.combatresolved = true
     self.unload_combat
