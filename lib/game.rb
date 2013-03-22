@@ -70,6 +70,7 @@ class Game < Gosu::Window
       @combatgrid << row
     end
     @tBackground = TacticalBackground.new(self)
+    @tobjects = []
 
     @camera = Camera.new(SCREEN_WIDTH, SCREEN_HEIGHT)
     @exitareyousure = false
@@ -87,7 +88,12 @@ class Game < Gosu::Window
       end
     end
     if @state == :combat
-      #do combat stuff
+      if @tobjects[@current_turn].take_turn
+        @current_turn++
+        if @current_turn >= @tobjects.length
+          @current_turn = 0
+        end
+      end
     end
   end
 
@@ -215,7 +221,7 @@ class Game < Gosu::Window
       @main_font.draw("Next Step", 620, self.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF666666)
       @main_font.draw("-> Yes [Enter]", 630, self.height/4, ZOrder::HUD, 1, 1, 0xFF666666)
       @main_font.draw("-> No [Escape]", 630, self.height/4 + 30, ZOrder::HUD, 1, 1, 0xFF666666)
-
+      @tobjects.each { |to| to.draw }
     end
   end
 
@@ -269,7 +275,10 @@ class Game < Gosu::Window
     puts "Loading combat"
     @state = :combat
     x, y = rand(6), rand(6)
-    combatgrid[x][y] = Tplayer.new(self, @player, x, y)
+    tp = Tplayer.new(self, @player, x, y)
+    combatgrid[x][y] = tp
+    @tobjects << tp
+    @current_turn = 0
     3.times do |i|
       x = rand(6)
       y = rand(6)
@@ -277,7 +286,9 @@ class Game < Gosu::Window
         x = rand(6)
         y = rand(6)
       end
-      combatgrid[x][y] = Tenemy.new(self, x, y) # = Tenemy
+      te = Tenemy.new(self, x, y) # = Tenemy
+      combatgrid[x][y] = te
+      @tobjects << te
     end
     printgrid
   end
@@ -287,6 +298,7 @@ class Game < Gosu::Window
         @combatgrid[i][j] = nil
       end
     end
+    @tobjects = []
   end
   # print the grid nicely so we can see it
   def printgrid

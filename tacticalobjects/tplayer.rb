@@ -15,8 +15,8 @@ class Tplayer
 		@current_move = 0
 	end
 
-	def act ()
-		
+	def take_turn
+		 # TODO: player logic
 	end
 
 	def draw

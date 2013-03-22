@@ -16,11 +16,7 @@ class Tenemy
 
 	end
 
-	def move_turn
-		#insert AI here
-	end
-
-	def act_turn
+	def take_turn
 		#insert AI here
 	end
 
