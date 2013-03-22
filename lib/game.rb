@@ -291,7 +291,7 @@ class Game < Gosu::Window
         x = rand(6)
         y = rand(6)
       end
-      te = Tenemy.new(self, x, y) # = Tenemy
+      te = Tenemy.new(self, tp, x, y) # = Tenemy
       combatgrid[x][y] = te
       @tobjects << te
     end
@@ -300,10 +300,15 @@ class Game < Gosu::Window
   def win_combat
     @state = :level
     @player.message_timer = 60
-    @player.message_color = 0xFF0066FF
-    @player.message = "You win!"
+    # @player.message_color = 0xFF0066FF
+    # @player.message = "You win!"
     @player.currentHP -= 0
     @currentenemy.combatresolved = true
+    self.unload_combat
+  end
+  def lose_combat
+    @state = :level
+    @player.die
     self.unload_combat
   end
   def unload_combat

@@ -13,7 +13,6 @@ class Tplayer
 		@game = game
 		@x = x
 		@y = y
-		@HP = player.currentHP
 		@player = player
 		@damage = 20
 		@move_max = 4
@@ -119,6 +118,8 @@ class Tplayer
 	end
 
 	def take_turn
+		@game.lose_combat if @player.currentHP <= 0
+
 		if @turn_end == true
 			@current_move = 0
 			@attack_state = :notyet
@@ -139,6 +140,14 @@ class Tplayer
 			@game.main_font.draw("[^ v < >]", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888)
 		else
 			@game.main_font.draw("Attack Complete", 630, @game.height/4 -30, ZOrder::HUD, 1, 1, 0xFF888888)
+		end
+	end
+
+	def takedamage(damage)
+		if damage < @player.currentHP
+			@player.currentHP -= damage
+		else
+			@player.currentHP = 0
 		end
 	end
 
