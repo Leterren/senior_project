@@ -6,6 +6,7 @@ require './lib/objects'
 include Utility
 
 class Tenemy
+  include TObject
 
 	def initialize(game, x, y, sprite = 'player2.png')
 		@game = game

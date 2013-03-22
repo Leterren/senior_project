@@ -6,6 +6,7 @@ require './lib/objects'
 include Utility
 
 class Tplayer
+  include TObject
 
 	def initialize(game, player, x, y, sprite = 'player.png')
 		@HP = player.currentHP
