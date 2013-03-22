@@ -49,7 +49,7 @@ class Buff
         player_s.object.message_color = 0xFFFFFF00
       end
       buff_s.object.pickedup = true
-      return true  # Go through with this collision
+      return nil  # Go through with this collision
     end
   end
 

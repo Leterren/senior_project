@@ -9,6 +9,8 @@ require './platformingobjects/victorypoint.rb'
 require './platformingobjects/pusher.rb'
 require './platformingobjects/buff.rb'
 require './tacticalobjects/background.rb'
+require './tacticalobjects/tenemy.rb'
+require './tacticalobjects/tplayer.rb'
 
 game = Game.new
 game.show

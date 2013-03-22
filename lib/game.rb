@@ -55,7 +55,7 @@ class Game < Gosu::Window
     @space = CP::Space.new
     @space.gravity = Vec2.new(0.0, GRAVITY)
 
-    # making a 10x10 grid populated by things
+    # making a 6x6 grid populated by things
     @combatgrid = []
     # initialize the grid, you can populate the grid from this point
     #   by checking the current coords against the current x,y or
@@ -143,8 +143,11 @@ class Game < Gosu::Window
             @exitareyousure = false
           end
         end 
-      elsif @state == :combat ###############
+      elsif @state == :combat ####################################
         if id == Gosu::KbEnter || id == Gosu::KbReturn
+          
+        end
+        if id == Gosu::KbV
           @state = :level
           @player.message_color = 0xFF0033FF
           @player.message = "You win!"
@@ -167,7 +170,7 @@ class Game < Gosu::Window
   def draw
     @main_font.draw(@state.to_s, 8, self.height - 28, ZOrder::HUD)
     if @state == :level
-      self.caption = "Get to the Warp Point!"
+      self.caption = "Get to the Warp Gate!"
       if @editor.enabled
         @objects.each_index { |i| @objects[i].debug_draw(i == @editor.selected_index) }
         @editor.draw
@@ -209,7 +212,7 @@ class Game < Gosu::Window
     elsif @state == :combat
       @tBackground.draw
       @title_font.draw_rel("Combat!", 700, 20, ZOrder::HUD, 0.5, 0, 1, 1, 0xFF888888)
-      @main_font.draw("Do you win?", 620, self.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF666666)
+      @main_font.draw("Next Step", 620, self.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF666666)
       @main_font.draw("-> Yes [Enter]", 630, self.height/4, ZOrder::HUD, 1, 1, 0xFF666666)
       @main_font.draw("-> No [Escape]", 630, self.height/4 + 30, ZOrder::HUD, 1, 1, 0xFF666666)
 
@@ -264,7 +267,19 @@ class Game < Gosu::Window
 
   def load_combat
     puts "Loading combat"
-    #printgrid
+    @state = :combat
+    x, y = rand(6), rand(6)
+    combatgrid[x][y] = Tplayer.new(self, @player, x, y)
+    3.times do |i|
+      x = rand(6)
+      y = rand(6)
+      while combatgrid[x][y] != nil
+        x = rand(6)
+        y = rand(6)
+      end
+      combatgrid[x][y] = Tenemy.new(self, x, y) # = Tenemy
+    end
+    printgrid
   end
   def unload_combat
     for i in 0..5
@@ -275,6 +290,12 @@ class Game < Gosu::Window
   end
   # print the grid nicely so we can see it
   def printgrid
-    @combatgrid.each {|row| print "#{row} \n"}
+    @combatgrid.each do |row|
+      print "{"
+      row.each do |cell|
+        print "[#{cell}]"
+      end
+      print "}\n"
+    end
   end
 end
