@@ -39,16 +39,18 @@ class Buff
 
   class Buff_Collisions
     def begin (player_s, buff_s, contact)
-      if buff_s.object.image_filename == 'HPup.png'
+      if buff_s.object.image_filename == 'HPup.png' && player_s.object.currentHP < 100
         player_s.object.modifyHP(10)
+        buff_s.object.pickedup = true
       end
       if buff_s.object.image_filename == '1up.png'
         player_s.object.LIVES += 1
         player_s.object.message = "+1 Life!"
         player_s.object.message_timer = 45
         player_s.object.message_color = 0xFFFFFF00
+        buff_s.object.pickedup = true
       end
-      buff_s.object.pickedup = true
+      
       return nil  # Go through with this collision
     end
   end
