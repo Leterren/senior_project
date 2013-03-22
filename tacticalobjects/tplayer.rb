@@ -17,6 +17,7 @@ class Tplayer
 
 	def take_turn
 		 # TODO: player logic
+		return false
 	end
 
 	def draw

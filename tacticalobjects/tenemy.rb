@@ -17,7 +17,8 @@ class Tenemy
 	end
 
 	def take_turn
-		#insert AI here
+		 # TODO: insert AI here
+  	return true
 	end
 
 	def draw

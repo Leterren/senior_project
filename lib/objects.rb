@@ -40,4 +40,11 @@ module GameObject
   end
 end
 
-
+module TObject
+  def take_turn
+    # Return true if the turn is finished.
+    return true
+  end
+  def draw
+  end
+end
