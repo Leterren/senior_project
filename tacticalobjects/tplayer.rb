@@ -54,7 +54,7 @@ class Tplayer
 
   def try_attack (tox, toy)
     if @game.spot_occupied?(toy, tox)
-      @game.combatgrid[tox][toy].HP -= @damage
+      @game.combatgrid[tox][toy].take_damage(@damage)
     end
     @attack_state = :finished
     @path = []
@@ -142,7 +142,7 @@ class Tplayer
 		end
 	end
 
-	def takedamage(damage)
+	def take_damage(damage)
 		if damage < @player.currentHP
 			@player.currentHP -= damage
 		else

@@ -52,7 +52,7 @@ class Tenemy
 				disty = @player.y - @y
 				if distx.abs <= 1 && disty.abs <= 1 && (distx.abs != disty.abs)
 					puts "#{self} attacking"
-					@player.takedamage(@damage)
+					@player.take_damage(@damage)
 					break
 				elsif distx.abs > disty.abs
 					puts "#{self} moving on x"
@@ -79,10 +79,13 @@ class Tenemy
 			end
 		end
 		
-		
   	return true
 	end
 
+  def take_damage (amount)
+    @HP -= amount
+  end
+		
 	def draw
 		if @dead == false
 			@game.draw_quad(scale_y, scale_x, 0xFFAA0000, scale_y + 50, scale_x, 0xFFAA0000, scale_y + 50, scale_x + 50, 0xFFAA0000, scale_y, scale_x + 50, 0xFFAA0000)

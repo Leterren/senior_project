@@ -11,16 +11,16 @@ module GameObject
     @@editable_classes << cl
   end
 
-  def unload ()
+  def unload
   end
-  def act ()
+  def act
   end
-  def react ()
+  def react
   end
-  def draw ()
+  def draw
   end
   def debug_draw (is_selected)
-    draw()
+    draw
     ca = click_area
     if ca
       calt = game.camera.to_screen ca.lt
@@ -45,8 +45,11 @@ module TObject
     # Return true if the turn is finished.
     return true
   end
+  def take_damage (amount)
+    # Subtract it from your HP, maybe modulating it with defense
+  end
   def draw
   end
-  def button_down(id)
+  def button_down (id)
   end
 end
