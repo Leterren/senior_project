@@ -68,7 +68,6 @@ class Tplayer
 				if move_success
 					@game.combatgrid[@x-1][@y] = self
 					@game.combatgrid[@x][@y] = nil
-					@path << [@x, @y]
 					@x -= 1
 				end
 			end
@@ -82,7 +81,7 @@ class Tplayer
 				end
 				@attack_state = :finished
 			  @path = []
-			elsif x > 0 && @game.combatgrid[@x+1][@y] == nil
+			elsif x < @game.combatgrid.length - 1 && @game.combatgrid[@x+1][@y] == nil
 			  rewind = @path.index([@x+1, @y])
 			  move_success = false
 			  if rewind
@@ -110,7 +109,7 @@ class Tplayer
 				end
 				@attack_state = :finished
 				@path = []
-			elsif x > 0 && @game.combatgrid[@x][@y-1] == nil
+			elsif y > 0 && @game.combatgrid[@x][@y-1] == nil
 			  rewind = @path.index([@x, @y-1])
 			  move_success = false
 			  if rewind
@@ -138,7 +137,7 @@ class Tplayer
 				end
 				@attack_state = :finished
 			  @path = []
-			elsif x > 0 && @game.combatgrid[@x][@y+1] == nil
+			elsif y < @game.combatgrid[@x].length - 1 && @game.combatgrid[@x][@y+1] == nil
 			  rewind = @path.index([@x, @y+1])
 			  move_success = false
 			  if rewind
