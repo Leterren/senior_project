@@ -317,6 +317,9 @@ class Game < Gosu::Window
   def spot_clear? (x, y)
     return 0 <= y && y < @combatgrid.length && 0 <= x && x < @combatgrid[y].length && @combatgrid[y][x] == nil
   end
+  def spot_occupied? (x, y)
+    return 0 <= y && y < @combatgrid.length && 0 <= x && x < @combatgrid[y].length && @combatgrid[y][x] != nil
+  end
   # print the grid nicely so we can see it
   def printgrid
     print "*\n"

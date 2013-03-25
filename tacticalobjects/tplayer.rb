@@ -52,6 +52,14 @@ class Tplayer
 	  end
   end
 
+  def try_attack (tox, toy)
+    if @game.spot_occupied?(toy, tox)
+      @game.combatgrid[tox][toy].HP -= @damage
+    end
+    @attack_state = :finished
+    @path = []
+  end
+
 	def button_down(id)
 		if id==Gosu::KbEnter || id==Gosu::KbReturn
 			@turn_end = true
@@ -69,12 +77,7 @@ class Tplayer
 
 		if id==Gosu::KbUp
 			if @attack_state == :aiming
-				#attack space up
-				if @game.combatgrid[@x-1][@y] != nil
-					@game.combatgrid[@x-1][@y].HP -= @damage
-				end
-				@attack_state = :finished
-			  @path = []
+			  try_attack(@x-1, @y)
 			else
 			  try_move(@x-1, @y)
 			end
@@ -82,12 +85,7 @@ class Tplayer
 		
 		if id==Gosu::KbDown
 			if @attack_state == :aiming
-				#attack space down
-				if @game.combatgrid[@x+1][@y] != nil
-					@game.combatgrid[@x+1][@y].HP -= @damage
-				end
-				@attack_state = :finished
-			  @path = []
+			  try_attack(@x+1, @y)
 			else
 			  try_move(@x+1, @y)
 			end
@@ -95,12 +93,7 @@ class Tplayer
 		
 		if id==Gosu::KbLeft
 			if @attack_state == :aiming
-				#attack space left
-				if @game.combatgrid[@x][@y-1] != nil
-					@game.combatgrid[@x][@y-1].HP -= @damage
-				end
-				@attack_state = :finished
-				@path = []
+			  try_attack(@x, @y-1)
 			else
 			  try_move(@x, @y-1)
 			end
@@ -108,12 +101,7 @@ class Tplayer
 		
 		if id==Gosu::KbRight
 			if @attack_state == :aiming
-				#attack space right
-				if @game.combatgrid[@x][@y+1] != nil
-					@game.combatgrid[@x][@y+1].HP -= @damage
-				end
-				@attack_state = :finished
-			  @path = []
+			  try_attack(@x, @y+1)
 			else
 			  try_move(@x, @y+1)
 			end
