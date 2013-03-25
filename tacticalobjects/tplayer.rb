@@ -16,6 +16,7 @@ class Tplayer
 		@player = player
 		@damage = 20
 		@move_max = 4
+		@path = []
 		@current_move = 0
 		@attack_state = :notyet #:notyet, :aiming, and :finished 
 		@turn_end = false
@@ -51,13 +52,24 @@ class Tplayer
 					@game.combatgrid[@x-1][@y].HP -= @damage
 				end
 				@attack_state = :finished
-			else
-				if (@current_move < @move_max) && (x > 0) && (@game.combatgrid[@x-1][@y] == nil)
+			  @path = []
+			elsif x > 0 && @game.combatgrid[@x-1][@y] == nil
+			  rewind = @path.index([@x-1, @y])
+			  move_success = false
+			  if rewind
+			    @path = @path[0,rewind]
+			    @current_move = @path.length
+          move_success = true
+				elsif @current_move < @move_max
+					@path << [@x, @y]
+				  @current_move += 1
+				  move_success = true
+				end
+				if move_success
 					@game.combatgrid[@x-1][@y] = self
 					@game.combatgrid[@x][@y] = nil
+					@path << [@x, @y]
 					@x -= 1
-					@current_move += 1
-					#@game.printgrid
 				end
 			end
 		end
@@ -69,13 +81,23 @@ class Tplayer
 					@game.combatgrid[@x+1][@y].HP -= @damage
 				end
 				@attack_state = :finished
-			else
-				if (@current_move < @move_max) && (x < 5) && (@game.combatgrid[@x+1][@y] == nil)
+			  @path = []
+			elsif x > 0 && @game.combatgrid[@x+1][@y] == nil
+			  rewind = @path.index([@x+1, @y])
+			  move_success = false
+			  if rewind
+			    @path = @path[0,rewind]
+			    @current_move = @path.length
+          move_success = true
+				elsif @current_move < @move_max
+					@path << [@x, @y]
+				  @current_move += 1
+				  move_success = true
+				end
+				if move_success
 					@game.combatgrid[@x+1][@y] = self
 					@game.combatgrid[@x][@y] = nil
 					@x += 1
-					@current_move += 1
-					#@game.printgrid
 				end
 			end
 		end
@@ -87,13 +109,23 @@ class Tplayer
 					@game.combatgrid[@x][@y-1].HP -= @damage
 				end
 				@attack_state = :finished
-			else
-				if (@current_move < @move_max) && (y > 0) && (@game.combatgrid[@x][@y-1] == nil)
+				@path = []
+			elsif x > 0 && @game.combatgrid[@x][@y-1] == nil
+			  rewind = @path.index([@x, @y-1])
+			  move_success = false
+			  if rewind
+			    @path = @path[0,rewind]
+			    @current_move = @path.length
+          move_success = true
+				elsif @current_move < @move_max
+					@path << [@x, @y]
+				  @current_move += 1
+				  move_success = true
+				end
+				if move_success
 					@game.combatgrid[@x][@y-1] = self
 					@game.combatgrid[@x][@y] = nil
 					@y -= 1
-					@current_move += 1
-					#@game.printgrid
 				end
 			end
 		end
@@ -105,13 +137,23 @@ class Tplayer
 					@game.combatgrid[@x][@y+1].HP -= @damage
 				end
 				@attack_state = :finished
-			else
-				if (@current_move < @move_max) && (y < 5) && (@game.combatgrid[@x][@y+1] == nil)
+			  @path = []
+			elsif x > 0 && @game.combatgrid[@x][@y+1] == nil
+			  rewind = @path.index([@x, @y+1])
+			  move_success = false
+			  if rewind
+			    @path = @path[0,rewind]
+			    @current_move = @path.length
+          move_success = true
+				elsif @current_move < @move_max
+					@path << [@x, @y]
+				  @current_move += 1
+				  move_success = true
+				end
+				if move_success
 					@game.combatgrid[@x][@y+1] = self
 					@game.combatgrid[@x][@y] = nil
 					@y += 1
-					@current_move += 1
-					#@game.printgrid
 				end
 			end
 		end
@@ -122,6 +164,7 @@ class Tplayer
 
 		if @turn_end == true
 			@current_move = 0
+			@path = []
 			@attack_state = :notyet
 			@turn_end = false
 			return true
@@ -129,6 +172,13 @@ class Tplayer
 	end
 
 	def draw
+	  @path.each_index do |i|
+	    p2 = i+1 == @path.length ? [@x,  @y] : @path[i+1]
+	    @game.draw_line(
+	      50 + 100 * @path[i][1], 50 + 100 * @path[i][0], 0xFFFFFFFF,
+	      50 + 100 * p2[1], 50 + 100 * p2[0], 0xFFFFFFFF
+	    )
+	  end
 		@game.draw_quad(scale_y, scale_x, 0xFF0000FF, scale_y + 50, scale_x, 0xFF0000FF, scale_y + 50, scale_x + 50, 0xFF0000FF, scale_y, scale_x + 50, 0xFF0000FF)
 		@game.main_font.draw("Current HP: #{@player.currentHP}", 630, @game.height/4 - 70, ZOrder::HUD, 1, 1, 0xFFFF1111)
 		@game.main_font.draw("Moves Left: #{@move_max - @current_move}", 630, @game.height/4 - 50, ZOrder::HUD, 1, 1, 0xFF888888)
