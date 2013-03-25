@@ -30,6 +30,28 @@ class Tplayer
 		return (25 + (100*@y))
 	end
 
+	def try_move (tox, toy)
+	  if @game.spot_clear?(toy, tox)
+			  rewind = @path.index([tox, toy])
+			  move_success = false
+			  if rewind
+			    oldlen = @path.length
+			    @path = @path[0,rewind]
+			    @current_move -= oldlen - @path.length
+          move_success = true
+				elsif @current_move < @move_max
+					@path << [@x, @y]
+				  @current_move += 1
+				  move_success = true
+				end
+				if move_success
+					@game.combatgrid[tox][toy] = self
+					@game.combatgrid[@x][@y] = nil
+					@x, @y = tox, toy
+				end
+	  end
+  end
+
 	def button_down(id)
 		if id==Gosu::KbEnter || id==Gosu::KbReturn
 			@turn_end = true
@@ -53,23 +75,8 @@ class Tplayer
 				end
 				@attack_state = :finished
 			  @path = []
-			elsif x > 0 && @game.combatgrid[@x-1][@y] == nil
-			  rewind = @path.index([@x-1, @y])
-			  move_success = false
-			  if rewind
-			    @path = @path[0,rewind]
-			    @current_move = @path.length
-          move_success = true
-				elsif @current_move < @move_max
-					@path << [@x, @y]
-				  @current_move += 1
-				  move_success = true
-				end
-				if move_success
-					@game.combatgrid[@x-1][@y] = self
-					@game.combatgrid[@x][@y] = nil
-					@x -= 1
-				end
+			else
+			  try_move(@x-1, @y)
 			end
 		end
 		
@@ -81,23 +88,8 @@ class Tplayer
 				end
 				@attack_state = :finished
 			  @path = []
-			elsif x < @game.combatgrid.length - 1 && @game.combatgrid[@x+1][@y] == nil
-			  rewind = @path.index([@x+1, @y])
-			  move_success = false
-			  if rewind
-			    @path = @path[0,rewind]
-			    @current_move = @path.length
-          move_success = true
-				elsif @current_move < @move_max
-					@path << [@x, @y]
-				  @current_move += 1
-				  move_success = true
-				end
-				if move_success
-					@game.combatgrid[@x+1][@y] = self
-					@game.combatgrid[@x][@y] = nil
-					@x += 1
-				end
+			else
+			  try_move(@x+1, @y)
 			end
 		end
 		
@@ -109,23 +101,8 @@ class Tplayer
 				end
 				@attack_state = :finished
 				@path = []
-			elsif y > 0 && @game.combatgrid[@x][@y-1] == nil
-			  rewind = @path.index([@x, @y-1])
-			  move_success = false
-			  if rewind
-			    @path = @path[0,rewind]
-			    @current_move = @path.length
-          move_success = true
-				elsif @current_move < @move_max
-					@path << [@x, @y]
-				  @current_move += 1
-				  move_success = true
-				end
-				if move_success
-					@game.combatgrid[@x][@y-1] = self
-					@game.combatgrid[@x][@y] = nil
-					@y -= 1
-				end
+			else
+			  try_move(@x, @y-1)
 			end
 		end
 		
@@ -137,23 +114,8 @@ class Tplayer
 				end
 				@attack_state = :finished
 			  @path = []
-			elsif y < @game.combatgrid[@x].length - 1 && @game.combatgrid[@x][@y+1] == nil
-			  rewind = @path.index([@x, @y+1])
-			  move_success = false
-			  if rewind
-			    @path = @path[0,rewind]
-			    @current_move = @path.length
-          move_success = true
-				elsif @current_move < @move_max
-					@path << [@x, @y]
-				  @current_move += 1
-				  move_success = true
-				end
-				if move_success
-					@game.combatgrid[@x][@y+1] = self
-					@game.combatgrid[@x][@y] = nil
-					@y += 1
-				end
+			else
+			  try_move(@x, @y+1)
 			end
 		end
 	end
