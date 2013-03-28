@@ -15,7 +15,7 @@ class Tplayer
 		@y = y
 		@player = player
 		@damage = 20
-		@move_max = 4
+		@move_max = 48
 		@path = []
 		@current_move = 0
 		@attack_state = :notyet #:notyet, :aiming, and :finished 
@@ -70,7 +70,9 @@ class Tplayer
 		end
 
 		if id==Gosu::KbSpace
-			if @attack_state == :notyet
+			if @attack_state == :aiming
+				@attack_state = :notyet
+			elsif @attack_state == :notyet
 				@attack_state = :aiming
 			end
 		end
@@ -109,8 +111,11 @@ class Tplayer
 	end
 
 	def take_turn
-		@game.lose_combat if @player.currentHP <= 0
-
+		#@game.lose_combat if @player.currentHP <= 0
+		if @player.currentHP <= 0
+			@game.combatgrid[@x][@y] = nil 
+			@game.tobjects.delete(self)
+		end
 		if @turn_end == true
 			@current_move = 0
 			@path = []

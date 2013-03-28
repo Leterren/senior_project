@@ -94,13 +94,19 @@ class Game < Gosu::Window
           @current_turn = 0
         end
       end
-      flag = false
+      pflag = false
+      eflag = false
       @tobjects.each do |o|
         if o.class == Tenemy
-          flag = true
+          eflag = true
+        end
+        if o.class == Tplayer
+          pflag = true
         end
       end
-      if flag == false
+      if pflag == false
+        self.lose_combat
+      elsif eflag == false
         self.win_combat
       end
     end
@@ -286,7 +292,7 @@ class Game < Gosu::Window
         x = rand(6)
         y = rand(6)
       end
-      te = Tenemy.new(self, tp, x, y) # = Tenemy
+      te = Tenemy.new(self, tp, x, y)
       combatgrid[x][y] = te
       @tobjects << te
     end
