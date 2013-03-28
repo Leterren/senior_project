@@ -282,18 +282,18 @@ class Game < Gosu::Window
     x = rand(6)
     y = rand(6)
     tp = Tplayer.new(self, @player, x, y)
-    combatgrid[x][y] = tp
+    combatgrid[y][x] = tp
     @tobjects << tp
     @current_turn = 0
     3.times do |i|
       x = rand(6)
       y = rand(6)
-      while combatgrid[x][y] != nil
+      while combatgrid[y][x] != nil
         x = rand(6)
         y = rand(6)
       end
       te = Tenemy.new(self, tp, x, y)
-      combatgrid[x][y] = te
+      combatgrid[y][x] = te
       @tobjects << te
     end
     #printgrid

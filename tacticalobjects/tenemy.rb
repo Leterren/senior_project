@@ -34,17 +34,7 @@ class Tenemy
 	end
 
 	def take_turn
-		if @dead
-			@game.combatgrid[@x][@y] = nil
-		else
-			# am i dead?
-			if @HP <= 0
-				@game.combatgrid[@x][@y] = nil
-				puts "#{@game.tobjects.delete(self)} dying"
-				@dead = true
-			end
-
-			
+		if !@dead
 			@move_max.times do |i|
 				newx = @x
 				newy = @y
@@ -70,26 +60,35 @@ class Tenemy
 					end
 				end
 
-				if @game.combatgrid[newx][newy].nil?
-					@game.combatgrid[newx][newy] = self
-					@game.combatgrid[@x][@y] = nil
+				if @game.spot_clear?(newx, newy)
+					@game.combatgrid[newy][newx] = self
+					@game.combatgrid[@y][@x] = nil
 					@x = newx
 					@y = newy
 				end
 			end
-		end
-		
+		end	
   	return true
 	end
 
-  def take_damage (amount)
-    @HP -= amount
-  end
-		
+	def take_damage (amount)
+		@HP -= amount
+		if @HP <= 0
+			@game.combatgrid[@y][@x] = nil
+			puts "#{@game.tobjects.delete(self)} dying"
+			@dead = true
+		end
+	end
+	
 	def draw
 		if @dead == false
-			@game.draw_quad(scale_y, scale_x, 0xFFAA0000, scale_y + 50, scale_x, 0xFFAA0000, scale_y + 50, scale_x + 50, 0xFFAA0000, scale_y, scale_x + 50, 0xFFAA0000)
-			@game.main_font.draw("#{@HP} HP", scale_y + 1, scale_x + 50, ZOrder::HUD, 1, 1, 0xFFAAAAAA)
+			@game.draw_quad(
+				scale_x, scale_y, 0xFFAA0000, 
+				scale_x + 50, scale_y, 0xFFAA0000, 
+				scale_x + 50, scale_y + 50, 0xFFAA0000, 
+				scale_x, scale_y + 50, 0xFFAA0000
+			)
+			@game.main_font.draw("#{@HP} HP", scale_x + 1, scale_y + 50, ZOrder::HUD, 1, 1, 0xFFAAAAAA)
 		end
 	end
 
