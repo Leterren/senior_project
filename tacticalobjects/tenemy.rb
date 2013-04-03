@@ -55,8 +55,10 @@ class Tenemy
 				else
 					if disty > 0
 						newy += 1
+						@face = @@left
 					else
 						newy -= 1
+						@face = @@right
 					end
 				end
 

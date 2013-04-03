@@ -9,11 +9,13 @@ class Tplayer
   include TObject
   attr_accessor :x, :y, :damage, :move_max, :armor
 
-	def initialize(game, player, x, y, sprite = 'player.png')
+	def initialize(game, player, x, y, sprite = 'tplayer.png')
 		@game = game
 		@x = x
 		@y = y
 		@player = player
+		@@left, @@right = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
+		@face = @@left
 		@damage = 15
 		@move_max = 4
 		@armor = 0
@@ -79,6 +81,7 @@ class Tplayer
 		end
 
 		if id==Gosu::KbUp
+			@face = @@right
 			if @attack_state == :aiming
 			  try_attack(@x, @y-1)
 			else
@@ -87,6 +90,7 @@ class Tplayer
 		end
 		
 		if id==Gosu::KbDown
+			@face = @@left
 			if @attack_state == :aiming
 			  try_attack(@x, @y+1)
 			else
@@ -95,6 +99,7 @@ class Tplayer
 		end
 		
 		if id==Gosu::KbLeft
+			@face = @@left
 			if @attack_state == :aiming
 			  try_attack(@x-1, @y)
 			else
@@ -103,6 +108,7 @@ class Tplayer
 		end
 		
 		if id==Gosu::KbRight
+			@face = @@right
 			if @attack_state == :aiming
 			  try_attack(@x+1, @y)
 			else
@@ -134,12 +140,7 @@ class Tplayer
 	      50 + 100 * p2[0], 50 + 100 * p2[1], 0xFFFFFFFF
 	    )
 	  end
-		@game.draw_quad(
-			scale_x, scale_y, 0xFF0000FF, 
-			scale_x + 50, scale_y, 0xFF0000FF, 
-			scale_x + 50, scale_y + 50, 0xFF0000FF, 
-			scale_x, scale_y + 50, 0xFF0000FF
-		)
+	  @face.draw(scale_x, scale_y, ZOrder::HUD)
 		@game.main_font.draw("Current HP: #{@player.currentHP}", 630, @game.height/4 - 70, ZOrder::HUD, 1, 1, 0xFFFF1111)
 		@game.main_font.draw("Moves Left: #{@move_max - @current_move}", 630, @game.height/4 - 50, ZOrder::HUD, 1, 1, 0xFF888888)
 		if @attack_state == :notyet
