@@ -9,12 +9,13 @@ class Tenemy
   include TObject
   attr_accessor :HP, :damage, :x, :y
 
-	def initialize(game, player, x, y, sprite = 'player2.png')
+	def initialize(game, player, x, y, sprite = 'tplayer2.png')
 		@game = game
 		@player = player
 		@x = x
 		@y = y
-	 	@@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
+	 	@@left, @@right = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
+	 	@face = @@left
 		@HP = 40
 		@damage = 8
 		@move_max = 2
@@ -41,18 +42,17 @@ class Tenemy
 				distx = @player.x - @x
 				disty = @player.y - @y
 				if distx.abs <= 1 && disty.abs <= 1 && (distx.abs != disty.abs)
-					puts "#{self} attacking"
 					@player.take_damage(@damage)
 					break
 				elsif distx.abs > disty.abs
-					puts "#{self} moving on x"
 					if distx > 0
 						newx += 1
+						@face = @@right
 					else
 						newx -= 1
+						@face = @@left
 					end
 				else
-					puts "#{self} moving on y"
 					if disty > 0
 						newy += 1
 					else
@@ -82,12 +82,7 @@ class Tenemy
 	
 	def draw
 		if @dead == false
-			@game.draw_quad(
-				scale_x, scale_y, 0xFFAA0000, 
-				scale_x + 50, scale_y, 0xFFAA0000, 
-				scale_x + 50, scale_y + 50, 0xFFAA0000, 
-				scale_x, scale_y + 50, 0xFFAA0000
-			)
+			@face.draw(scale_x, scale_y, ZOrder::HUD)
 			@game.main_font.draw("#{@HP} HP", scale_x + 1, scale_y + 50, ZOrder::HUD, 1, 1, 0xFFAAAAAA)
 		end
 	end
