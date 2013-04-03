@@ -43,6 +43,8 @@ class Tenemy
 				disty = @player.y - @y
 				if distx.abs <= 1 && disty.abs <= 1 && (distx.abs != disty.abs)
 					@player.take_damage(@damage)
+					@face = @@right if distx > 0
+					@face = @@left if distx < 0
 					break
 				elsif distx.abs > disty.abs
 					if distx > 0
