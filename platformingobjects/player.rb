@@ -131,7 +131,7 @@ class Player
       if @ground
         @direction = :right
         if @body.vel.x < GROUND_TOP_SPEED
-          @body.apply_impulse(Vec2.new((@body.vel.x > 0 ? SKID_DECEL : GROUND_ACCEL), 0), Vec2.new(0, 0))
+          @body.apply_impulse(Vec2.new((@body.vel.x < 0 ? SKID_DECEL : GROUND_ACCEL), 0), Vec2.new(0, 0))
           if @body.vel.x > GROUND_TOP_SPEED
             @body.vel.x = GROUND_TOP_SPEED
           end
