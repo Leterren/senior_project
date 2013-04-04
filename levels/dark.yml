@@ -216,8 +216,8 @@
   - 745.0
   - darkblocks.png
 - Platform:
-  - 698.0
-  - 744.0
+  - 693.0
+  - 742.0
   - darkblocks.png
 - Platform:
   - 817.0
@@ -688,9 +688,9 @@
   - 990.0
   - darkblocks.png
 - Buff:
-  - 1581.406196252212
-  - 965.0
-  - HPup.png
+  - 1565.0
+  - 950.0
+  - ATKup.png
 - Platform:
   - 903.6613225389116
   - 356.83333333482096
@@ -719,3 +719,27 @@
   - 326.0
   - 1014.0
   - HPup.png
+- Pusher:
+  - 671.799450039008
+  - 409.40000000000066
+  - water.png
+- Platform:
+  - 845.6925067129256
+  - 615.1000000014906
+  - darkblocks.png
+- Pusher:
+  - 358.76441088877385
+  - 320.0
+  - water.png
+- Platform:
+  - 353.0
+  - 274.7000000683906
+  - darkblocks.png
+- Pusher:
+  - 207.0
+  - 287.4000000683912
+  - water.png
+- Buff:
+  - 858.0
+  - 580.0
+  - DEFup.png

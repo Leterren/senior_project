@@ -155,6 +155,7 @@ class Game < Gosu::Window
             @state = :main_menu
             @levelcounter = 0
             @victorystate = :neutral
+            @exitareyousure = false
           end
         end
         if id == Gosu::KbEnter || id == Gosu::KbReturn
@@ -212,7 +213,20 @@ class Game < Gosu::Window
       @title_font.draw_rel("Paused", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xFF888888)
       if @exitareyousure == false
         @main_font.draw("Resume Game [Enter]", self.width/8, self.height/4, 0.5, 1, 1, 0xFF666666)
-        @main_font.draw("Return to Main Menu [Escape]", self.width/8, self.height/3, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Return to Main Menu [Escape]", self.width/8, self.height/4 + 50, 0.5, 1, 1, 0xFF777777)
+        draw_quad(self.width/8 - 10, self.height/4 + 90, 0xFF111111, 
+                  7*self.width/8 + 10, self.height/4 + 90, 0xFF111111, 
+                  7*self.width/8 + 10, self.height/4 + 250, 0xFF111111, 
+                  self.width/8 - 10, self.height/4 + 250, 0xFF111111, 
+                  ZOrder::BACKGROUND, mode = :default)
+        @main_font.draw("STATS:", self.width/8, self.height/4 + 100, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Lives: #{@player.LIVES}", self.width/8 + 20, self.height/4 + 120, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Maximum HP: #{@player.MAX_HP}", self.width/8 + 20, self.height/4 + 140, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Current HP: #{@player.currentHP}", self.width/8 + 20, self.height/4 + 160, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Strength: #{@player.damage}", self.width/8 + 20, self.height/4 + 180, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Defense: #{@player.armor}", self.width/8 + 20, self.height/4 + 200, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Agility: #{@player.move_max}", self.width/8 + 20, self.height/4 + 220, 0.5, 1, 1, 0xFF777777)
+
       end
       if @exitareyousure == true
         @main_font.draw("Are you sure you want to exit to menu? Progress will be lost.", self.width/8, self.height/4, 0, 1, 1, 0xFF666666)

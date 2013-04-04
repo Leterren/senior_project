@@ -46,11 +46,24 @@ class Buff
       if buff_s.object.image_filename == '1up.png'
         player_s.object.LIVES += 1
         player_s.object.message = "+1 Life!"
-        player_s.object.message_timer = 45
+        player_s.object.message_timer = 60
         player_s.object.message_color = 0xFFFFFF00
         buff_s.object.pickedup = true
       end
-      
+      if buff_s.object.image_filename == 'ATKup.png'
+        player_s.object.damage += 5
+        player_s.object.message = "+5 STR!"
+        player_s.object.message_timer = 45
+        player_s.object.message_color = 0xFFFF4400
+        buff_s.object.pickedup = true
+      end
+      if buff_s.object.image_filename == 'DEFup.png'
+        player_s.object.armor += 3
+        player_s.object.message = "+3 DEF!"
+        player_s.object.message_timer = 45
+        player_s.object.message_color = 0xFFFF4400
+        buff_s.object.pickedup = true
+      end
       return nil  # Go through with this collision
     end
   end

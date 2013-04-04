@@ -7,7 +7,7 @@ include Utility
 
 class Tplayer
   include TObject
-  attr_accessor :x, :y, :damage, :move_max, :armor
+  attr_accessor :x, :y
 
 	def initialize(game, player, x, y, sprite = 'tplayer.png')
 		@game = game
@@ -16,9 +16,11 @@ class Tplayer
 		@player = player
 		@@left, @@right = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
 		@face = @@left
-		@damage = 15
-		@move_max = 4
-		@armor = 0
+
+      	@damage = @player.damage
+      	@move_max = @player.move_max
+      	@armor = @player.armor
+
 		@path = []
 		@current_move = 0
 		@attack_state = :notyet #:notyet, :aiming, and :finished 
@@ -155,8 +157,12 @@ class Tplayer
 	end
 
 	def take_damage(damage)
-		if damage < @player.currentHP
-			@player.currentHP -= (damage - @armor)
+		actualdamage = damage - @armor
+		if actualdamage < 0
+			actualdamage = 0
+		end
+		if actualdamage < @player.currentHP
+			@player.currentHP -= actualdamage
 		else
 			@player.currentHP = 0
 		end
