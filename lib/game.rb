@@ -73,6 +73,7 @@ class Game < Gosu::Window
     @tobjects = []
 
     @camera = Camera.new(SCREEN_WIDTH, SCREEN_HEIGHT)
+    @incombat = false
     @exitareyousure = false
     @victorystate = :neutral
   end
@@ -152,6 +153,7 @@ class Game < Gosu::Window
           if @exitareyousure == false
             @exitareyousure = true
           else
+            self.unload_combat
             @state = :main_menu
             @levelcounter = 0
             @victorystate = :neutral
@@ -160,7 +162,11 @@ class Game < Gosu::Window
         end
         if id == Gosu::KbEnter || id == Gosu::KbReturn
           if @exitareyousure == false
-            @state = :level
+            if @incombat
+              @state = :combat
+            else
+              @state = :level
+            end
           else
             @exitareyousure = false
           end
@@ -170,8 +176,11 @@ class Game < Gosu::Window
         if id == Gosu::KbV
           self.win_combat
         end
-        if id == Gosu::KbEscape
+        if id == Gosu::KbD
           self.lose_combat
+        end
+        if id == Gosu::KbEscape
+          @state = :pause_menu
         end
       end
 
@@ -310,6 +319,7 @@ class Game < Gosu::Window
       combatgrid[y][x] = te
       @tobjects << te
     end
+    @incombat = true
     #printgrid
   end
   def win_combat
@@ -333,6 +343,7 @@ class Game < Gosu::Window
       end
     end
     @tobjects = []
+    @incombat = false
   end
   def spot_clear? (x, y)
     return 0 <= y && y < @combatgrid.length && 0 <= x && x < @combatgrid[y].length && @combatgrid[y][x] == nil
