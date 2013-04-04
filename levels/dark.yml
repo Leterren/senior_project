@@ -13,7 +13,7 @@
 - Player:
   - 50.0
   - 0.0
-  - :right
+  - :left
   - 1200
 - Enemy:
   - 382.0
@@ -688,8 +688,8 @@
   - 990.0
   - darkblocks.png
 - Buff:
-  - 1565.0
-  - 950.0
+  - 1570.0
+  - 957.0
   - ATKup.png
 - Platform:
   - 903.6613225389116
