@@ -232,9 +232,9 @@ class Game < Gosu::Window
         @main_font.draw("Lives: #{@player.LIVES}", self.width/8 + 20, self.height/4 + 120, 0.5, 1, 1, 0xFF777777)
         @main_font.draw("Maximum HP: #{@player.MAX_HP}", self.width/8 + 20, self.height/4 + 140, 0.5, 1, 1, 0xFF777777)
         @main_font.draw("Current HP: #{@player.currentHP}", self.width/8 + 20, self.height/4 + 160, 0.5, 1, 1, 0xFF777777)
-        @main_font.draw("Strength: #{@player.damage}", self.width/8 + 20, self.height/4 + 180, 0.5, 1, 1, 0xFF777777)
-        @main_font.draw("Defense: #{@player.armor}", self.width/8 + 20, self.height/4 + 200, 0.5, 1, 1, 0xFF777777)
-        @main_font.draw("Agility: #{@player.move_max}", self.width/8 + 20, self.height/4 + 220, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Strength: #{@player.strength}", self.width/8 + 20, self.height/4 + 180, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Defense: #{@player.defense}", self.width/8 + 20, self.height/4 + 200, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Agility: #{@player.agility}", self.width/8 + 20, self.height/4 + 220, 0.5, 1, 1, 0xFF777777)
 
       end
       if @exitareyousure == true

@@ -50,16 +50,23 @@ class Buff
         player_s.object.message_color = 0xFFFFFF00
         buff_s.object.pickedup = true
       end
-      if buff_s.object.image_filename == 'ATKup.png'
-        player_s.object.damage += 5
-        player_s.object.message = "+5 STR!"
+      if buff_s.object.image_filename == 'STRup.png'
+        player_s.object.strength += 1
+        player_s.object.message = "+1 STR"
         player_s.object.message_timer = 45
         player_s.object.message_color = 0xFFFF4400
         buff_s.object.pickedup = true
       end
       if buff_s.object.image_filename == 'DEFup.png'
-        player_s.object.armor += 3
-        player_s.object.message = "+3 DEF!"
+        player_s.object.defense += 3
+        player_s.object.message = "+3 DEF"
+        player_s.object.message_timer = 45
+        player_s.object.message_color = 0xFFFF4400
+        buff_s.object.pickedup = true
+      end
+      if buff_s.object.image_filename == 'AGIup.png'
+        player_s.object.defense += 1
+        player_s.object.message = "+1 AGI"
         player_s.object.message_timer = 45
         player_s.object.message_color = 0xFFFF4400
         buff_s.object.pickedup = true

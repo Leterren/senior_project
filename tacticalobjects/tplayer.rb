@@ -17,9 +17,9 @@ class Tplayer
 		@@left, @@right = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
 		@face = @@left
 
-      	@damage = @player.damage
-      	@move_max = @player.move_max
-      	@armor = @player.armor
+      	@damage = @player.strength * 5
+      	@move_max = @player.agility
+      	@defense = @player.defense
 
 		@path = []
 		@current_move = 0
@@ -138,8 +138,8 @@ class Tplayer
 	  @path.each_index do |i|
 	    p2 = i+1 == @path.length ? [@x,  @y] : @path[i+1]
 	    @game.draw_line(
-	      50 + 100 * @path[i][0], 50 + 100 * @path[i][1], 0xFFFFFFFF,
-	      50 + 100 * p2[0], 50 + 100 * p2[1], 0xFFFFFFFF
+	      50 + 100 * @path[i][0], 75 + 100 * @path[i][1], 0xFFFFFFFF,
+	      50 + 100 * p2[0], 75 + 100 * p2[1], 0xFFFFFFFF
 	    )
 	  end
 	  @face.draw(scale_x, scale_y, ZOrder::HUD)
@@ -158,7 +158,7 @@ class Tplayer
 	end
 
 	def take_damage(damage)
-		actualdamage = damage - @armor
+		actualdamage = damage - (@defense)
 		if actualdamage < 0
 			actualdamage = 0
 		end

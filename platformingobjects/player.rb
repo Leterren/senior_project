@@ -19,7 +19,7 @@ class Player
 
   attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :message_color
   attr_accessor :previctory, :falltimer, :currentHP, :body, :MAX_HP, :walk_start, :game, :modifyHP, :LIVES, :savedHP
-  attr_accessor :damage, :move_max, :armor
+  attr_accessor :strength, :agility, :defense
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -49,9 +49,9 @@ class Player
       @MAX_HP = 100
       @currentHP = @MAX_HP
       @savedHP = @currentHP
-      @damage = 15
-      @move_max = 4
-      @armor = 0
+      @strength = 3
+      @agility = 4
+      @defense = 2
 
       @falltimer = 0
       @death = death
@@ -231,7 +231,7 @@ class Player
   end
   def modifyHP(amount)
     if amount <= -1
-      actualdamage = (amount + armor/2).to_i
+      actualdamage = (amount + defense/2).to_i
       if actualdamage > 0
         actualdamage = 0
       end
@@ -239,7 +239,7 @@ class Player
       @@wow.play
       if actualdamage < 0
         @message = "#{actualdamage} HP"
-      elsif actualdamage = 0
+      elsif actualdamage == 0
         @message = "No damage"
       end
       @message_color = 0xFFFF1111
