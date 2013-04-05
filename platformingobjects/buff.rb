@@ -65,7 +65,7 @@ class Buff
         buff_s.object.pickedup = true
       end
       if buff_s.object.image_filename == 'AGIup.png'
-        player_s.object.defense += 1
+        player_s.object.agility += 1
         player_s.object.message = "+1 AGI"
         player_s.object.message_timer = 45
         player_s.object.message_color = 0xFFFF4400
