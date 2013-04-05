@@ -13,7 +13,7 @@
 - Player:
   - 50.0
   - 0.0
-  - :right
+  - :left
   - 1200
 - Enemy:
   - 382.0
@@ -688,9 +688,9 @@
   - 990.0
   - darkblocks.png
 - Buff:
-  - 1570.0
-  - 957.0
-  - STRup.png
+  - 1572.0
+  - 973.0
+  - AGIup.png
 - Platform:
   - 903.6613225389116
   - 356.83333333482096
@@ -745,5 +745,21 @@
   - DEFup.png
 - Buff:
   - 1379.0
-  - 323.0
-  - AGIup.png
+  - 312.0
+  - STRup.png
+- Platform:
+  - 331.0344632916902
+  - 121.00000000148992
+  - darkblocks.png
+- Platform:
+  - 332.0344632916902
+  - 72.00000000148992
+  - darkblocks.png
+- Platform:
+  - 332.0344632916902
+  - 23.000000001489923
+  - darkblocks.png
+- Platform:
+  - 332.0344632916902
+  - -27.999999998510077
+  - darkblocks.png

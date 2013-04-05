@@ -5,28 +5,18 @@ class Player
 
   include GameObject
 
-  JUMP_IMPULSE = 10.0
-  GROUND_ACCEL = 0.3
-  GROUND_TOP_SPEED = 5.0
-  AIR_ACCEL = 0.3
-  AIR_TOP_SPEED = 4.0
-  STOP_DECEL = 0.5
-  SKID_DECEL = 0.6
-  FALL_TOP_SPEED = 12.0
-
-   # Determines the friction for non-ground collisions.
-  MISC_FRICTION = 0.4
-
   attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :message_color
   attr_accessor :previctory, :falltimer, :currentHP, :body, :MAX_HP, :walk_start, :game, :modifyHP, :LIVES, :savedHP
-  attr_accessor :strength, :agility, :defense
+  attr_accessor :strength, :agility, :defense, :physics_constants_update
   
   def to_a
     [@start.x, @start.y, @direction, @death]
   end
   def initialize (game, x, y, dir = :right, death = 1.0/0.0)
+      
       @game = game
       @game.player = self
+
       # Initialize
       @start = Vec2.new(x, y)
       @direction = dir
@@ -34,17 +24,14 @@ class Player
       @walk_speed = 0.0
       @ground_friction = 2.0
       @walk_start = x
+
        # Load resources
       @@wow = Gosu::Sample.new(game, "#{SOUNDS_DIR}/wow.wav")
       @@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
         game, "#{IMAGES_DIR}/player.png", 50, 50, false
       )
-       # Physicsy stuff
-      @body = CP::Body.new(1.0, CP::INFINITY)  # mass, moi
-      @body.pos = @start
-      @body.object = self
-      game.space.add_body(@body)
 
+       # RPG elements
       @LIVES = 4
       @MAX_HP = 100
       @currentHP = @MAX_HP
@@ -53,27 +40,46 @@ class Player
       @agility = 4
       @defense = 2
 
+       # physics engine stuff
+      physics_constants_update
+      @body = CP::Body.new(1.0, CP::INFINITY)  # mass, moi
+      @body.pos = @start
+      @body.object = self
+      game.space.add_body(@body)
+      poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
+      @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
+      @shape.u = @misc_friction  # friction
+      @shape.e = 0.0  # elasticity
+      @shape.collision_type = :player
+      @shape.object = self
+      game.space.add_shape(@shape)
+      game.space.add_collision_handler(:player, :solid, Solid_Collisions.new)
+
+       # world checks
       @falltimer = 0
       @death = death
       @recent_checkpoint = 0
       @reset_point = @start
 
-      poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
-      @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
-      #@shape = CP::Shape::Circle.new(@body, 25, Vec2.new(0,0))
-      @shape.u = MISC_FRICTION  # friction
-      @shape.e = 0.0  # elasticity
-      @shape.collision_type = :player
-      @shape.object = self
-
+       # body message
       @message = "Hello World"
       @message_timer = 0
       @message_color = 0xFF00FF00
       @previctory = false
 
-      game.space.add_shape(@shape)
+  end
 
-      game.space.add_collision_handler(:player, :solid, Solid_Collisions.new)
+  def physics_constants_update
+     # physics constants
+    @jump_impulse = 8.0 + @agility.to_f/2
+    @ground_accel = -0.1 + @agility.to_f/10
+    @ground_top_speed = 4.2 + @agility.to_f/5
+    @air_accel = -0.1 + @agility.to_f/10
+    @air_top_speed = 3.2 + @agility.to_f/5
+    @stop_decel = 0.1 + @agility.to_f/10
+    @skid_decel = 0.2 + @agility.to_f/10
+    @fall_top_speed = 12.0
+    @misc_friction = 0.4 # Determines the friction for non-ground collisions.
   end
 
   class Solid_Collisions
@@ -113,59 +119,59 @@ class Player
     if game.button_down?(Gosu::KbLeft) && !game.button_down?(Gosu::KbRight) && @previctory == false
       if @ground
         @direction = :left
-        if @body.vel.x > -GROUND_TOP_SPEED
-          @body.apply_impulse(Vec2.new((@body.vel.x > 0 ? -SKID_DECEL : -GROUND_ACCEL), 0), Vec2.new(0, 0))
-          if @body.vel.x < -GROUND_TOP_SPEED
-            @body.vel = Vec2.new(-GROUND_TOP_SPEED, @body.vel.y);
+        if @body.vel.x > -@ground_top_speed
+          @body.apply_impulse(Vec2.new((@body.vel.x > 0 ? -@skid_decel : -@ground_accel), 0), Vec2.new(0, 0))
+          if @body.vel.x < -@ground_top_speed
+            @body.vel = Vec2.new(-@ground_top_speed, @body.vel.y);
           end
         end
       else
-        if @body.vel.x > -AIR_TOP_SPEED
-          @body.apply_impulse(Vec2.new(-AIR_ACCEL, 0), Vec2.new(0, 0))
-          if @body.vel.x < -AIR_TOP_SPEED
-            @body.vel = Vec2.new(-AIR_TOP_SPEED, @body.vel.y)
+        if @body.vel.x > -@air_top_speed
+          @body.apply_impulse(Vec2.new(-@air_accel, 0), Vec2.new(0, 0))
+          if @body.vel.x < -@air_top_speed
+            @body.vel = Vec2.new(-@air_top_speed, @body.vel.y)
           end
         end
       end
     elsif game.button_down?(Gosu::KbRight) && @previctory == false
       if @ground
         @direction = :right
-        if @body.vel.x < GROUND_TOP_SPEED
-          @body.apply_impulse(Vec2.new((@body.vel.x < 0 ? SKID_DECEL : GROUND_ACCEL), 0), Vec2.new(0, 0))
-          if @body.vel.x > GROUND_TOP_SPEED
-            @body.vel.x = GROUND_TOP_SPEED
+        if @body.vel.x < @ground_top_speed
+          @body.apply_impulse(Vec2.new((@body.vel.x < 0 ? @skid_decel : @ground_accel), 0), Vec2.new(0, 0))
+          if @body.vel.x > @ground_top_speed
+            @body.vel.x = @ground_top_speed
           end
         end
       else
-        if @body.vel.x < AIR_TOP_SPEED
-          @body.apply_impulse(Vec2.new(AIR_ACCEL, 0), Vec2.new(0, 0))
-          if @body.vel.x > AIR_TOP_SPEED
-            @body.vel.x = AIR_TOP_SPEED
+        if @body.vel.x < @air_top_speed
+          @body.apply_impulse(Vec2.new(@air_accel, 0), Vec2.new(0, 0))
+          if @body.vel.x > @air_top_speed
+            @body.vel.x = @air_top_speed
           end
         end
       end
     else
       if @ground
         if @body.vel.x > 0
-          @body.apply_impulse(Vec2.new(-STOP_DECEL, 0), Vec2.new(0, 0))
+          @body.apply_impulse(Vec2.new(-@stop_decel, 0), Vec2.new(0, 0))
           if @body.vel.x < 0
             @body.vel.x = 0
           end
         elsif @body.vel.x < 0
-          @body.apply_impulse(Vec2.new(STOP_DECEL, 0), Vec2.new(0, 0))
+          @body.apply_impulse(Vec2.new(@stop_decel, 0), Vec2.new(0, 0))
           if @body.vel.x > 0
             @body.vel.x = 0
           end
         end
       else
-        if @body.vel.y > FALL_TOP_SPEED
-          @body.vel.y = FALL_TOP_SPEED
+        if @body.vel.y > @fall_top_speed
+          @body.vel.y = @fall_top_speed
         end
       end
     end
     if (game.button_down?(Gosu::KbUp) || game.button_down?(Gosu::KbSpace)) && previctory == false
       if @ground
-        @body.apply_impulse(Vec2.new(0, -JUMP_IMPULSE), Vec2.new(0, 0))
+        @body.apply_impulse(Vec2.new(0, -@jump_impulse), Vec2.new(0, 0))
         @ground = nil
       end
     end
