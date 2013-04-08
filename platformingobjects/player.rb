@@ -95,8 +95,9 @@ class Player
       end
        # fall damage handler
       if player_s.object.ground
-        if (player_s.object.falltimer > 45)
-          player_s.object.modifyHP(-((player_s.object.falltimer - 45) / 2))
+        falldamagethreshold = 37 + (2*player_s.object.agility)
+        if (player_s.object.falltimer > falldamagethreshold)
+          player_s.object.modifyHP(-((player_s.object.falltimer - falldamagethreshold) / 2))
         end
         player_s.object.falltimer = 0
       end

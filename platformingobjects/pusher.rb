@@ -49,7 +49,8 @@ class Pusher
   class Player_Collisions
     def begin (player_s, pusher_s, contact)
       player_s.object.modifyHP(-6)
-      player_s.body.apply_impulse(Vec2.new(0, 6), Vec2.new(0,0))
+      force = 9 - player_s.object.strength
+      player_s.body.apply_impulse(Vec2.new(0, force), Vec2.new(0,0))
       #puts player_s.object
       #puts pusher_s.object
       return nil  # Go through with this collision
