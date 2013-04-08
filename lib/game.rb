@@ -346,7 +346,7 @@ class Game < Gosu::Window
     @player.message_timer = 60
     @player.message_color = 0xFF0066FF
     @player.message = "You win!"
-    @player.currentHP -= 0
+    @player.invuln_timer = 50
     @currentenemy.combatresolved = true
     self.unload_combat
   end

@@ -50,6 +50,9 @@ class Pusher
     def begin (player_s, pusher_s, contact)
       player_s.object.modifyHP(-6)
       force = 9 - player_s.object.strength
+      if force < 0 
+        force = 0
+      end
       player_s.body.apply_impulse(Vec2.new(0, force), Vec2.new(0,0))
       #puts player_s.object
       #puts pusher_s.object

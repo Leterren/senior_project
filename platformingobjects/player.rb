@@ -6,8 +6,8 @@ class Player
   include GameObject
 
   attr_accessor :ground, :ground_friction, :reset_point, :recent_checkpoint, :message, :message_timer, :message_color
-  attr_accessor :previctory, :falltimer, :currentHP, :body, :MAX_HP, :walk_start, :game, :modifyHP, :LIVES, :savedHP
-  attr_accessor :strength, :agility, :defense, :physics_constants_update
+  attr_accessor :previctory, :fall_timer, :currentHP, :body, :MAX_HP, :walk_start, :game, :modifyHP, :LIVES, :savedHP
+  attr_accessor :strength, :agility, :defense, :physics_constants_update, :invuln_timer
   
   def to_a
     [@start.x, @start.y, @direction, @death]
@@ -56,7 +56,8 @@ class Player
       game.space.add_collision_handler(:player, :solid, Solid_Collisions.new)
 
        # world checks
-      @falltimer = 0
+      @fall_timer = 0
+      @invuln_timer = 0
       @death = death
       @recent_checkpoint = 0
       @reset_point = @start
@@ -96,10 +97,10 @@ class Player
        # fall damage handler
       if player_s.object.ground
         falldamagethreshold = 37 + (2*player_s.object.agility)
-        if (player_s.object.falltimer > falldamagethreshold)
-          player_s.object.modifyHP(-((player_s.object.falltimer - falldamagethreshold) / 2))
+        if (player_s.object.fall_timer > falldamagethreshold)
+          player_s.object.modifyHP(-((player_s.object.fall_timer - falldamagethreshold) / 2))
         end
-        player_s.object.falltimer = 0
+        player_s.object.fall_timer = 0
       end
       return true  # Go through with this collision
     end
@@ -190,7 +191,10 @@ class Player
       @walk_start = @body.pos.x
     end
     if !@ground && @body.vel.y > 0
-      @falltimer += 1
+      @fall_timer += 1
+    end
+    if @invuln_timer > 0
+      @invuln_timer -= 1
     end
   end
   
@@ -211,11 +215,13 @@ class Player
     else
       frame = @@jump
     end
-    frame.draw_rot(screen_pos.x, screen_pos.y, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
+    if (invuln_timer%10 < 5) && (invuln_timer%10 >= 0)
+      frame.draw_rot(screen_pos.x, screen_pos.y, ZOrder::PLAYER, @body.a, 0.5, 0.5, x_scale)
+    end
     #game.main_font.draw(@body.pos.x, 8, Game::SCREEN_HEIGHT - 68, ZOrder::HUD)
     #game.main_font.draw(@body.pos.y, 8, Game::SCREEN_HEIGHT - 48, ZOrder::HUD)
     game.main_font.draw_rel("HP: #{@currentHP}", Game::SCREEN_WIDTH - 5, 5, ZOrder::HUD, 1, 0, 1, 1, 0xFFFF1111)
-    #game.main_font.draw("#{@ground}", 8, Game::SCREEN_HEIGHT - 108, ZOrder::HUD, 1, 1, 0xFFFF0000)
+    #game.main_font.draw("#{@invuln_timer}", 8, Game::SCREEN_HEIGHT - 108, ZOrder::HUD, 1, 1, 0xFFFF0000)
     game.main_font.draw_rel("Lives: #{@LIVES}", Game::SCREEN_WIDTH - 5, 25, ZOrder::HUD, 1, 0, 1, 1, 0xFFFFFF66)
     if @message_timer > 0
       game.main_font.draw_rel(@message, screen_pos.x, screen_pos.y - 30, ZOrder::HUD, 0.5, 1, 1, 1, @message_color)
@@ -238,19 +244,22 @@ class Player
   end
   def modifyHP(amount)
     if amount <= -1
-      actualdamage = (amount + defense/2).to_i
-      if actualdamage > 0
-        actualdamage = 0
+      if @invuln_timer == 0
+        actualdamage = (amount + defense/2).to_i
+        if actualdamage > 0
+          actualdamage = 0
+        end
+        @currentHP += actualdamage
+        @@wow.play
+        if actualdamage < 0
+          @message = "#{actualdamage} HP"
+        elsif actualdamage == 0
+          @message = "No damage"
+        end
+        @message_color = 0xFFFF1111
+        @message_timer = 40
+        @invuln_timer = 26 + (@defense * 2)
       end
-      @currentHP += actualdamage
-      @@wow.play
-      if actualdamage < 0
-        @message = "#{actualdamage} HP"
-      elsif actualdamage == 0
-        @message = "No damage"
-      end
-      @message_color = 0xFFFF1111
-      @message_timer = 40
     end
     if amount >= 1
       @currentHP += amount
@@ -264,7 +273,7 @@ class Player
     @body.pos = @reset_point
     @body.vel = Vec2.new(0, 0)
     @currentHP = @savedHP
-    @falltimer = 0
+    @fall_timer = 0
     @LIVES -= 1
     @message_timer = 45
     @message_color = 0xFFFF0000

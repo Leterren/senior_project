@@ -58,7 +58,6 @@ class Tenemy
 				else
 					move_to(newx, @y) unless move_to(@x, newy)
 				end
-
 			end
 		end	
   	return true
@@ -84,7 +83,6 @@ class Tenemy
 			@y = y
 			return true
 		end
-
 		return false
 	end
 
