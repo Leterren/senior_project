@@ -46,36 +46,61 @@ class Tenemy
 					#ATTACKING
 					@flashtimer += 12
 					@player.take_damage(@damage)
-					@face = @@right if distx > 0
-					@face = @@left if distx < 0
+					face_player
 					break
-				elsif distx.abs > disty.abs
+				else
 					if distx > 0
 						newx += 1
-						@face = @@right
+						# @face = @@right
 					else
 						newx -= 1
-						@face = @@left
+						# @face = @@left
 					end
-				else
 					if disty > 0
 						newy += 1
-						@face = @@left
+						# @face = @@left
 					else
 						newy -= 1
-						@face = @@right
+						# @face = @@right
 					end
 				end
 
-				if @game.spot_clear?(newx, newy)
-					@game.combatgrid[newy][newx] = self
-					@game.combatgrid[@y][@x] = nil
-					@x = newx
-					@y = newy
+				face_player
+
+				# try to move on furthest axis, if blocked move on other axis
+				if distx.abs > disty.abs
+					move_to(@x, newy) unless move_to(newx, @y)
+				else
+					move_to(newx, @y) unless move_to(@x, newy)
 				end
+
 			end
 		end	
   	return true
+	end
+
+	def face_player
+		distx = @player.x - @x
+		disty = @player.y - @y
+		if distx.abs > disty.abs
+			@face = @@right if distx > 0
+			@face = @@left if distx < 0
+		else
+			@face = @@left if disty > 0
+			@face = @@right if disty < 0
+		end
+	end
+
+	def move_to x,y
+		if @game.spot_clear?(x,y)
+			@game.combatgrid[y][x] = self
+			@game.combatgrid[@y][@x] = nil
+			@x = x
+			@y = y
+			return true
+		end
+
+		return false
 	end
 
 	def take_damage (amount)
