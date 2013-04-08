@@ -45,16 +45,8 @@ class Tenemy
 					face_player
 					break
 				else
-					if distx > 0
-						newx += 1
-					else
-						newx -= 1
-					end
-					if disty > 0
-						newy += 1
-					else
-						newy -= 1
-					end
+					if distx > 0 then newx += 1 else newx -= 1 end
+					if disty > 0 then newy += 1 else newy -= 1 end
 				end
 
 				face_player
