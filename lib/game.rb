@@ -32,7 +32,7 @@ class Game < Gosu::Window
   NUM_LEVELS = 2
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
-  attr_accessor :load_combat, :combatgrid, :currentenemy, :printgrid, :tobjects
+  attr_accessor :load_combat, :combatgrid, :currentenemy, :printgrid, :tobjects, :tp
 
   def needs_cursor?
     true
@@ -71,6 +71,7 @@ class Game < Gosu::Window
     end
     @tBackground = TacticalBackground.new(self)
     @tobjects = []
+    @tp = nil
 
     @camera = Camera.new(SCREEN_WIDTH, SCREEN_HEIGHT)
     @incombat = false
@@ -98,7 +99,7 @@ class Game < Gosu::Window
       pflag = false
       eflag = false
       @tobjects.each do |o|
-        if o.class == Tenemy
+        if o.class == Tenemy or o.class == Tboss
           eflag = true
         end
         if o.class == Tplayer
@@ -299,23 +300,35 @@ class Game < Gosu::Window
     end
   end
 
-  def load_combat
+  def load_combat(type)
     puts "Loading combat"
     @state = :combat
     x = rand(6)
     y = rand(6)
-    tp = Tplayer.new(self, @player, x, y)
-    combatgrid[y][x] = tp
-    @tobjects << tp
+    @tp = Tplayer.new(self, @player, x, y)
+    combatgrid[y][x] = @tp
+    @tobjects << @tp
     @current_turn = 0
-    3.times do |i|
+    if type == :enemy
+      3.times do |i|
+        x = rand(6)
+        y = rand(6)
+        while combatgrid[y][x] != nil
+          x = rand(6)
+          y = rand(6)
+        end
+        te = Tenemy.new(self, @tp, x, y)
+        combatgrid[y][x] = te
+        @tobjects << te
+      end
+    elsif type == :boss
       x = rand(6)
       y = rand(6)
       while combatgrid[y][x] != nil
         x = rand(6)
         y = rand(6)
       end
-      te = Tenemy.new(self, tp, x, y)
+      te = Tboss.new(self, @tp, x, y)
       combatgrid[y][x] = te
       @tobjects << te
     end
@@ -343,6 +356,7 @@ class Game < Gosu::Window
       end
     end
     @tobjects = []
+    @tp = nil
     @incombat = false
   end
   def spot_clear? (x, y)

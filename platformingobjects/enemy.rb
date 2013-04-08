@@ -22,7 +22,7 @@ class Enemy
   	@body = CP::Body.new_static
   	@body.pos = Vec2.new(x, y)
   	@start = @body.pos
-  	@body.object = self 
+  	@body.object = self
   	poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
     	@shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
   	@shape.collision_type = :enemy
@@ -38,8 +38,13 @@ class Enemy
   	def begin (player_s, enemy_s, contact)
     	#player_s.object.message = "Combat!"
     	#player_s.object.message_timer = 30
+      if enemy_s.object.sprite == 'player2.png'
+        type = :enemy
+      elsif enemy_s.object.sprite == 'boss.png'
+        type = :boss
+      end
       enemy_s.object.game.currentenemy = enemy_s.object
-      enemy_s.object.game.load_combat
+      enemy_s.object.game.load_combat(type)
       return nil
     end
   end

@@ -13,13 +13,13 @@
 - Player:
   - 50.0
   - 0.0
-  - :left
+  - :right
   - 1200
 - Enemy:
   - 382.0
   - 210.0
   - :right
-  - player2.png
+  - boss.png
 - Enemy:
   - 1166.0
   - 823.0

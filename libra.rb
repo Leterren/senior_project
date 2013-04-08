@@ -11,6 +11,7 @@ require './platformingobjects/buff.rb'
 require './tacticalobjects/background.rb'
 require './tacticalobjects/tenemy.rb'
 require './tacticalobjects/tplayer.rb'
+require './tacticalobjects/tboss.rb'
 
 game = Game.new
 game.show

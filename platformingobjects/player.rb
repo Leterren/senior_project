@@ -33,7 +33,7 @@ class Player
 
        # RPG elements
       @LIVES = 4
-      @MAX_HP = 100
+      @MAX_HP = 10000
       @currentHP = @MAX_HP
       @savedHP = @currentHP
       @strength = 3
