@@ -209,6 +209,12 @@ class Game < Gosu::Window
         @title_font.draw_rel("Victory!", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
         if @levelcounter == NUM_LEVELS - 1
           @main_font.draw("Restart Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
+          @main_font.draw("CREDITS:", self.width/8, self.height/4 + 130, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("A project by:", self.width/8 + 20, self.height/4 + 150, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("Benn Smith", self.width/8 + 40, self.height/4 + 170, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("With help from:", self.width/8 + 20, self.height/4 + 190, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("Alex Standke", self.width/8 + 40, self.height/4 + 210, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("Lewis Wall", self.width/8 + 40, self.height/4 + 230, 0.5, 1, 1, 0xFF777777)
         else
           @main_font.draw("Next Level [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
         end

@@ -42,7 +42,7 @@ class Tenemy
 				newy = @y
 				distx = @player.x - @x
 				disty = @player.y - @y
-				if distx.abs <= 1 && disty.abs <= 1 && (distx.abs != disty.abs)
+				if (distx.abs + disty.abs) <= 1
 					#ATTACKING
 					@flashtimer += 12
 					@player.take_damage(@damage)
