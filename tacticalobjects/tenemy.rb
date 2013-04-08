@@ -31,10 +31,6 @@ class Tenemy
 		return (25 + (100*@y))
 	end
 
-	def move
-		
-	end
-
 	def take_turn
 		if !@dead
 			@move_max.times do |i|
@@ -49,25 +45,14 @@ class Tenemy
 					face_player
 					break
 				else
-					if distx > 0
-						newx += 1
-						# @face = @@right
-					else
-						newx -= 1
-						# @face = @@left
-					end
-					if disty > 0
-						newy += 1
-						# @face = @@left
-					else
-						newy -= 1
-						# @face = @@right
-					end
+					if distx > 0 then newx += 1 else newx -= 1 end
+					if disty > 0 then newy += 1 else newy -= 1 end
 				end
 
 				face_player
 
 				# try to move on furthest axis, if blocked move on other axis
+				# TODO: multi-turn movement plans (around obstacles)
 				if distx.abs > disty.abs
 					move_to(@x, newy) unless move_to(newx, @y)
 				else
