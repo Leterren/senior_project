@@ -65,7 +65,7 @@ class Tplayer
     if @game.spot_occupied?(tox, toy)
       
       if @attack_type == :strong
-      	@game.combatgrid[toy][tox].take_damage(@damage * 2)
+      	@game.combatgrid[toy][tox].take_damage((@damage * 2).to_i)
       	@current_move += 2
       elsif @attack_type == :normal
       	@game.combatgrid[toy][tox].take_damage(@damage)	
@@ -93,7 +93,7 @@ class Tplayer
 			end
 		end
 
-		if id==Gosu::KbL && ((@move_max - @current_move) > 1) 
+		if id==Gosu::KbLeftShift && ((@move_max - @current_move) > 1) 
 			if @attack_state == :aiming
 				
 				@attack_state = :notyet
@@ -173,7 +173,7 @@ class Tplayer
 			@game.main_font.draw("[Space] Normal", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888)
 			@game.main_font.draw("[Shift] Strong", 635, @game.height/4 + 10, ZOrder::HUD, 1, 1, 0xFF888888) unless (@move_max - @current_move) < 2
   	elsif @attack_state == :aiming
-			@game.main_font.draw("#{@attack_type} Aiming...", 630, @game.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF888888)
+			@game.main_font.draw("#{@attack_type.capitalize} Aiming...", 630, @game.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF888888)
 			@game.main_font.draw("[^ v < >]", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888)
   	else
 			@game.main_font.draw("Attack Complete", 630, @game.height/4 -30, ZOrder::HUD, 1, 1, 0xFF888888)
