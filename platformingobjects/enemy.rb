@@ -24,7 +24,7 @@ class Enemy
   	@start = @body.pos
   	@body.object = self
   	poly = [Vec2.new(-17, -20), Vec2.new(-17, 14), Vec2.new(-13, 19), Vec2.new(13, 19), Vec2.new(17, 14), Vec2.new(17, -20), Vec2.new(13, -25), Vec2.new(-13, -25)]
-    	@shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
+    @shape = CP::Shape::Poly.new(@body, poly, Vec2.new(0, 0))
   	@shape.collision_type = :enemy
   	@shape.object = self
   	@shape.sensor = true
