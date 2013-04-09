@@ -170,8 +170,8 @@ class Tplayer
 		
   	if @attack_state == :notyet
 			@game.main_font.draw("Attacks Available", 630, @game.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF888888)
-			@game.main_font.draw("[Space] normal", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888)
-			@game.main_font.draw("[Shift] strong", 635, @game.height/4 + 10, ZOrder::HUD, 1, 1, 0xFF888888) unless (@move_max - @current_move) < 2
+			@game.main_font.draw("[Space] Normal", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888)
+			@game.main_font.draw("[Shift] Strong", 635, @game.height/4 + 10, ZOrder::HUD, 1, 1, 0xFF888888) unless (@move_max - @current_move) < 2
   	elsif @attack_state == :aiming
 			@game.main_font.draw("#{@attack_type} Aiming...", 630, @game.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF888888)
 			@game.main_font.draw("[^ v < >]", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888)
