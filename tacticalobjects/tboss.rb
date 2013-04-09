@@ -16,7 +16,7 @@ class Tboss
 		@y = y
 	 	@left, @right = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
 	 	@face = @left
-		@HP = 100
+		@HP = 120
 		@damage = 15
 		@move_max = 2
 		@dead = false
