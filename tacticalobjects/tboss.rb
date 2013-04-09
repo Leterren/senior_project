@@ -20,7 +20,8 @@ class Tboss
 		@damage = 15
 		@move_max = 2
 		@dead = false
-		@flashtimer = 0
+		@flash_timer = 0
+		@actions_taken = false
 	end
 
 	def scale_x
@@ -36,7 +37,7 @@ class Tboss
 	end
 
 	def take_turn
-		if !@dead
+		if !@dead && !@actions_taken
 			rando = rand(100)
 			@move_max.times do |i|
 				newx = @x
@@ -46,7 +47,7 @@ class Tboss
 				if (distx.abs + disty.abs) <= 2
 					if rando >= 25
 						#ATTACKING
-						@flashtimer += 12
+						@flash_timer += 12
 						@player.take_damage(@damage)
 						face_player
 						break
@@ -78,8 +79,12 @@ class Tboss
 				@game.combatgrid[y][x] = te
 				@game.tobjects << te
 			end
-		end	
-  	return true
+			@actions_taken = true
+		end
+		if (@flash_timer == 0) 
+			@actions_taken = false
+			return true
+		end
 	end
 
 	def face_player
@@ -117,14 +122,14 @@ class Tboss
 	def draw
 		if @dead == false
 			@face.draw(scale_x, scale_y, ZOrder::HUD)
-			@game.main_font.draw("#{@HP} HP", scale_x + 1, scale_y + 50, ZOrder::HUD, 1, 1, 0xFFAAAAAA)
-			if @flashtimer > 0
-				@game.draw_quad(0, 0, 0x55FF0000, 
-								@game.width, 0, 0x55FF0000, 
-								@game.width, @game.height, 0x55FF0000, 
-								0, @game.height, 0x55FF0000, 
-								ZOrder::HUD, mode = :default) if (@flashtimer >= 6)
-				@flashtimer -= 1
+			@game.main_font.draw("#{@HP} HP", scale_x + 1, scale_y + 50, ZOrder::HUD, 1, 1, 0xFF990099)
+			if @flash_timer > 0
+				@game.draw_quad(@player.scale_x - 12, @player.scale_y - 13, 0x55990099, 
+								@player.scale_x + 67, @player.scale_y - 13, 0x55990099, 
+								@player.scale_x + 67, @player.scale_y + 65, 0x55990099, 
+								@player.scale_x - 12, @player.scale_y + 65, 0x55990099, 
+								ZOrder::HUD, mode = :default) if (@flash_timer >= 6)
+				@flash_timer -= 1
 			end
 		end
 	end

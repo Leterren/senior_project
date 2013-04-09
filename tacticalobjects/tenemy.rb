@@ -20,7 +20,8 @@ class Tenemy
 		@damage = 10
 		@move_max = 2
 		@dead = false
-		@flashtimer = 0
+		@flash_timer = 0
+		@actions_taken = false
 	end
 
 	def scale_x
@@ -32,7 +33,7 @@ class Tenemy
 	end
 
 	def take_turn
-		if !@dead
+		if !@dead && !@actions_taken
 			@move_max.times do |i|
 				newx = @x
 				newy = @y
@@ -40,7 +41,7 @@ class Tenemy
 				disty = @player.y - @y
 				if (distx.abs + disty.abs) <= 1
 					#ATTACKING
-					@flashtimer += 12
+					@flash_timer += 12
 					@player.take_damage(@damage)
 					face_player
 					break
@@ -59,8 +60,12 @@ class Tenemy
 					move_to(newx, @y) unless move_to(@x, newy)
 				end
 			end
+			@actions_taken = true
 		end	
-  	return true
+		if (@flash_timer == 0) 
+			@actions_taken = false
+			return true
+		end
 	end
 
 	def face_player
@@ -99,13 +104,15 @@ class Tenemy
 		if @dead == false
 			@face.draw(scale_x, scale_y, ZOrder::HUD)
 			@game.main_font.draw("#{@HP} HP", scale_x + 1, scale_y + 50, ZOrder::HUD, 1, 1, 0xFFAAAAAA)
-			if @flashtimer > 0
-				@game.draw_quad(0, 0, 0x55FF0000, 
-								@game.width, 0, 0x55FF0000, 
-								@game.width, @game.height, 0x55FF0000, 
-								0, @game.height, 0x55FF0000, 
-								ZOrder::HUD, mode = :default) if (@flashtimer >= 6)
-				@flashtimer -= 1
+			if @flash_timer > 0
+				@game.draw_quad(
+					@player.scale_x - 12, @player.scale_y - 13, 0x55FF0000, 
+					@player.scale_x + 67, @player.scale_y - 13, 0x55FF0000, 
+					@player.scale_x + 67, @player.scale_y + 65, 0x55FF0000, 
+					@player.scale_x - 12, @player.scale_y + 65, 0x55FF0000, 
+					ZOrder::HUD, mode = :default) if (@flash_timer >= 6
+				)
+				@flash_timer -= 1
 			end
 		end
 	end
