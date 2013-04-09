@@ -15,7 +15,7 @@ class Enemy
   	space = game.space
     @sprite = sprite
   	@direction = dir
-  	@@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
+  	@stand, @walk1, @walk2, @jump = *Gosu::Image.load_tiles(
       	game, "#{IMAGES_DIR}/#{@sprite}", 50, 50, false
     	)
   	 # physicsy stuff
@@ -61,7 +61,7 @@ class Enemy
  	def draw ()
  		if !combatresolved
     		x_scale = @direction == :left ? 1.0 : -1.0
-    		frame = @@stand
+    		frame = @stand
     		frame.draw_rot(*game.camera.to_screen(@body.pos).to_a, ZOrder::OBJECTS, @body.a, 0.5, 0.5, x_scale)
 		end
 	end

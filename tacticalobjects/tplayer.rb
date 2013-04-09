@@ -14,8 +14,8 @@ class Tplayer
 		@x = x
 		@y = y
 		@player = player
-		@@left, @@right = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
-		@face = @@left
+		@left, @right = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
+		@face = @left
 
       	@damage = @player.strength * 5
       	@move_max = @player.agility
@@ -89,7 +89,7 @@ class Tplayer
 		end
 
 		if id==Gosu::KbUp
-			@face = @@right
+			@face = @right
 			if @attack_state == :aiming
 			  try_attack(@x, @y-1)
 			else
@@ -98,7 +98,7 @@ class Tplayer
 		end
 		
 		if id==Gosu::KbDown
-			@face = @@left
+			@face = @left
 			if @attack_state == :aiming
 			  try_attack(@x, @y+1)
 			else
@@ -107,7 +107,7 @@ class Tplayer
 		end
 		
 		if id==Gosu::KbLeft
-			@face = @@left
+			@face = @left
 			if @attack_state == :aiming
 			  try_attack(@x-1, @y)
 			else
@@ -116,7 +116,7 @@ class Tplayer
 		end
 		
 		if id==Gosu::KbRight
-			@face = @@right
+			@face = @right
 			if @attack_state == :aiming
 			  try_attack(@x+1, @y)
 			else

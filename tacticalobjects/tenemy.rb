@@ -14,8 +14,8 @@ class Tenemy
 		@player = player
 		@x = x
 		@y = y
-	 	@@left, @@right = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
-	 	@face = @@left
+	 	@left, @right = *Gosu::Image.load_tiles(game, "#{IMAGES_DIR}/#{sprite}", 50, 50, false)
+	 	@face = @left
 		@HP = 40
 		@damage = 10
 		@move_max = 2
@@ -72,11 +72,11 @@ class Tenemy
 		distx = @player.x - @x
 		disty = @player.y - @y
 		if distx.abs > disty.abs
-			@face = @@right if distx > 0
-			@face = @@left if distx < 0
+			@face = @right if distx > 0
+			@face = @left if distx < 0
 		else
-			@face = @@left if disty > 0
-			@face = @@right if disty < 0
+			@face = @left if disty > 0
+			@face = @right if disty < 0
 		end
 	end
 
