@@ -33,11 +33,11 @@ class Player
 
        # RPG elements
       @LIVES = 4
-      @MAX_HP = 10000
+      @MAX_HP = 100
       @currentHP = @MAX_HP
       @savedHP = @currentHP
       @strength = 3
-      @agility = 4
+      @agility = 3
       @defense = 2
 
        # physics engine stuff
@@ -72,13 +72,13 @@ class Player
 
   def physics_constants_update
      # physics constants
-    @jump_impulse = 8.0 + @agility.to_f/2
-    @ground_accel = -0.1 + @agility.to_f/10
-    @ground_top_speed = 4.2 + @agility.to_f/5
-    @air_accel = -0.1 + @agility.to_f/10
-    @air_top_speed = 3.2 + @agility.to_f/5
-    @stop_decel = 0.1 + @agility.to_f/10
-    @skid_decel = 0.2 + @agility.to_f/10
+    @jump_impulse = 8.5 + @agility.to_f/2
+    @ground_accel = @agility.to_f/10
+    @ground_top_speed = 4.4 + @agility.to_f/5
+    @air_accel = @agility.to_f/10
+    @air_top_speed = 3.4 + @agility.to_f/5
+    @stop_decel = 0.2 + @agility.to_f/10
+    @skid_decel = 0.3 + @agility.to_f/10
     @fall_top_speed = 12.0
     @misc_friction = 0.4 # Determines the friction for non-ground collisions.
   end
