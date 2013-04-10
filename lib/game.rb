@@ -191,7 +191,7 @@ class Game < Gosu::Window
 
   def draw
     #@main_font.draw(@state.to_s, 8, self.height - 28, ZOrder::HUD)
-    if @state == :level
+    if @state == :level ##################################################
       self.caption = "Get to the Warp Gate!"
       if @editor.enabled
         @objects.each_index { |i| @objects[i].debug_draw(i == @editor.selected_index) }
@@ -199,7 +199,7 @@ class Game < Gosu::Window
       else
         @objects.each { |o| o.draw() }
       end
-    elsif @state == :main_menu
+    elsif @state == :main_menu ###########################################
       if victorystate == :neutral
         draw_quad(0, self.height/2, 0xFF000000, self.width, self.height/2, 0xFF000000, self.width, self.height, 0xFF777777, 0, self.height, 0xFF777777)
         @title_font.draw_rel("Libra", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xff999999)
@@ -226,31 +226,43 @@ class Game < Gosu::Window
         @main_font.draw("Restart Game [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
         @main_font.draw("Exit Game [Escape]", self.width/8, self.height/3, ZOrder::HUD, 1, 1, 0xff888888)
       end
-    elsif @state == :pause_menu
+    elsif @state == :pause_menu ###########################################
       @title_font.draw_rel("Paused", self.width/2, self.height/7, ZOrder::HUD, 0.5, 1, 1, 1, 0xFF888888)
       if @exitareyousure == false
-        @main_font.draw("Resume Game [Enter]", self.width/8, self.height/4, 0.5, 1, 1, 0xFF666666)
-        @main_font.draw("Return to Main Menu [Escape]", self.width/8, self.height/4 + 50, 0.5, 1, 1, 0xFF777777)
-        draw_quad(self.width/8 - 10, self.height/4 + 90, 0xFF111111, 
-                  7*self.width/8 + 10, self.height/4 + 90, 0xFF111111, 
-                  7*self.width/8 + 10, self.height/4 + 250, 0xFF111111, 
-                  self.width/8 - 10, self.height/4 + 250, 0xFF111111, 
+        @main_font.draw("Resume Game [Enter]", self.width/8, self.height/4 - 30, 0.5, 1, 1, 0xFF666666)
+        @main_font.draw("Return to Main Menu [Escape]", self.width/8, self.height/4, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("CONTROLS: ", self.width/8, self.height/4 + 50, 0.5, 1, 1, 0xFF777777)
+        if !@incombat
+          @main_font.draw("Move: [<], [>]", self.width/8 + 50, self.height/4 + 70, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("Jump: [^], [Space]", self.width/8 + 50, self.height/4 + 90, 0.5, 1, 1, 0xFF777777)
+        elsif @incombat
+          @main_font.draw("Move: [^], [v], [<], [>] - you have limited moves per turn", self.width/8 + 50, self.height/4 + 70, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("Aim/Cancel: [Space], [LShift] - begin aiming attack / cancel aim", self.width/8 + 50, self.height/4 + 90, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("[Space] for normal attack", self.width/8 + 80, self.height/4 + 110, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("[LShift] for strong attack, costs 2 move units", self.width/8 + 80, self.height/4 + 130, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("You can move before and after attack,", self.width/8 + 80, self.height/4 + 150, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("as long as you have move units available", self.width/8 + 80, self.height/4 + 170, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("Attack: [^], [v], [<], [>] - select direction while aiming", self.width/8 + 50, self.height/4 + 190, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("End Turn: [Enter]", self.width/8 + 50, self.height/4 + 210, 0.5, 1, 1, 0xFF777777)  
+        end
+        draw_quad(self.width/8 - 10, self.height/4 + 240, 0xFF111111, 
+                  7*self.width/8 + 10, self.height/4 + 240, 0xFF111111, 
+                  7*self.width/8 + 10, self.height/4 + 400, 0xFF111111, 
+                  self.width/8 - 10, self.height/4 + 400, 0xFF111111, 
                   ZOrder::BACKGROUND, mode = :default)
-        @main_font.draw("STATS:", self.width/8, self.height/4 + 100, 0.5, 1, 1, 0xFF777777)
-        @main_font.draw("Lives: #{@player.LIVES}", self.width/8 + 20, self.height/4 + 120, 0.5, 1, 1, 0xFF777777)
-        @main_font.draw("Maximum HP: #{@player.MAX_HP}", self.width/8 + 20, self.height/4 + 140, 0.5, 1, 1, 0xFF777777)
-        @main_font.draw("Current HP: #{@player.currentHP}", self.width/8 + 20, self.height/4 + 160, 0.5, 1, 1, 0xFF777777)
-        @main_font.draw("Strength: #{@player.strength}", self.width/8 + 20, self.height/4 + 180, 0.5, 1, 1, 0xFF777777)
-        @main_font.draw("Defense: #{@player.defense}", self.width/8 + 20, self.height/4 + 200, 0.5, 1, 1, 0xFF777777)
-        @main_font.draw("Agility: #{@player.agility}", self.width/8 + 20, self.height/4 + 220, 0.5, 1, 1, 0xFF777777)
-
-      end
-      if @exitareyousure == true
+        @main_font.draw("STATS:", self.width/8, self.height/4 + 250, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Lives: #{@player.LIVES}", self.width/8 + 20, self.height/4 + 270, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Maximum HP: #{@player.MAX_HP}", self.width/8 + 20, self.height/4 + 290, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Current HP: #{@player.currentHP}", self.width/8 + 20, self.height/4 + 310, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Strength: #{@player.strength}", self.width/8 + 20, self.height/4 + 330, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Defense: #{@player.defense}", self.width/8 + 20, self.height/4 + 350, 0.5, 1, 1, 0xFF777777)
+        @main_font.draw("Agility: #{@player.agility}", self.width/8 + 20, self.height/4 + 370, 0.5, 1, 1, 0xFF777777)
+      elsif @exitareyousure == true
         @main_font.draw("Are you sure you want to exit to menu? Progress will be lost.", self.width/8, self.height/4, 0, 1, 1, 0xFF666666)
-        @main_font.draw("-> Yes [Escape]", self.width/8, self.height/4 + 30, 0, 1, 1, 0xFF666666)
-        @main_font.draw("-> No [Enter]", self.width/8, self.height/4 + 60, 0, 1, 1, 0xFF666666)
+        @main_font.draw("Yes [Escape]", self.width/8 + 15, self.height/4 + 30, 0, 1, 1, 0xFF666666)
+        @main_font.draw("No [Enter]", self.width/8 + 15, self.height/4 + 60, 0, 1, 1, 0xFF666666)
       end
-    elsif @state == :combat
+    elsif @state == :combat ###############################################
       self.caption = "Defeat the Enemies!"
       @tBackground.draw
       @title_font.draw_rel("Combat!", 700, 20, ZOrder::HUD, 0.5, 0, 1, 1, 0xFFAAAAAA)
