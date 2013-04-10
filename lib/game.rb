@@ -26,8 +26,9 @@ class Game < Gosu::Window
 
   #INITIAL_LEVEL = 'light'
   LEVEL_HASH = {
-    0 => 'dark',
-    1 => 'light'
+    0 => 'tutorial',
+    1 => 'dark',
+    2 => 'light'
   }
   NUM_LEVELS = 2
 

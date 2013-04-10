@@ -111,7 +111,7 @@ class Tboss
 	end
 
 	def take_damage (amount)
-		@HP -= amount
+		@HP -= (amount * 0.75).to_i
 		if @HP <= 0
 			@game.combatgrid[@y][@x] = nil
 			puts "#{@game.tobjects.delete(self)} dying"

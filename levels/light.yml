@@ -8,7 +8,7 @@
 - Player:
   - 0.0
   - 0.0
-  - :left
+  - :right
   - 700
 - Platform:
   - -16.0
@@ -138,46 +138,6 @@
   - -697.0999686483228
   - :right
   - boss.png
-- Platform:
-  - -110.7411840858338
-  - 123.10000000149168
-  - dirtblocks.png
-- Platform:
-  - -179.44118408583387
-  - 49.70000000149164
-  - dirtblocks.png
-- Platform:
-  - -245.44118408583387
-  - -28.299999998508362
-  - dirtblocks.png
-- Platform:
-  - -318.741184085834
-  - -101.99999999850868
-  - dirtblocks.png
-- Platform:
-  - -231.741184085834
-  - -210.99999999850868
-  - dirtblocks.png
-- Platform:
-  - -164.741184085834
-  - -301.4999999985087
-  - dirtblocks.png
-- Platform:
-  - -89.74118408583399
-  - -382.4999999985087
-  - dirtblocks.png
-- Platform:
-  - 5.0
-  - -463.19999999850853
-  - dirtblocks.png
-- Platform:
-  - 69.25881591416601
-  - -544.1999999985085
-  - dirtblocks.png
-- Platform:
-  - 151.258815914166
-  - -608.1999999985085
-  - dirtblocks.png
 - Buff:
   - 338.35881591267594
   - -378.29999999701806
@@ -236,11 +196,7 @@
   - 799.830745501275
   - -999.6913868284171
   - water.png
-- Pusher:
-  - 626.130745501289
-  - -1089.6999999955312
-  - water.png
-- Buff:
-  - 753.0
-  - -5.0
-  - DEFup.png
+- Platform:
+  - -90.0
+  - 200.0
+  - lightblocks.png
