@@ -26,7 +26,7 @@ class Player
       @walk_start = x
 
        # Load resources
-      @@wow = Gosu::Sample.new(game, "#{SOUNDS_DIR}/wow.wav")
+      #@@wow = Gosu::Sample.new(game, "#{SOUNDS_DIR}/wow.wav")
       @@stand, @@walk1, @@walk2, @@jump = *Gosu::Image.load_tiles(
         game, "#{IMAGES_DIR}/player.png", 50, 50, false
       )
@@ -250,7 +250,7 @@ class Player
           actualdamage = 0
         end
         @currentHP += actualdamage
-        @@wow.play
+        #@@wow.play
         if actualdamage < 0
           @message = "#{actualdamage} HP"
         elsif actualdamage == 0
@@ -269,7 +269,7 @@ class Player
     end
   end
   def die
-    @@wow.play
+    #@@wow.play
     @body.pos = @reset_point
     @body.vel = Vec2.new(0, 0)
     @currentHP = @savedHP

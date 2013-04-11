@@ -36,18 +36,6 @@
   - 411.00000000149123
   - darkblocks.png
 - Platform:
-  - 81.8000000000001
-  - 553.0000000014912
-  - darkblocks.png
-- Platform:
-  - 135.8000000000001
-  - 605.0000000014912
-  - darkblocks.png
-- Platform:
-  - 192.09999999999997
-  - 608.5000000014916
-  - darkblocks.png
-- Platform:
   - 250.09999999999997
   - 611.5000000014916
   - darkblocks.png
@@ -65,7 +53,7 @@
   - darkblocks.png
 - Platform:
   - 631.8999999999999
-  - 618.5000000014916
+  - 623.0
   - darkblocks.png
 - Platform:
   - 425.8999999999998
@@ -109,7 +97,7 @@
   - darkblocks.png
 - Platform:
   - 799.8999999985081
-  - 623.6000000029821
+  - 624.0
   - darkblocks.png
 - Pusher:
   - 907.9424008926807
@@ -174,10 +162,6 @@
 - Platform:
   - 1387.0610616534725
   - 737.7000000044723
-  - darkblocks.png
-- Platform:
-  - 1441.0610616534725
-  - 676.7000000044723
   - darkblocks.png
 - Platform:
   - 1495.0610616534725
@@ -253,10 +237,6 @@
   - darkblocks.png
 - Platform:
   - 2117.9971704939003
-  - 740.8000000059621
-  - darkblocks.png
-- Platform:
-  - 2173.9971704939003
   - 740.8000000059621
   - darkblocks.png
 - Checkpoint:
@@ -368,18 +348,6 @@
   - :right
   - player2.png
 - Platform:
-  - 1692.5985560606855
-  - 999.2000000104399
-  - darkblocks.png
-- Platform:
-  - 1641.5985560606855
-  - 998.2000000104399
-  - darkblocks.png
-- Platform:
-  - 1589.5985560606855
-  - 999.2000000104399
-  - darkblocks.png
-- Platform:
   - 1552.5985560606855
   - 999.2000000104399
   - darkblocks.png
@@ -429,3 +397,108 @@
   - 100
   - 100
   - portal.png
+- Platform:
+  - 82.0
+  - 506.700000007285
+  - darkblocks.png
+- Platform:
+  - 139.0
+  - 558.700000007285
+  - darkblocks.png
+- Platform:
+  - 195.0
+  - 563.700000007285
+  - darkblocks.png
+- Platform:
+  - 2120.3884422726123
+  - 691.1000000014907
+  - darkblocks.png
+- Platform:
+  - 2169.3884422726123
+  - 693.1000000014907
+  - darkblocks.png
+- Platform:
+  - 1773.1457482541632
+  - 1088.600000001491
+  - darkblocks.png
+- Platform:
+  - 1771.4128079522854
+  - 1000.0
+  - darkblocks.png
+- Platform:
+  - 1607.2128079522863
+  - 1003.4000032872173
+  - darkblocks.png
+- Platform:
+  - 1662.2128079522863
+  - 1002.4000032872173
+  - darkblocks.png
+- Platform:
+  - 1716.2128079522863
+  - 1001.4000032872173
+  - darkblocks.png
+- Platform:
+  - 1773.2128079522863
+  - 968.4000032872173
+  - darkblocks.png
+- Platform:
+  - 1773.2128079522863
+  - 915.9000032872179
+  - darkblocks.png
+- Platform:
+  - 1772.2128079522863
+  - 859.9000032872179
+  - darkblocks.png
+- Platform:
+  - 1770.2128079522863
+  - 805.500003287218
+  - darkblocks.png
+- Platform:
+  - 1771.2128079522863
+  - 745.500003287218
+  - darkblocks.png
+- Platform:
+  - 1770.2128079522863
+  - 690.500003287218
+  - darkblocks.png
+- Platform:
+  - 1770.2128079522863
+  - 634.500003287218
+  - darkblocks.png
+- Platform:
+  - 1725.2128079522863
+  - 635.500003287218
+  - darkblocks.png
+- Platform:
+  - 1780.0
+  - 581.2000000029813
+  - darkblocks.png
+- Platform:
+  - 1778.0
+  - 559.2000000029813
+  - darkblocks.png
+- Platform:
+  - 1726.0
+  - 618.2000000029813
+  - darkblocks.png
+- Platform:
+  - 1771.0
+  - 776.000000002981
+  - darkblocks.png
+- Platform:
+  - 1771.0
+  - 675.000000002981
+  - darkblocks.png
+- Platform:
+  - 1776.8785499474263
+  - 1048.2000000104345
+  - darkblocks.png
+- Enemy:
+  - 2078.4414553420606
+  - 416.0
+  - :left
+  - player2.png
+- Pusher:
+  - 2034.0
+  - 196.30000000148993
+  - water.png

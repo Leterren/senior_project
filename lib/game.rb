@@ -30,7 +30,7 @@ class Game < Gosu::Window
     1 => 'dark',
     2 => 'light'
   }
-  NUM_LEVELS = 2
+  NUM_LEVELS = 3
 
   attr_accessor :window, :space, :objects, :state, :camera, :main_font, :editor, :victorystate, :player
   attr_accessor :load_combat, :combatgrid, :currentenemy, :printgrid, :tobjects, :tp
@@ -216,6 +216,7 @@ class Game < Gosu::Window
           @main_font.draw("With help from:", self.width/8 + 20, self.height/4 + 190, 0.5, 1, 1, 0xFF777777)
           @main_font.draw("Alex Standke", self.width/8 + 40, self.height/4 + 210, 0.5, 1, 1, 0xFF777777)
           @main_font.draw("Lewis Wall", self.width/8 + 40, self.height/4 + 230, 0.5, 1, 1, 0xFF777777)
+          @title_font.draw_rel("Thank you for playing Libra!", self.width/2, self.height - 30, ZOrder::HUD, 0.5, 1, 1, 1, 0xff333333)
         else
           @main_font.draw("Next Level [Enter]", self.width/8, self.height/4, ZOrder::HUD, 1, 1, 0xff888888)
         end
