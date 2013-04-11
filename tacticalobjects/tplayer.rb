@@ -7,7 +7,7 @@ include Utility
 
 class Tplayer
   include TObject
-  attr_accessor :x, :y, :scale_x, :scale_y
+  attr_accessor :x, :y, :scale_x, :scale_y, :move_max
 
 	def initialize(game, player, x, y, sprite = 'tplayer.png')
 		@game = game
@@ -18,7 +18,7 @@ class Tplayer
 		@face = @left
 
       	@damage = @player.strength * 5
-      	@move_max = @player.agility
+      	@move_max = @player.agility + 1
       	@defense = @player.defense
 
 		@path = []
@@ -66,9 +66,10 @@ class Tplayer
       
       if @attack_type == :strong
       	@game.combatgrid[toy][tox].take_damage((@damage * 2).to_i)
-      	@current_move += 2
+      	@current_move += 3
       elsif @attack_type == :normal
-      	@game.combatgrid[toy][tox].take_damage(@damage)	
+      	@game.combatgrid[toy][tox].take_damage(@damage)
+      	@current_move += 1
       end
       @aimx = tox
       @aimy = toy
@@ -83,7 +84,7 @@ class Tplayer
 			@turn_end = true
 		end
 
-		if id==Gosu::KbSpace
+		if id==Gosu::KbSpace && ((@move_max - @current_move) > 0)
 			if @attack_state == :aiming
 				
 				@attack_state = :notyet
@@ -169,9 +170,11 @@ class Tplayer
 	
 		
   	if @attack_state == :notyet
-			@game.main_font.draw("Attacks Available", 630, @game.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF888888)
-			@game.main_font.draw("[Space] Normal", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888)
-			@game.main_font.draw("[Shift] Strong", 635, @game.height/4 + 10, ZOrder::HUD, 1, 1, 0xFF888888) unless (@move_max - @current_move) < 2
+			@game.main_font.draw("Attacks Available:", 630, @game.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF888888)
+			@game.main_font.draw("[Space] Normal", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888) unless (@move_max - @current_move) < 1
+			@game.main_font.draw("[Shift] Strong", 635, @game.height/4 + 10, ZOrder::HUD, 1, 1, 0xFF888888) unless (@move_max - @current_move) < 3
+  			@game.main_font.draw("<none>", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888) if (@move_max - @current_move) == 0
+  			
   	elsif @attack_state == :aiming
 			@game.main_font.draw("#{@attack_type.capitalize} Aiming...", 630, @game.height/4 - 30, ZOrder::HUD, 1, 1, 0xFF888888)
 			@game.main_font.draw("[^ v < >]", 635, @game.height/4 - 10, ZOrder::HUD, 1, 1, 0xFF888888)

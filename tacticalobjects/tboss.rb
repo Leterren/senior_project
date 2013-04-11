@@ -18,7 +18,7 @@ class Tboss
 	 	@face = @left
 		@HP = 120
 		@damage = 15
-		@move_max = 2
+		@move_max = 3
 		@dead = false
 		@flash_timer = 0
 		@actions_taken = false

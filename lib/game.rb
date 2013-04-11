@@ -237,10 +237,10 @@ class Game < Gosu::Window
           @main_font.draw("Move: [<], [>]", self.width/8 + 50, self.height/4 + 70, 0.5, 1, 1, 0xFF777777)
           @main_font.draw("Jump: [^], [Space]", self.width/8 + 50, self.height/4 + 90, 0.5, 1, 1, 0xFF777777)
         elsif @incombat
-          @main_font.draw("Move: [^], [v], [<], [>] - you have limited moves per turn", self.width/8 + 50, self.height/4 + 70, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("Move: [^], [v], [<], [>] - you have #{@tp.move_max} moves per turn", self.width/8 + 50, self.height/4 + 70, 0.5, 1, 1, 0xFF777777)
           @main_font.draw("Aim/Cancel: [Space], [LShift] - begin aiming attack / cancel aim", self.width/8 + 50, self.height/4 + 90, 0.5, 1, 1, 0xFF777777)
-          @main_font.draw("[Space] for normal attack", self.width/8 + 80, self.height/4 + 110, 0.5, 1, 1, 0xFF777777)
-          @main_font.draw("[LShift] for strong attack, costs 2 move units", self.width/8 + 80, self.height/4 + 130, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("[Space] for normal attack, costs 1 move unit", self.width/8 + 80, self.height/4 + 110, 0.5, 1, 1, 0xFF777777)
+          @main_font.draw("[LShift] for strong attack, costs 3 move units", self.width/8 + 80, self.height/4 + 130, 0.5, 1, 1, 0xFF777777)
           @main_font.draw("You can move before and after attack,", self.width/8 + 80, self.height/4 + 150, 0.5, 1, 1, 0xFF777777)
           @main_font.draw("as long as you have move units available", self.width/8 + 80, self.height/4 + 170, 0.5, 1, 1, 0xFF777777)
           @main_font.draw("Attack: [^], [v], [<], [>] - select direction while aiming", self.width/8 + 50, self.height/4 + 190, 0.5, 1, 1, 0xFF777777)
