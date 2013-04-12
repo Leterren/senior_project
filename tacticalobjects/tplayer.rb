@@ -28,6 +28,7 @@ class Tplayer
 		@aimx = 0
 		@aimy = 0 
 		@flash_timer = 0
+		@attack_color = 0x55FF0000
 		@turn_end = false
 	end
 
@@ -65,9 +66,11 @@ class Tplayer
     if @game.spot_occupied?(tox, toy)
       
       if @attack_type == :strong
+      	@attack_color = 0xDDFF0000
       	@game.combatgrid[toy][tox].take_damage((@damage * 2).to_i)
       	@current_move += 3
       elsif @attack_type == :normal
+      	@attack_color = 0x55FF0000
       	@game.combatgrid[toy][tox].take_damage(@damage)
       	@current_move += 1
       end
@@ -184,10 +187,10 @@ class Tplayer
 
 		if @flash_timer > 0
 			@game.draw_quad(
-				(@aimx * 100) + 12, (@aimy * 100) + 12, 0x55FF0000, 
-				(@aimx * 100) + 92, (@aimy * 100) + 12, 0x55FF0000, 
-				(@aimx * 100) + 92, (@aimy * 100) + 92, 0x55FF0000, 
-				(@aimx * 100) + 12, (@aimy * 100) + 92, 0x55FF0000, 
+				(@aimx * 100) + 12, (@aimy * 100) + 12, @attack_color, 
+				(@aimx * 100) + 92, (@aimy * 100) + 12, @attack_color, 
+				(@aimx * 100) + 92, (@aimy * 100) + 92, @attack_color, 
+				(@aimx * 100) + 12, (@aimy * 100) + 92, @attack_color,
 				ZOrder::HUD, mode = :default) if (@flash_timer >= 6
 			)
 			@flash_timer -= 1

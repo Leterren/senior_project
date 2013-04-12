@@ -8,7 +8,7 @@
 - Player:
   - 0.0
   - 0.0
-  - :right
+  - :left
   - 700
 - Platform:
   - -16.0
@@ -59,7 +59,7 @@
   - -355.79999999702045
   - lightblocks.png
 - Platform:
-  - 296.5567101475625
+  - 320.0
   - -351.79999999702045
   - lightblocks.png
 - Platform:
@@ -129,11 +129,6 @@
   - 100
   - portal.png
 - Enemy:
-  - 163.96449991563694
-  - -372.29999999553013
-  - :left
-  - player2.png
-- Enemy:
   - 350.0
   - -697.0999686483228
   - :right
@@ -186,8 +181,8 @@
   - lightblocks.png
 - Buff:
   - 797.0
-  - -729.0
-  - AGIup.png
+  - -735.0
+  - DEFup.png
 - Pusher:
   - 886.830745501275
   - -989.2913868284187
@@ -200,3 +195,16 @@
   - -90.0
   - 200.0
   - lightblocks.png
+- Enemy:
+  - 147.0
+  - -372.1999963165118
+  - :left
+  - player2.png
+- Platform:
+  - 65.65720513044766
+  - -479.6999999955301
+  - lightblocks.png
+- Buff:
+  - 92.32008732583637
+  - -493.89999999553004
+  - AGIup.png
